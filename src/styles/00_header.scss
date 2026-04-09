@@ -1,0 +1,490 @@
+@use '00_mixins' as *;
+
+.site-header {
+  color: $colour-cream;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: background-color, padding-bottom, transform;
+  @include transition-multiple(background-color 400ms cubic-bezier(0.25,0.1,0.25,1), padding-bottom 400ms cubic-bezier(0.25,0.1,0.25,1));
+  transition: opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+  
+  @media only screen and (max-width: 950px) and (orientation: landscape) {
+    @include transition-multiple(background-color 400ms cubic-bezier(0.25,0.1,0.25,1), padding-bottom 400ms cubic-bezier(0.25,0.1,0.25,1), transform 300ms cubic-bezier(0.25,0.1,0.25,1));
+  }
+
+  &.header-scrolled {
+    background-color: $colour-burgundy;
+  }
+
+  &.menu-open {
+    background-color: $colour-burgundy;
+  }
+
+  &.dropdown-hovered:not(.header-scrolled):not(.menu-open) {
+    background-color: $colour-burgundy;
+  }
+
+  // Landscape mobile scroll behavior - transform off top on scroll
+  @media only screen and (max-width: 950px) and (orientation: landscape) {
+    &.header-scrolled-down {
+      @include transform(translateY(-100%));
+    }
+  }
+
+  .inner-wrap {
+    @include align-items(center);
+    padding-top: get-rem-desktop(20);
+    padding-bottom: get-rem-desktop(20);
+
+    @media only screen and (max-width: 1440px) {
+      padding-top: get-rem-tablet(20);
+      padding-bottom: get-rem-tablet(20);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-top: get-rem-mobile(17);
+      padding-bottom: get-rem-mobile(17);
+    }
+  }
+
+  .symbol {
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+
+    width: get-rem-desktop(81);
+    height: get-rem-desktop(90);
+
+    @media only screen and (max-width: 1440px) {
+      width: get-rem-tablet(62);
+      height: get-rem-tablet(68.88);
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: get-rem-mobile(62);
+      height: get-rem-mobile(68.88);
+    }
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) {
+      width: get-rem-mobile(42);
+      height: get-rem-mobile(46.66);
+    }
+    
+    svg {
+      fill: $colour-cream;
+    }
+    
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+  }
+
+  .left-nav,
+  .right-nav {
+    @include flex;
+    column-gap: get-rem-desktop(50);
+    visibility: hidden;
+    opacity: 0;
+    will-change: opacity, visibility;
+    @include transition-multiple(opacity 0ms, visibility 0ms);
+
+    @media only screen and (max-width: 1024px) {
+      column-gap: get-rem-tablet(25);
+    }
+    
+    &.ready {
+      visibility: visible;
+      opacity: 1;
+      @include transition-multiple(opacity 100ms ease-out, visibility 0ms);
+    }
+
+    .menu-item {
+      position: relative;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        text-align: center;
+        overflow: visible;
+        position: relative;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        
+        @media (hover: hover) {
+          &:hover {
+            font-family: 'Millionaire-Script';
+            @include transform(translateY(-0.35em));
+            position: relative;
+            z-index: 10;
+          }
+        }
+      }
+
+      .active-indicator {
+        position: absolute;
+        bottom: -0.2em;
+        left: 50%;
+        @include transform(translateX(-50%));
+        width: var(--original-width, 100%);
+        height: 1px;
+        background-color: $colour-cream;
+        opacity: 0;
+        @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+      }
+      
+      > a.active ~ .active-indicator {
+        opacity: 0.5;
+      }
+    }
+
+    // Dropdown menu container
+    .dropdown-menu {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      overflow: visible;
+
+      .dropdown-title {
+        position: relative;
+        cursor: pointer;
+
+        .dropdown-title-text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 auto;
+          white-space: nowrap;
+          text-align: center;
+          overflow: visible;
+          position: relative;
+          padding-left: 0.2em;
+          padding-right: 0.2em;
+        }
+
+        .active-indicator {
+          position: absolute;
+          bottom: -0.2em;
+          left: 50%;
+          @include transform(translateX(-50%));
+          width: var(--original-width, 100%);
+          height: 1px;
+          background-color: $colour-cream;
+          opacity: 0;
+          @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+        }
+      }
+
+      .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding-top: get-rem-desktop(15);
+        padding-bottom: get-rem-desktop(40);
+        opacity: 0;
+        pointer-events: none;
+        @include transition(opacity 100ms cubic-bezier(0.25,0.1,0.25,1));
+        z-index: 100;
+        @include flex;
+        @include flex-direction(column);
+
+        @media only screen and (max-width: 1440px) {
+          padding-top: get-rem-tablet(10);
+          padding-bottom: get-rem-tablet(30);
+        }
+
+        a {
+          display: block;
+          white-space: nowrap;
+          padding-top: get-rem-desktop(10);
+          padding-left: 0.2em;
+          padding-right: 0.2em;
+
+          @media only screen and (max-width: 1440px) {
+            padding-top: get-rem-tablet(15);
+          }
+          
+          @media (hover: hover) {
+            &:hover {
+              font-family: 'Millionaire-Script';
+              @include transform(translateY(-0.35em));
+            }
+          }
+        }
+      }
+
+      // Force close state to override hover when navigating
+      &.force-close {
+        .dropdown-content {
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover:not(.force-close) {
+          .dropdown-title-text {
+            font-family: 'Millionaire-Script';
+            @include transform(translateY(-0.4em));
+            z-index: 10;
+          }
+
+          .dropdown-content {
+            opacity: 1;
+            pointer-events: all;
+          }
+        }
+      }
+
+      // Click-based dropdown for smaller screens
+      &.active {
+        .dropdown-title-text {
+          font-family: 'Millionaire-Script';
+          @include transform(translateY(-0.4em));
+          z-index: 10;
+        }
+
+        .dropdown-content {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+
+      &.has-active .dropdown-title .active-indicator {
+        opacity: 0.5;
+      }
+
+      // Enable click behavior on small screens
+      @media only screen and (max-width: 950px) {
+        .dropdown-title {
+          cursor: pointer;
+        }
+      }
+
+      // Also enable click behavior for touch/non-hover devices at larger widths (e.g., iPad)
+      @media (hover: none), (pointer: coarse) {
+        .dropdown-title {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .right-nav {
+    @include justify-content(flex-end);
+  }
+
+  .menu-toggle {
+    width: 30px;
+    height: 20px;
+    @include flex;
+    @include justify-content(center);
+    @include align-items(center);
+    cursor: pointer;
+  
+    .menu-bar {
+      position: absolute;
+      width: 30px;
+      height: 1px;
+      background: $colour-cream;
+      will-change: transform, opacity, background-color;
+      @include transition-multiple(transform 400ms cubic-bezier(0.25,0.1,0.25,1), opacity 400ms cubic-bezier(0.25,0.1,0.25,1), background-color 400ms cubic-bezier(0.25,0.1,0.25,1));
+    
+      &[data-position=top] {
+        transform: translateY(-8.5px);
+      }
+    
+      &[data-position=bottom] {
+        transform: translateY(8.5px);
+      }
+    }
+  
+    &.active {
+      .menu-bar {
+        &[data-position=top] {
+          transform: translateY(0) rotate(45deg) scaleX(1.05);
+        }
+  
+        &[data-position=middle] {
+          opacity: 0;
+        }
+  
+        &[data-position=bottom] {
+          transform: translateY(0) rotate(-45deg) scaleX(1.05);
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 950px) {
+    .desktop {
+      display: none;
+    }
+  
+    .mobile {
+      display: block;
+    }
+  }
+}
+
+body.page-type-gallery,
+body.page-type-events { 
+  .site-header {
+    background-color: $colour-burgundy;
+  }
+}
+
+.menu-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-top: get-rem-mobile(103);
+  background-color: $colour-burgundy;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+  @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+
+  @media only screen and (max-width: 950px) and (orientation: landscape) {
+    padding-top: get-rem-mobile(81);
+  }
+
+  .inner-wrap {
+    height: 100%;
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-mobile(30);
+		pointer-events: none;
+		opacity: 0;
+		will-change: opacity;
+    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    padding-top: get-rem-mobile(51);
+    padding-bottom: get-rem-mobile(51);
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2), only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+      padding-left: get-rem-mobile(65);
+      padding-right: get-rem-mobile(65);
+    }
+
+    &.visible {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
+
+  &.visible {
+    pointer-events: all;
+    opacity: 1;
+	}
+
+  a {
+    font-family: 'Millionaire-Roman';
+    font-size: 28px;
+    line-height: normal;
+    color: $colour-cream;
+  }
+
+  .mobile-dropdown-section {
+    @include flex;
+    @include flex-direction(column);
+
+    .mobile-dropdown-title {
+      cursor: pointer;
+      @include flex;
+      @include align-items(center);
+      column-gap: get-rem-mobile(15);
+      @include transition(font-family 400ms cubic-bezier(0.25,0.1,0.25,1));
+      position: relative;
+      width: fit-content;
+
+      .dropdown-title-text {
+        font-family: 'Millionaire-Roman';
+        font-size: 28px;
+        line-height: normal;
+        color: $colour-cream;
+        @include transition(opacity 200ms cubic-bezier(0.25,0.1,0.25,1));
+      }
+
+      .dropdown-title-text-script {
+        font-family: 'Millionaire-Script';
+        font-size: 28px;
+        line-height: normal;
+        color: $colour-cream;
+        @include transform(translate(-1em, -0.35em));
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        @include transition(opacity 200ms cubic-bezier(0.25,0.1,0.25,1));
+        padding: 0 1em;
+      }
+
+      .dropdown-caret {
+        position: absolute;
+        bottom: 0.65em;
+        right: calc(-10px + get-rem-mobile(-15));
+        
+        svg {
+          width: 10px;
+          @include transition(transform 200ms cubic-bezier(0.25,0.1,0.25,1));
+        }
+      }
+
+      &.expanded {
+        .dropdown-title-text {
+          opacity: 0;
+        }
+
+        .dropdown-title-text-script {
+          opacity: 1;
+        }
+
+        .dropdown-caret {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
+    .mobile-dropdown-content {
+      @include flex;
+      @include flex-direction(column);
+      row-gap: get-rem-mobile(14);
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      @include transition-multiple(max-height 800ms cubic-bezier(0.25,0.1,0.25,1), opacity 400ms cubic-bezier(0.25,0.1,0.25,1) 200ms);
+
+      &.expanded {
+        max-height: 500px; // Large enough to accommodate any dropdown
+        opacity: 1;
+      }
+    }
+
+    .header-menu-item.sub-item {
+      font-size: 18px;
+
+      &:first-of-type {
+        margin-top: get-rem-mobile(30);
+      }
+    }
+  }
+}

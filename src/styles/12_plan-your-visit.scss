@@ -1,0 +1,71 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+// Plan Your Visit Page
+.plan-your-visit-content {
+  padding-top: get-rem-desktop(100);
+  padding-bottom: get-rem-desktop(100);
+
+  .top-text-wrap {
+    margin-bottom: get-rem-desktop(150);
+
+    .heading {
+      margin-bottom: get-rem-desktop(20);
+
+      @media only screen and (max-width: 1440px) {
+        margin-bottom: get-rem-tablet(10);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin-bottom: get-rem-mobile(10);
+      }
+    }
+  }
+
+  .plan-your-visit-details {
+    @include flex;
+    @include flex-direction(column);
+    gap: get-rem-desktop(45);
+
+    @media only screen and (max-width: 768px) {
+      row-gap: get-rem-mobile(35);
+    }
+
+    .plan-your-visit-detail {
+      border-top: 1px solid rgba($colour-burgundy, 0.5);
+      padding-top: get-rem-desktop(20);
+
+      .detail-heading {
+        margin-bottom: get-rem-desktop(15);
+
+        @media only screen and (max-width: 768px) {
+          margin-bottom: get-rem-mobile(25);
+        }
+      }
+
+      .detail-subtitle {
+        margin-bottom: get-rem-desktop(4);
+
+        // @media only screen and (max-width: 1440px) {
+        //   margin-bottom: get-rem-tablet(10);
+        // }
+
+        // @media only screen and (max-width: 768px) {
+        //   margin-bottom: get-rem-mobile(10);
+        // }
+      }
+
+      .plan-your-visit-detail-items {
+        @include flex;
+        @include flex-direction(column);
+        gap: get-rem-desktop(20);
+      }
+    }
+  }
+
+  .plan-your-visit-images {
+    @include flex;
+    @include flex-direction(column);
+    gap: get-rem-desktop(25);
+  }
+}

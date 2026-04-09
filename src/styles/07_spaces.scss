@@ -1,0 +1,541 @@
+@use '00_mixins' as *;
+
+/*
+LEASING MAP STYLES --------------------
+*/
+
+.leasing-map {
+  &__tabs {
+    @include flex;
+  }
+
+  &__tab {
+    width: 100%;
+    background: $colour-light-purple;
+    border-right: 1px solid $colour-burgundy;
+    color: $colour-burgundy;
+    padding: get-rem-desktop(18);
+    cursor: pointer;
+    line-height: 140%;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    @include transition(all 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include font-size(12px, 15px, 15px);
+
+    @media only screen and (max-width: 1440px) {
+      padding: get-rem-tablet(18);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding: get-rem-mobile(16);
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &.active {
+      background: rgba($colour-light-purple, 0.5);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background: rgba($colour-light-purple, 0.5);
+      }
+    }
+  }
+
+  &__tab-label-desktop {
+    display: block;
+
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__tab-label-mobile {
+    display: none;
+
+    @media only screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__content-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__zoom-controls {
+    position: absolute;
+    bottom: get-rem-desktop(40);
+    right: get-rem-desktop(50);
+    z-index: 10;
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-desktop(15);
+
+    @media only screen and (max-width: 1440px) {
+      bottom: get-rem-tablet(40);
+      right: get-rem-tablet(50);
+      row-gap: get-rem-tablet(15);
+    }
+
+    @media only screen and (max-width: 768px) {
+      bottom: get-rem-mobile(17);
+      right: get-rem-mobile(15);
+      row-gap: get-rem-mobile(6);
+    }
+  }
+
+  &__zoom-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: get-rem-desktop(45);
+    height: get-rem-desktop(45);
+    cursor: pointer;
+    @include transition(all 400ms cubic-bezier(0.25,0.1,0.25,1));
+    border-radius: 50px;
+    background: rgba($colour-cream, 0.15);
+    border: 1px solid rgba($colour-cream, 0.5);
+
+    @media only screen and (max-width: 1440px) {
+      width: get-rem-tablet(45);
+      height: get-rem-tablet(45);
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: get-rem-mobile(33);
+      height: get-rem-mobile(33);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    svg {
+      width: get-rem-desktop(22);
+      height: get-rem-desktop(22);
+      pointer-events: none;
+      stroke: $colour-cream;
+
+      @media only screen and (max-width: 1440px) {
+        width: get-rem-tablet(22);
+        height: get-rem-tablet(22);
+      }
+
+      @media only screen and (max-width: 768px) {
+        width: get-rem-mobile(16);
+        height: get-rem-mobile(16);
+      }
+    }
+  }
+
+  &__panel {
+    display: none;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: $colour-burgundy;
+
+    &.active {
+      display: block;
+    }
+
+    .media-wrap {
+      position: relative;
+      overflow: hidden;
+      pointer-events: auto;
+      transform-origin: center center;
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+
+      @media only screen and (max-width: 768px) {
+        aspect-ratio: 1 / 1;
+      }
+
+      img {
+        pointer-events: none;
+        width: 100%;
+        height: auto;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+
+        @media only screen and (max-width: 768px) {
+          object-fit: cover;
+          object-position: center right;
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__base-image {
+    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+  }
+
+  &__hover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    
+    &.visible {
+      opacity: 1;
+    }
+  }
+
+  // Clickable Spaces
+  &__svg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none; // Allow events to pass through to media-wrap for dragging
+
+    svg {
+      pointer-events: none; // SVG container doesn't block events
+      width: 100%;
+      height: 100%;
+
+      @media only screen and (max-width: 768px) {
+        object-fit: cover;
+        object-position: center right;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    path {
+      opacity: 0;
+      @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+      cursor: pointer;
+      pointer-events: auto; // Only clickable paths capture events
+
+      &.active {
+        opacity: 1;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    // Make clickable groups and elements interactive
+    g[id],
+    [id] {
+      pointer-events: auto;
+    }
+  }
+
+  // Popup Styles
+  &__popup {
+    &.visible {
+      .leasing-map__popup-content {
+        pointer-events: all !important;
+        opacity: 1 !important;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      position: relative;
+      display: block;
+
+      &.visible {
+        .leasing-map__popup-content {
+          display: block !important;
+        }
+      }
+    }
+
+    @media (orientation: portrait) {
+      position: relative;
+      display: block;
+
+      &.visible {
+        .leasing-map__popup-content {
+          display: block !important;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) {
+      position: relative;
+      display: block;
+
+      &.visible {
+        .leasing-map__popup-content {
+          display: block !important;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 1024px) and (orientation: landscape) {
+      position: relative;
+      display: block;
+
+      &.visible {
+        .leasing-map__popup-content {
+          display: block !important;
+        }
+      }
+    }
+  }
+
+  &__popup-content {
+    background-color: $colour-light-purple;
+    color: $colour-burgundy;
+    position: absolute;
+    top: 50%;
+    left: get-rem-desktop(57);
+    @include transform(translateY(-50%));
+    padding: get-rem-desktop(25) get-rem-desktop(30) get-rem-desktop(30);
+    z-index: 499;
+    pointer-events: none;
+    will-change: opacity;
+    opacity: 0;
+    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+
+    @media only screen and (max-width: 1440px) {
+      left: get-rem-tablet(30);
+      padding: get-rem-tablet(25) get-rem-tablet(30) get-rem-tablet(30);
+    }
+
+    @media only screen and (max-width: 768px) {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      padding: get-rem-mobile(45) get-rem-mobile(18) get-rem-mobile(18);
+      display: none;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @media (orientation: portrait) {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      padding: get-rem-mobile(45) get-rem-mobile(18) get-rem-mobile(18);
+      display: none;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      padding: get-rem-mobile(45) get-rem-mobile(18) get-rem-mobile(18);
+      display: none;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @media only screen and (max-width: 1024px) and (orientation: landscape) {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      padding: get-rem-mobile(45) get-rem-mobile(18) get-rem-mobile(18);
+      display: none;
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  &__popup-inner {
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-desktop(90);
+    height: 100%;
+
+    @media only screen and (max-width: 1440px) {
+      row-gap: get-rem-tablet(100);
+    }
+
+    @media only screen and (max-width: 768px) {
+      row-gap: get-rem-mobile(75);
+      height: auto;
+    }
+
+    @media (orientation: portrait) {
+      row-gap: get-rem-mobile(75);
+      height: auto;
+    }
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) {
+      row-gap: get-rem-mobile(75);
+      height: auto;
+    }
+
+    @media only screen and (max-width: 1024px) and (orientation: landscape) {
+      row-gap: get-rem-mobile(75);
+      height: auto;
+    }
+  }
+
+  &__popup-text {
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-desktop(10);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10001;
+
+    @media only screen and (max-width: 1440px) {
+      row-gap: get-rem-tablet(10);
+    }
+
+    @media only screen and (max-width: 768px) {
+      row-gap: get-rem-mobile(10);
+      height: auto;
+    }
+
+    @media (orientation: portrait) {
+      row-gap: get-rem-mobile(10);
+      height: auto;
+    }
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) {
+      row-gap: get-rem-mobile(10);
+      height: auto;
+    }
+
+    @media only screen and (max-width: 1024px) and (orientation: landscape) {
+      row-gap: get-rem-mobile(10);
+      height: auto;
+    }
+  }
+
+  &__popup-title-wrap {
+    @include flex;
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    column-gap: get-rem-desktop(30);
+
+    @media only screen and (max-width: 1440px) {
+      column-gap: get-rem-tablet(30);
+    }
+
+    @media only screen and (max-width: 768px) {
+      column-gap: get-rem-mobile(30);
+    }
+
+    svg {
+      width: get-rem-desktop(20);
+      stroke: $colour-burgundy;
+
+      @media only screen and (max-width: 1440px) {
+        width: get-rem-tablet(20);
+      }
+
+      @media only screen and (max-width: 768px) {
+        display: none;
+      }
+
+      @media (orientation: portrait) {
+        display: none;
+      }
+
+      @media only screen and (max-width: 950px) and (orientation: landscape) {
+        display: none;
+      }
+
+      @media only screen and (max-width: 1024px) and (orientation: landscape) {
+        display: none;
+      }
+    }
+  }
+
+  &__popup-title {
+    @include font-size(25px, 35px, 35px);
+  }
+
+  .underline-link {
+    margin-top: get-rem-desktop(5);
+
+    @media only screen and (max-width: 1440px) {
+      margin-top: get-rem-tablet(8);
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-top: get-rem-mobile(5);
+    }
+  }
+
+  &__popup-media {
+    width: get-rem-desktop(440);
+    aspect-ratio: 3 / 2;
+
+    @media only screen and (max-width: 1440px) {
+      width: get-rem-tablet(365);
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
+
+    @media (orientation: portrait) {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: 950px) and (orientation: landscape) {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: 1024px) and (orientation: landscape) {
+      width: 100%;
+    }
+  }
+}
+
+.leasing-brochure {
+  background-color: #333333;
+  padding-left: get-rem-desktop(100);
+  padding-right: get-rem-desktop(100);
+
+  @media only screen and (max-width: 1440px) {
+    padding-left: get-rem-tablet(60);
+    padding-right: get-rem-tablet(60);
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding-left: get-rem-mobile(30);
+    padding-right: get-rem-mobile(30);
+  }
+
+  .inner-wrap {
+    position: relative;
+    padding-top: max(60%, 326px);
+    height: 0;
+    width: 100%;
+  }
+}

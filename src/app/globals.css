@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Dia';
+  src: url('./fonts/Dia.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Millionaire-Roman';
+  src: url('./fonts/Millionaire-Roman.woff') format('woff'),
+       url('./fonts/Millionaire-Roman.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Millionaire-Script';
+  src: url('./fonts/Millionaire-Script.woff') format('woff'),
+       url('./fonts/Millionaire-Script.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Disable scrolling on homepage during transition (when scroll-enabled is removed) */
+html:not(.scroll-enabled) {
+  overflow: hidden;
+}
+
+html.scroll-enabled {
+  overflow: auto;
+}
+
+html.scroll-enabled body {
+  position: static;
+}
+
+/* Prevent overscroll bounce to stop fixed content from being visible during overscroll */
+html,
+body {
+  overscroll-behavior: none;
+}
+
+/* Smooth scrolling for hash links */
+html {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,29 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+.home-hero-media-block {
+  @include flex;
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+
+    svg {
+      width: 44vw;
+      fill: $colour-cream;
+
+      @media only screen and (max-width: 1440px) {
+        width: get-rem-tablet(600);
+      }
+
+      @media only screen and (max-width: 768px) {
+        width: get-rem-mobile(300);
+      }
+    }
+  }
+}

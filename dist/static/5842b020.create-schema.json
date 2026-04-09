@@ -1,0 +1,5692 @@
+[
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Sign In",
+              "value": "sign-in"
+            },
+            {
+              "title": "Walkthrough",
+              "value": "walkthrough"
+            },
+            {
+              "title": "Spaces",
+              "value": "spaces"
+            },
+            {
+              "title": "Brochure",
+              "value": "brochure"
+            },
+            {
+              "title": "Heritage",
+              "value": "heritage"
+            },
+            {
+              "title": "Carousel",
+              "value": "carousel"
+            },
+            {
+              "title": "Gallery",
+              "value": "gallery"
+            },
+            {
+              "title": "Press",
+              "value": "press"
+            },
+            {
+              "title": "Text",
+              "value": "text"
+            },
+            {
+              "title": "General",
+              "value": "general"
+            }
+          ]
+        },
+        "name": "pageType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": true
+        },
+        "description": "Override title, description and image for search and social. Empty = use Site Settings.",
+        "name": "seo",
+        "type": "seo",
+        "title": "SEO"
+      },
+      {
+        "options": {
+          "sortable": true
+        },
+        "description": "Add and arrange content blocks to build your page",
+        "hidden": "conditional",
+        "name": "contentBlocks",
+        "type": "flexibleContent"
+      },
+      {
+        "initialValue": false,
+        "hidden": "conditional",
+        "name": "signInPageEnabled",
+        "type": "boolean",
+        "title": "Enable Sign In page"
+      },
+      {
+        "hidden": "conditional",
+        "name": "signInHero",
+        "type": "signInHeroMedia",
+        "title": "Hero"
+      },
+      {
+        "hidden": "conditional",
+        "name": "walkthroughHero",
+        "type": "heroMedia",
+        "title": "Hero"
+      },
+      {
+        "hidden": "conditional",
+        "name": "walkthroughCta",
+        "type": "ctaBanner",
+        "title": "CTA Banner"
+      },
+      {
+        "hidden": "conditional",
+        "name": "spacesHero",
+        "type": "heroMedia",
+        "title": "Hero"
+      },
+      {
+        "hidden": "conditional",
+        "name": "brochureHero",
+        "type": "heroMedia",
+        "title": "Hero"
+      },
+      {
+        "hidden": "conditional",
+        "name": "spacesLeasingMap",
+        "type": "leasingMap",
+        "title": "Leasing Map"
+      },
+      {
+        "hidden": "conditional",
+        "name": "spacesFullWidthMedia",
+        "type": "fullWidthMedia",
+        "title": "Full Width Media"
+      },
+      {
+        "hidden": "conditional",
+        "name": "brochureIssuuEmbed",
+        "type": "issuuEmbed",
+        "title": "Issuu Embed"
+      },
+      {
+        "hidden": "conditional",
+        "name": "spacesForm",
+        "type": "form",
+        "title": "Form"
+      },
+      {
+        "hidden": "conditional",
+        "name": "spacesCta",
+        "type": "ctaBanner",
+        "title": "CTA Banner"
+      },
+      {
+        "hidden": "conditional",
+        "name": "heritageTextWithArtefacts",
+        "type": "textWithArtefacts",
+        "title": "Text with Artefacts"
+      },
+      {
+        "hidden": "conditional",
+        "name": "heritageFullWidthMedia",
+        "type": "fullWidthMedia",
+        "title": "Full Width Media"
+      },
+      {
+        "hidden": "conditional",
+        "name": "heritageTextWithArtefacts2",
+        "type": "textWithArtefacts",
+        "title": "Text with Artefacts 2"
+      },
+      {
+        "hidden": "conditional",
+        "name": "heritageImageCarousel",
+        "type": "imageCarousel",
+        "title": "Image Carousel"
+      },
+      {
+        "hidden": "conditional",
+        "name": "heritageCta",
+        "type": "ctaBanner",
+        "title": "CTA Banner"
+      },
+      {
+        "hidden": "conditional",
+        "name": "carouselTextWithArtefacts",
+        "type": "textWithArtefacts",
+        "title": "Text with Artefacts"
+      },
+      {
+        "hidden": "conditional",
+        "name": "carouselFullWidthMedia",
+        "type": "fullWidthMedia",
+        "title": "Full Width Media"
+      },
+      {
+        "hidden": "conditional",
+        "fieldsets": [
+          {
+            "name": "media1"
+          },
+          {
+            "name": "media2"
+          }
+        ],
+        "name": "carouselImageMasonry",
+        "type": "imageMasonry",
+        "title": "Image Masonry"
+      },
+      {
+        "hidden": "conditional",
+        "name": "carouselCta",
+        "type": "ctaBanner",
+        "title": "CTA Banner"
+      },
+      {
+        "hidden": "conditional",
+        "name": "galleryImages",
+        "type": "gallery",
+        "title": "Images"
+      },
+      {
+        "hidden": "conditional",
+        "name": "galleryCta",
+        "type": "ctaBanner",
+        "title": "CTA Banner"
+      },
+      {
+        "hidden": "conditional",
+        "name": "pressHero",
+        "type": "heroMedia",
+        "title": "Hero"
+      },
+      {
+        "options": {
+          "sortable": true
+        },
+        "description": "Add and arrange press posts and testimonials",
+        "hidden": "conditional",
+        "name": "pressContentBlocks",
+        "type": "pressContentBlocks"
+      },
+      {
+        "hidden": "conditional",
+        "name": "pressCta",
+        "type": "ctaBanner",
+        "title": "CTA Banner"
+      },
+      {
+        "hidden": "conditional",
+        "name": "textHero",
+        "type": "flexibleHeroSection",
+        "title": "Hero"
+      },
+      {
+        "of": [
+          {
+            "type": "simpleTextBlock",
+            "title": "Text Block"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "textBlocks",
+        "type": "array"
+      }
+    ],
+    "name": "page",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Menu Title"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Page Link",
+                      "value": "pageLink"
+                    },
+                    {
+                      "title": "Title with Sub-items",
+                      "value": "titleWithSubItems"
+                    }
+                  ]
+                },
+                "name": "itemType",
+                "type": "string"
+              },
+              {
+                "to": [
+                  {
+                    "type": "page"
+                  }
+                ],
+                "hidden": "conditional",
+                "name": "pageLink",
+                "type": "reference"
+              },
+              {
+                "hidden": "conditional",
+                "name": "heading",
+                "type": "string"
+              },
+              {
+                "of": [
+                  {
+                    "fields": [
+                      {
+                        "to": [
+                          {
+                            "type": "page"
+                          }
+                        ],
+                        "name": "pageLink",
+                        "type": "reference"
+                      }
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "hidden": "conditional",
+                "name": "subItems",
+                "type": "array",
+                "title": "Sub-items"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Menu Items"
+      }
+    ],
+    "name": "menu",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Footer Title"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "heading",
+                "type": "string"
+              },
+              {
+                "name": "text",
+                "type": "richPortableText"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "column1FooterItems",
+        "type": "array",
+        "title": "Footer Items",
+        "fieldset": "column1"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "heading",
+                "type": "string"
+              },
+              {
+                "name": "text",
+                "type": "richPortableText"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "column2FooterItems",
+        "type": "array",
+        "title": "Footer Items",
+        "fieldset": "column2"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "type": "link"
+          }
+        ],
+        "name": "footerNav",
+        "type": "array",
+        "title": "Footer Navigation",
+        "fieldset": "column2"
+      },
+      {
+        "name": "newsletterText",
+        "type": "richPortableText"
+      }
+    ],
+    "fieldsets": [
+      {
+        "name": "column1",
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        }
+      },
+      {
+        "name": "column2",
+        "options": {
+          "collapsible": true,
+          "collapsed": false
+        }
+      }
+    ],
+    "name": "footer",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "dateFormat": "DD/MM/YYYY"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "publishedAt",
+        "type": "date",
+        "title": "Published Date"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Image",
+              "value": "image"
+            },
+            {
+              "title": "Logo",
+              "value": "logo"
+            }
+          ]
+        },
+        "name": "thumbnailType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "thumbnailImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "thumbnailLogo",
+        "type": "image"
+      },
+      {
+        "initialValue": "#581B25",
+        "options": {
+          "list": [
+            {
+              "title": "Burgundy",
+              "value": "#581B25"
+            },
+            {
+              "title": "Tan",
+              "value": "#E6D3C3"
+            },
+            {
+              "title": "Light Purple",
+              "value": "#E3DDE7"
+            },
+            {
+              "title": "Green",
+              "value": "#C4C7B2"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "thumbnailBackgroundColour",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 200
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "featuredImage",
+        "type": "image"
+      },
+      {
+        "name": "content",
+        "type": "richPortableText"
+      },
+      {
+        "name": "source",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Link to the original article",
+        "name": "sourceUrl",
+        "type": "url",
+        "title": "Source URL"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (Full Bleed Image)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (Inset Image)",
+              "value": "layout-2"
+            }
+          ]
+        },
+        "name": "layout",
+        "type": "string"
+      },
+      {
+        "options": {
+          "collapsible": true,
+          "collapsed": true
+        },
+        "description": "Override title, description and image for search and social. Empty = use Site Settings.",
+        "name": "seo",
+        "type": "seo",
+        "title": "SEO"
+      }
+    ],
+    "name": "press",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "rows": 4,
+        "name": "name",
+        "type": "text",
+        "title": "Testimonial"
+      },
+      {
+        "name": "source",
+        "type": "string"
+      },
+      {
+        "initialValue": "#E6D3C3",
+        "options": {
+          "list": [
+            {
+              "title": "Burgundy",
+              "value": "#581B25"
+            },
+            {
+              "title": "Tan",
+              "value": "#E6D3C3"
+            },
+            {
+              "title": "Light Purple",
+              "value": "#E3DDE7"
+            },
+            {
+              "title": "Green",
+              "value": "#C4C7B2"
+            }
+          ]
+        },
+        "name": "backgroundColour",
+        "type": "string"
+      }
+    ],
+    "name": "testimonials",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "name": "keywords",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "socialimage",
+        "type": "image",
+        "title": "Social Image"
+      }
+    ],
+    "hidden": true,
+    "name": "metaData",
+    "type": "document",
+    "title": "Meta Data (Legacy)"
+  },
+  {
+    "fields": [
+      {
+        "description": "Site name in page titles (e.g. \"Contact | Belle Meade Village\"). Ignored if a page sets a custom SEO title.",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "description": "Default description for search results and social shares.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Default image for social link previews. 1200×630px, under 1MB.",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "socialimage",
+        "type": "image",
+        "title": "Social Image"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "options": {
+      "collapsible": false,
+      "collapsed": false
+    },
+    "fields": [
+      {
+        "initialValue": "internal",
+        "options": {
+          "list": [
+            "internal",
+            "external",
+            "jump"
+          ]
+        },
+        "name": "linkType",
+        "type": "string"
+      },
+      {
+        "description": "Optional: If left empty, the page title will be used for internal links",
+        "hidden": "conditional",
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "href",
+        "type": "url"
+      },
+      {
+        "to": [
+          {
+            "type": "page"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "pageLink",
+        "type": "reference"
+      },
+      {
+        "description": "The ID of the element to jump to eg. #spaces",
+        "hidden": "conditional",
+        "name": "jumpLink",
+        "type": "string"
+      }
+    ],
+    "name": "link",
+    "type": "object"
+  },
+  {
+    "of": [
+      {
+        "marks": {
+          "annotations": [
+            {
+              "fields": [
+                {
+                  "name": "href",
+                  "type": "string",
+                  "title": "URL"
+                },
+                {
+                  "name": "blank",
+                  "type": "boolean",
+                  "title": "Open in new tab"
+                }
+              ],
+              "name": "link",
+              "type": "object"
+            }
+          ],
+          "decorators": [
+            {
+              "value": "strong",
+              "title": "Strong"
+            },
+            {
+              "value": "em",
+              "title": "Emphasis"
+            }
+          ]
+        },
+        "lists": [
+          {
+            "value": "bullet",
+            "title": "Bulleted"
+          }
+        ],
+        "styles": [
+          {
+            "value": "normal",
+            "title": "Normal"
+          },
+          {
+            "value": "h2",
+            "title": "H2"
+          },
+          {
+            "value": "h3",
+            "title": "H3"
+          },
+          {
+            "value": "blockquote",
+            "title": "Quote"
+          }
+        ],
+        "of": [],
+        "type": "block"
+      }
+    ],
+    "name": "richPortableText",
+    "type": "array",
+    "title": "Rich Text"
+  },
+  {
+    "options": {
+      "sortable": true
+    },
+    "of": [
+      {
+        "type": "flexibleHeroSection",
+        "title": "Hero Section"
+      },
+      {
+        "type": "textBlock",
+        "title": "Text Section"
+      },
+      {
+        "type": "linkTiles",
+        "title": "Link Tiles Section"
+      },
+      {
+        "type": "stackedMediaText",
+        "title": "Stacked Text & Media Section"
+      },
+      {
+        "type": "fullWidthMedia",
+        "title": "Full Width Media Section"
+      },
+      {
+        "type": "smallMediaText",
+        "title": "Small Text & Media Section"
+      },
+      {
+        "type": "largeMediaText",
+        "title": "Large Text & Media Section"
+      },
+      {
+        "fieldsets": [
+          {
+            "name": "media1"
+          },
+          {
+            "name": "media2"
+          }
+        ],
+        "type": "imageMasonry",
+        "title": "Image Masonry Section"
+      },
+      {
+        "fieldsets": [
+          {
+            "name": "media1",
+            "title": "Media Tile 1"
+          },
+          {
+            "name": "media2",
+            "title": "Media Tile 2"
+          },
+          {
+            "name": "media3",
+            "title": "Media Tile 3"
+          }
+        ],
+        "type": "staggeredImages",
+        "title": "Staggered Images Section"
+      },
+      {
+        "type": "ctaBanner",
+        "title": "CTA Banner Section"
+      },
+      {
+        "type": "architects",
+        "title": "Text Grid"
+      }
+    ],
+    "name": "flexibleContent",
+    "type": "array",
+    "title": "Content Blocks"
+  },
+  {
+    "options": {
+      "sortable": true
+    },
+    "of": [
+      {
+        "type": "pressPostsSection"
+      },
+      {
+        "type": "testimonialSection"
+      }
+    ],
+    "name": "pressContentBlocks",
+    "type": "array"
+  },
+  {
+    "options": {
+      "collapsible": true,
+      "collapsed": true
+    },
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 50
+              }
+            ],
+            "level": "warning",
+            "message": "Longer titles may be truncated by search engines"
+          }
+        ],
+        "description": "Full title for this page (replaces \"Document title | Site name\"). Leave empty to use document title.",
+        "name": "metaTitle",
+        "type": "string",
+        "title": "Title"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 150
+              }
+            ],
+            "level": "warning",
+            "message": "Longer descriptions may be truncated by search engines"
+          }
+        ],
+        "description": "Summary for search results and social shares. Leave empty for site default.",
+        "name": "metaDescription",
+        "type": "text",
+        "title": "Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Image for social previews. Overrides site default. 1200×630px, under 1MB.",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "socialImage",
+        "type": "image"
+      }
+    ],
+    "name": "seo",
+    "type": "object",
+    "title": "SEO"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "layout-1",
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (Full Bleed Media & Title)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (Centred Title & CTA)",
+              "value": "layout-2"
+            },
+            {
+              "title": "Layout 3 (Title Only)",
+              "value": "layout-3"
+            }
+          ]
+        },
+        "name": "layout",
+        "type": "string"
+      },
+      {
+        "name": "desktopTitle",
+        "type": "string",
+        "title": "Title (Desktop)"
+      },
+      {
+        "name": "mobileTitle",
+        "type": "string",
+        "title": "Title (Mobile)"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "hidden": "conditional",
+        "name": "backgroundMediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "desktopBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Desktop)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "mobileBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Mobile)"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Desktop)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Desktop)"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Mobile)"
+      },
+      {
+        "initialValue": false,
+        "hidden": "conditional",
+        "name": "showControls",
+        "type": "boolean",
+        "title": "Show Video Controls"
+      },
+      {
+        "initialValue": 0.3,
+        "description": "0–1",
+        "hidden": "conditional",
+        "name": "overlayDarkness",
+        "type": "number"
+      },
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "hidden": "conditional",
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      }
+    ],
+    "name": "heroMedia",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "2 Tiles",
+              "value": 2
+            },
+            {
+              "title": "3 Tiles",
+              "value": 3
+            },
+            {
+              "title": "4 Tiles",
+              "value": 4
+            },
+            {
+              "title": "5 Tiles",
+              "value": 5
+            },
+            {
+              "title": "6 Tiles",
+              "value": 6
+            },
+            {
+              "title": "7 Tiles",
+              "value": 7
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
+              },
+              {
+                "flag": "min",
+                "constraint": 2
+              },
+              {
+                "flag": "max",
+                "constraint": 7
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "numberOfTiles",
+        "type": "number",
+        "title": "Number of Tiles"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile1",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile2",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile3",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile4",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile5",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile6",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "image",
+            "options": {
+              "list": [
+                "image",
+                "video"
+              ]
+            },
+            "name": "mediaType",
+            "type": "string"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "hidden": "conditional",
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "initialValue": "file",
+            "options": {
+              "list": [
+                {
+                  "title": "Upload File",
+                  "value": "file"
+                },
+                {
+                  "title": "Video URL",
+                  "value": "url"
+                }
+              ]
+            },
+            "hidden": "conditional",
+            "name": "videoSource",
+            "type": "string"
+          },
+          {
+            "options": {
+              "accept": "video/mp4"
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload .mp4 files under 10MB",
+            "hidden": "conditional",
+            "name": "video",
+            "type": "file",
+            "title": "Video File"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+            "hidden": "conditional",
+            "name": "videoUrl",
+            "type": "url",
+            "title": "Video URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+            "hidden": "conditional",
+            "name": "videoPlaceholder",
+            "type": "image"
+          },
+          {
+            "options": {
+              "collapsible": false,
+              "collapsed": false
+            },
+            "name": "cta",
+            "type": "link",
+            "title": "CTA"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "linkTile7",
+        "type": "object"
+      }
+    ],
+    "name": "linkTiles",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      },
+      {
+        "initialValue": "layout-1",
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (3 cols + 2 spacer + 7 cols)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (1 spacer + 4 cols + 2 spacer + 5 cols)",
+              "value": "layout-2"
+            },
+            {
+              "title": "Layout 3 (4 cols + 2 spacer + 6 cols)",
+              "value": "layout-3"
+            }
+          ]
+        },
+        "name": "layout",
+        "type": "string",
+        "title": "Image Layout"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType1",
+        "type": "string",
+        "title": "Media Type",
+        "fieldset": "media1"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image1",
+        "type": "image",
+        "title": "Image",
+        "fieldset": "media1"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource1",
+        "type": "string",
+        "title": "Video Source",
+        "fieldset": "media1"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video1",
+        "type": "file",
+        "title": "Video File",
+        "fieldset": "media1"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl1",
+        "type": "url",
+        "title": "Video URL",
+        "fieldset": "media1"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder1",
+        "type": "image",
+        "title": "Video Placeholder",
+        "fieldset": "media1"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType2",
+        "type": "string",
+        "title": "Media Type",
+        "fieldset": "media2"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image2",
+        "type": "image",
+        "title": "Image",
+        "fieldset": "media2"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource2",
+        "type": "string",
+        "title": "Video Source",
+        "fieldset": "media2"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video2",
+        "type": "file",
+        "title": "Video File",
+        "fieldset": "media2"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl2",
+        "type": "url",
+        "title": "Video URL",
+        "fieldset": "media2"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder2",
+        "type": "image",
+        "title": "Video Placeholder",
+        "fieldset": "media2"
+      },
+      {
+        "initialValue": "None",
+        "options": {
+          "list": [
+            "None",
+            "Lilac",
+            "Green",
+            "Tan"
+          ]
+        },
+        "hidden": "conditional",
+        "name": "backgroundColour",
+        "type": "string"
+      }
+    ],
+    "fieldsets": [
+      {
+        "name": "media1"
+      },
+      {
+        "name": "media2"
+      }
+    ],
+    "name": "imageMasonry",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (portrait + square + landscape)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (square + portrait + portrait)",
+              "value": "layout-2"
+            },
+            {
+              "title": "Layout 3 (landscape + portrait + landscape)",
+              "value": "layout-3"
+            }
+          ]
+        },
+        "initialValue": "layout-1",
+        "name": "layout",
+        "type": "string"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType1",
+        "type": "string",
+        "title": "Media Type",
+        "fieldset": "media1"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image1",
+        "type": "image",
+        "title": "Image",
+        "fieldset": "media1"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource1",
+        "type": "string",
+        "title": "Video Source",
+        "fieldset": "media1"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video1",
+        "type": "file",
+        "title": "Video File",
+        "fieldset": "media1"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl1",
+        "type": "url",
+        "title": "Video URL",
+        "fieldset": "media1"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder1",
+        "type": "image",
+        "title": "Video Placeholder",
+        "fieldset": "media1"
+      },
+      {
+        "name": "caption1",
+        "type": "string",
+        "title": "Caption",
+        "fieldset": "media1"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType2",
+        "type": "string",
+        "title": "Media Type",
+        "fieldset": "media2"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image2",
+        "type": "image",
+        "title": "Image",
+        "fieldset": "media2"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource2",
+        "type": "string",
+        "title": "Video Source",
+        "fieldset": "media2"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video2",
+        "type": "file",
+        "title": "Video File",
+        "fieldset": "media2"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl2",
+        "type": "url",
+        "title": "Video URL",
+        "fieldset": "media2"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder2",
+        "type": "image",
+        "title": "Video Placeholder",
+        "fieldset": "media2"
+      },
+      {
+        "name": "caption2",
+        "type": "string",
+        "title": "Caption",
+        "fieldset": "media2"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType3",
+        "type": "string",
+        "title": "Media Type",
+        "fieldset": "media3"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image3",
+        "type": "image",
+        "title": "Image",
+        "fieldset": "media3"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource3",
+        "type": "string",
+        "title": "Video Source",
+        "fieldset": "media3"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video3",
+        "type": "file",
+        "title": "Video File",
+        "fieldset": "media3"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl3",
+        "type": "url",
+        "title": "Video URL",
+        "fieldset": "media3"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder3",
+        "type": "image",
+        "title": "Video Placeholder",
+        "fieldset": "media3"
+      },
+      {
+        "name": "caption3",
+        "type": "string",
+        "title": "Caption",
+        "fieldset": "media3"
+      }
+    ],
+    "fieldsets": [
+      {
+        "name": "media1",
+        "title": "Media Tile 1"
+      },
+      {
+        "name": "media2",
+        "title": "Media Tile 2"
+      },
+      {
+        "name": "media3",
+        "title": "Media Tile 3"
+      }
+    ],
+    "name": "staggeredImages",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      }
+    ],
+    "name": "ctaBanner",
+    "type": "object",
+    "title": "CTA Banner"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video",
+        "type": "file",
+        "title": "Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder",
+        "type": "image"
+      },
+      {
+        "initialValue": false,
+        "hidden": "conditional",
+        "name": "showControls",
+        "type": "boolean",
+        "title": "Show Video Controls"
+      }
+    ],
+    "name": "fullWidthMedia",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video",
+        "type": "file",
+        "title": "Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder",
+        "type": "image"
+      }
+    ],
+    "name": "smallMediaText",
+    "type": "object",
+    "title": "Text & Media"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video",
+        "type": "file",
+        "title": "Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder",
+        "type": "image"
+      }
+    ],
+    "name": "largeMediaText",
+    "type": "object",
+    "title": "Text & Media"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "layout-1",
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (Text Left, Media Right)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (Media Top, Text Bottom)",
+              "value": "layout-2"
+            }
+          ]
+        },
+        "name": "layout",
+        "type": "string"
+      },
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "video",
+        "type": "file",
+        "title": "Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "videoPlaceholder",
+        "type": "image"
+      },
+      {
+        "initialValue": false,
+        "hidden": "conditional",
+        "name": "showControls",
+        "type": "boolean",
+        "title": "Show Video Controls"
+      },
+      {
+        "initialValue": "None",
+        "options": {
+          "list": [
+            "None",
+            "Lilac",
+            "Green",
+            "Tan"
+          ]
+        },
+        "name": "backgroundColour",
+        "type": "string"
+      }
+    ],
+    "name": "stackedMediaText",
+    "type": "object",
+    "title": "Text & Media"
+  },
+  {
+    "fields": [
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Please upload image files under 1MB",
+                "fields": [
+                  {
+                    "description": "Important for accessibility and SEO.",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alt Text"
+                  }
+                ],
+                "name": "image",
+                "type": "image"
+              },
+              {
+                "name": "caption",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "16:9 (Landscape)",
+                      "value": "16:9"
+                    },
+                    {
+                      "title": "1:1 (Square)",
+                      "value": "1:1"
+                    },
+                    {
+                      "title": "4:3 (Landscape)",
+                      "value": "4:3"
+                    },
+                    {
+                      "title": "2:3 (Portrait)",
+                      "value": "2:3"
+                    },
+                    {
+                      "title": "Natural aspect ratio (Use for illustations only)",
+                      "value": "no-defined-size"
+                    }
+                  ]
+                },
+                "name": "imageSize",
+                "type": "string"
+              }
+            ],
+            "type": "object",
+            "name": "imageWithCaption",
+            "title": "Image"
+          }
+        ],
+        "name": "images",
+        "type": "array"
+      }
+    ],
+    "name": "gallery",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "bio",
+                "type": "richPortableText"
+              },
+              {
+                "options": {
+                  "collapsible": false,
+                  "collapsed": false
+                },
+                "name": "cta",
+                "type": "link",
+                "title": "CTA"
+              }
+            ],
+            "type": "object",
+            "name": "architect",
+            "title": "Text Block"
+          }
+        ],
+        "name": "architects",
+        "type": "array",
+        "title": "Text Block"
+      }
+    ],
+    "name": "architects",
+    "type": "object",
+    "title": "Text Grid"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "layout-1",
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (4 artefacts)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (3 artefacts)",
+              "value": "layout-2"
+            },
+            {
+              "title": "Layout 3 (3 artefacts + carousel icon)",
+              "value": "layout-3"
+            }
+          ]
+        },
+        "name": "layout",
+        "type": "string"
+      },
+      {
+        "name": "desktopTitle",
+        "type": "string",
+        "title": "Title (Desktop)"
+      },
+      {
+        "name": "mobileTitle",
+        "type": "string",
+        "title": "Title (Mobile)"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "backgroundMediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "desktopBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Desktop)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "mobileBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Mobile)"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Desktop)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Desktop)"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Mobile)"
+      },
+      {
+        "initialValue": false,
+        "hidden": "conditional",
+        "name": "showControls",
+        "type": "boolean",
+        "title": "Show Video Controls"
+      },
+      {
+        "initialValue": 0.3,
+        "description": "0–1",
+        "name": "overlayDarkness",
+        "type": "number"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "hidden": "conditional",
+        "name": "body2",
+        "type": "richPortableText"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "hoverImage",
+            "type": "image"
+          },
+          {
+            "name": "caption",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          }
+        ],
+        "name": "artefact1",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "hoverImage",
+            "type": "image"
+          },
+          {
+            "name": "caption",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          }
+        ],
+        "name": "artefact2",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "hoverImage",
+            "type": "image"
+          },
+          {
+            "name": "caption",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          }
+        ],
+        "name": "artefact3",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Please upload image files under 1MB",
+            "fields": [
+              {
+                "description": "Important for accessibility and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              }
+            ],
+            "name": "hoverImage",
+            "type": "image"
+          },
+          {
+            "name": "caption",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "artefact4",
+        "type": "object"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "carouselIcon",
+        "type": "image"
+      }
+    ],
+    "name": "textWithArtefacts",
+    "type": "object",
+    "title": "Text with Artefacts"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "initialValue": "image",
+                "options": {
+                  "list": [
+                    {
+                      "title": "Image",
+                      "value": "image"
+                    },
+                    {
+                      "title": "Video",
+                      "value": "video"
+                    }
+                  ]
+                },
+                "name": "mediaType",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Please upload image files under 1MB",
+                "fields": [
+                  {
+                    "description": "Important for accessibility and SEO.",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alt Text"
+                  }
+                ],
+                "hidden": "conditional",
+                "name": "image",
+                "type": "image"
+              },
+              {
+                "initialValue": "file",
+                "options": {
+                  "list": [
+                    {
+                      "title": "Upload File",
+                      "value": "file"
+                    },
+                    {
+                      "title": "Video URL",
+                      "value": "url"
+                    }
+                  ]
+                },
+                "hidden": "conditional",
+                "name": "videoSource",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "accept": "video/mp4"
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Please upload .mp4 files under 10MB",
+                "hidden": "conditional",
+                "name": "video",
+                "type": "file",
+                "title": "Video File"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+                "hidden": "conditional",
+                "name": "videoUrl",
+                "type": "url",
+                "title": "Video URL"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+                "hidden": "conditional",
+                "name": "videoPlaceholder",
+                "type": "image"
+              },
+              {
+                "name": "caption",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "16:9 (Landscape)",
+                      "value": "16:9"
+                    },
+                    {
+                      "title": "1:1 (Square)",
+                      "value": "1:1"
+                    },
+                    {
+                      "title": "4:3 (Landscape)",
+                      "value": "4:3"
+                    },
+                    {
+                      "title": "2:3 (Portrait)",
+                      "value": "2:3"
+                    }
+                  ]
+                },
+                "hidden": "conditional",
+                "name": "imageSize",
+                "type": "string"
+              }
+            ],
+            "type": "object",
+            "name": "imageWithCaption",
+            "title": "Image or Video"
+          }
+        ],
+        "name": "images",
+        "type": "array"
+      }
+    ],
+    "name": "imageCarousel",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "introduction",
+        "type": "richPortableText"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "name": "required",
+                "type": "boolean"
+              },
+              {
+                "initialValue": false,
+                "name": "halfWidth",
+                "type": "boolean"
+              }
+            ],
+            "type": "object",
+            "name": "textInput",
+            "title": "Text"
+          },
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "name": "required",
+                "type": "boolean"
+              },
+              {
+                "initialValue": false,
+                "name": "halfWidth",
+                "type": "boolean"
+              }
+            ],
+            "type": "object",
+            "name": "emailInput",
+            "title": "Email"
+          },
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "name": "required",
+                "type": "boolean"
+              }
+            ],
+            "type": "object",
+            "name": "textarea"
+          },
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string",
+                    "name": "option"
+                  }
+                ],
+                "name": "options",
+                "type": "array"
+              },
+              {
+                "name": "required",
+                "type": "boolean"
+              },
+              {
+                "initialValue": false,
+                "name": "halfWidth",
+                "type": "boolean"
+              }
+            ],
+            "type": "object",
+            "name": "select",
+            "title": "Dropdown"
+          }
+        ],
+        "name": "formFields",
+        "type": "array"
+      },
+      {
+        "initialValue": "Submit",
+        "name": "submitLabel",
+        "type": "string",
+        "title": "Submit button label"
+      },
+      {
+        "rows": 2,
+        "initialValue": "Thank you for getting in touch!",
+        "name": "successMessage",
+        "type": "text",
+        "title": "Success message"
+      },
+      {
+        "initialValue": "info@bmvillage.com",
+        "description": "Email address that receives form submissions",
+        "name": "adminNotificationEmail",
+        "type": "string"
+      }
+    ],
+    "name": "form",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 10
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Full label shown on desktop (e.g., \"First Floor\")",
+                "name": "label",
+                "type": "string",
+                "title": "Label (Desktop)"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Shorter label shown on mobile (e.g., \"Floor 1\")",
+                "name": "mobileLabel",
+                "type": "string",
+                "title": "Label (Mobile)"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "fields": [
+                  {
+                    "description": "Important for accessibility and SEO.",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alt Text"
+                  }
+                ],
+                "name": "desktopImage",
+                "type": "image",
+                "title": "Floor Plan Image"
+              },
+              {
+                "options": {
+                  "accept": "image/svg+xml,.svg"
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Upload an SVG file to be embedded inline",
+                "name": "desktopSpacesOverlayImage",
+                "type": "file",
+                "title": "Spaces Overlay SVG"
+              },
+              {
+                "of": [
+                  {
+                    "fields": [
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "description": "ID should be the name of the layer in the SVG file",
+                        "name": "id",
+                        "type": "string",
+                        "title": "ID"
+                      },
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "name": "title",
+                        "type": "string"
+                      },
+                      {
+                        "name": "description",
+                        "type": "richPortableText"
+                      },
+                      {
+                        "options": {
+                          "hotspot": true
+                        },
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              },
+                              {
+                                "flag": "custom"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "description": "Please upload image files under 1MB",
+                        "fields": [
+                          {
+                            "description": "Important for accessibility and SEO.",
+                            "name": "alt",
+                            "type": "string",
+                            "title": "Alt Text"
+                          }
+                        ],
+                        "name": "image",
+                        "type": "image"
+                      }
+                    ],
+                    "type": "object",
+                    "name": "space"
+                  }
+                ],
+                "name": "spots",
+                "type": "array",
+                "title": "Spaces"
+              }
+            ],
+            "type": "object",
+            "name": "floor"
+          }
+        ],
+        "name": "floors",
+        "type": "array"
+      }
+    ],
+    "name": "leasingMap",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "body",
+        "type": "richPortableText"
+      }
+    ],
+    "name": "textBlock",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "IMPORTANT: Use the iframe embed URL (starts with https://e.issuu.com/embed.html), NOT the regular publication URL. To get this URL, click \"Share\" on the Issuu publication, then copy the \"Embed\" code and extract the src URL from the iframe tag.",
+        "name": "src",
+        "type": "url",
+        "title": "Embed Source URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "The title attribute for the iframe",
+        "name": "title",
+        "type": "string"
+      }
+    ],
+    "name": "issuuEmbed",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "layout-1",
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (Full Bleed Media & Title)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (Centred Title & CTA)",
+              "value": "layout-2"
+            },
+            {
+              "title": "Layout 3 (Title Only)",
+              "value": "layout-3"
+            },
+            {
+              "title": "Homepage",
+              "value": "homepage"
+            }
+          ]
+        },
+        "name": "layout",
+        "type": "string"
+      },
+      {
+        "hidden": "conditional",
+        "name": "desktopTitle",
+        "type": "string",
+        "title": "Title (Desktop)"
+      },
+      {
+        "hidden": "conditional",
+        "name": "mobileTitle",
+        "type": "string",
+        "title": "Title (Mobile)"
+      },
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "hidden": "conditional",
+        "name": "backgroundMediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "desktopBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Desktop)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "mobileBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Mobile)"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Desktop)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Desktop)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Mobile)"
+      },
+      {
+        "initialValue": false,
+        "hidden": "conditional",
+        "name": "showControls",
+        "type": "boolean",
+        "title": "Show Video Controls"
+      },
+      {
+        "initialValue": 0.3,
+        "description": "0–1",
+        "hidden": "conditional",
+        "name": "overlayDarkness",
+        "type": "number"
+      },
+      {
+        "options": {
+          "collapsible": false,
+          "collapsed": false
+        },
+        "hidden": "conditional",
+        "name": "cta",
+        "type": "link",
+        "title": "CTA"
+      }
+    ],
+    "name": "flexibleHeroSection",
+    "type": "object",
+    "title": "Hero Section"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "image",
+        "options": {
+          "list": [
+            "image",
+            "video"
+          ]
+        },
+        "name": "backgroundMediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "desktopBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Desktop)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload image files under 1MB",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "mobileBackgroundImage",
+        "type": "image",
+        "title": "Background Image (Mobile)"
+      },
+      {
+        "initialValue": "file",
+        "options": {
+          "list": [
+            {
+              "title": "Upload File",
+              "value": "file"
+            },
+            {
+              "title": "Video URL",
+              "value": "url"
+            }
+          ]
+        },
+        "hidden": "conditional",
+        "name": "videoSource",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Desktop)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "desktopBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Desktop)"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Please upload .mp4 files under 10MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideo",
+        "type": "file",
+        "title": "Background Video File (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter a direct URL to a video file (e.g., https://example.com/video.mp4)",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoUrl",
+        "type": "url",
+        "title": "Background Video URL (Mobile)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Uploading the first frame of the video here will ensure users always see content if the video doesn't load immediately. Please upload image files under 1MB",
+        "hidden": "conditional",
+        "name": "mobileBackgroundVideoPlaceholder",
+        "type": "image",
+        "title": "Background Video Placeholder (Mobile)"
+      },
+      {
+        "initialValue": 0.3,
+        "description": "0–1",
+        "name": "overlayDarkness",
+        "type": "number"
+      }
+    ],
+    "name": "signInHeroMedia",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "text",
+        "type": "richPortableText"
+      }
+    ],
+    "name": "simpleTextBlock",
+    "type": "object",
+    "title": "Text Block"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "to": [
+          {
+            "type": "press"
+          }
+        ],
+        "name": "post1",
+        "type": "reference",
+        "title": "Press Post 1"
+      },
+      {
+        "to": [
+          {
+            "type": "press"
+          }
+        ],
+        "name": "post2",
+        "type": "reference",
+        "title": "Press Post 2"
+      },
+      {
+        "initialValue": "layout-1",
+        "options": {
+          "list": [
+            {
+              "title": "Layout 1 (4 cols + 2 spacer + 6 cols)",
+              "value": "layout-1"
+            },
+            {
+              "title": "Layout 2 (5 cols + 2 spacer + 5 cols)",
+              "value": "layout-2"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "layout-1",
+                  "layout-2"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "layout",
+        "type": "string"
+      }
+    ],
+    "name": "pressPostsSection",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "to": [
+          {
+            "type": "testimonials"
+          }
+        ],
+        "name": "testimonial",
+        "type": "reference"
+      }
+    ],
+    "name": "testimonialSection",
+    "type": "object"
+  }
+]

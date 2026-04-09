@@ -1,0 +1,113 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+.sign-in-hero-media-block {
+  @include flex;
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(flex-end);
+  padding-bottom: get-rem-desktop(100);
+
+  @media only screen and (max-width: 1440px) {
+    padding-bottom: get-rem-tablet(75);
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding-bottom: get-rem-mobile(75);
+  }
+
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+    opacity: 0;
+    transition: opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+
+    svg {
+      width: 44vw;
+      fill: $colour-cream;
+
+      @media only screen and (max-width: 1440px) {
+        width: get-rem-tablet(600);
+      }
+
+      @media only screen and (max-width: 768px) {
+        width: get-rem-mobile(300);
+      }
+    }
+  }
+
+  .opacity-overlay {
+    transition: opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+  }
+
+  form {
+    position: relative;
+
+    input {
+      border-bottom: 1px solid $colour-cream;
+      width: get-rem-desktop(350);
+      padding-bottom: get-rem-desktop(3);
+      padding-right: calc(get-rem-desktop(11) + get-rem-desktop(8)); // arrow width + arrow padding
+
+      @media only screen and (max-width: 1440px) {
+        width: get-rem-tablet(350);
+        padding-bottom: get-rem-tablet(5);
+        padding-right: calc(get-rem-tablet(11) + get-rem-tablet(8));
+      }
+
+      @media only screen and (max-width: 768px) {
+        width: get-rem-mobile(300);
+        padding-bottom: get-rem-mobile(4);
+        padding-right: calc(get-rem-mobile(9) + get-rem-mobile(8));
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $colour-cream;
+        opacity: 1;
+      }
+    }
+
+    button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+      padding: 0 get-rem-desktop(8);
+      @include flex;
+      @include align-items(center);
+      @include justify-content(center);
+      cursor: pointer;
+      margin-right: get-rem-desktop(-8);
+
+      @media only screen and (max-width: 1440px) {
+        padding: get-rem-tablet(8);
+        margin-right: get-rem-tablet(-8);
+      }
+
+      @media only screen and (max-width: 768px) {
+        padding: get-rem-mobile(8);
+        margin-right: get-rem-mobile(-8);
+      }
+
+      svg {
+        fill: none;
+        stroke: #fff9f2;
+        width: get-rem-desktop(11);
+
+        @media only screen and (max-width: 1440px) {
+          width: get-rem-tablet(11);
+        }
+
+        @media only screen and (max-width: 768px) {
+          width: get-rem-mobile(9);
+        }
+      }
+    }
+  }
+}

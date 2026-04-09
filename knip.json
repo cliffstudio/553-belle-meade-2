@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "ignore": [
+    ".next/**"
+  ],
+  "ignoreDependencies": [
+    "eslint-config-next"
+  ]
+}

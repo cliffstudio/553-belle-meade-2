@@ -1,0 +1,58 @@
+@use '00_mixins' as *;
+
+.page-template-text {
+
+  .simple-text-block {
+    padding-bottom: get-rem-desktop(90);
+
+    @media only screen and (max-width: 1440px) {
+      padding-bottom: get-rem-tablet(100);
+    }
+  
+    @media only screen and (max-width: 768px) {
+      padding-bottom: get-rem-mobile(75);
+    }
+
+    .heading {
+      margin-bottom: get-rem-desktop(20);
+
+      @media only screen and (max-width: 1440px) {
+        margin-bottom: get-rem-tablet(10);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin-bottom: get-rem-mobile(10);
+      }
+    }
+
+    .heading,
+    .text-content {
+      max-width: get-rem-desktop(750);
+    }
+  }
+
+  section:not(.simple-text-block) + section.simple-text-block {
+    padding-top: get-rem-desktop(90);
+
+    @media only screen and (max-width: 1440px) {
+      padding-top: get-rem-tablet(100);
+    }
+  
+    @media only screen and (max-width: 768px) {
+      padding-top: get-rem-mobile(75);
+    }
+  }
+
+  section.simple-text-block:last-of-type {
+    padding-bottom: get-rem-desktop(90);
+
+    @media only screen and (max-width: 1440px) {
+      padding-bottom: get-rem-tablet(100);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-bottom: get-rem-mobile(75);
+    }
+  }
+
+}

@@ -1,0 +1,459 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+.page-gallery {
+
+  .gallery-block {
+    padding-top: get-rem-desktop(294);
+
+    @media (max-width: 1440px) {
+      padding-top: get-rem-tablet(204);
+    }
+
+    @media (max-width: 768px) {
+      padding-top: get-rem-mobile(180);
+    }
+
+    @media only screen and (max-width: 768px) and (orientation: portrait) {
+      padding-left: get-rem-mobile(15);
+      padding-right: get-rem-mobile(15);
+    }
+
+    .gallery-grid {
+      .gallery-item {
+        position: relative;
+        width: calc(33.333% - 100px);
+        margin-bottom: get-rem-desktop(150);
+
+        @media (max-width: 1440px) {
+          width: calc(33.333% - 66.67px);
+          margin-bottom: get-rem-desktop(100);
+        }
+
+        @media (max-width: 768px) {
+          margin-bottom: get-rem-mobile(75);
+        }
+
+        @media only screen and (max-width: 768px) and (orientation: portrait) {
+          width: 100%;
+        }
+      }
+
+      .gallery-image {
+        position: relative;
+        width: 100%;
+
+        &.aspect-16-9 {
+          aspect-ratio: 16/9;
+        }
+
+        &.aspect-1-1 {
+          aspect-ratio: 1/1;
+        }
+
+        &.aspect-4-3 {
+          aspect-ratio: 4/3;
+        }
+
+        &.aspect-2-3 {
+          aspect-ratio: 2/3;
+        }
+
+        &.natural-aspect-ratio {
+          width: 100%;
+          height: auto;
+
+          .fill-space-image-wrap {
+            position: relative;
+            width: 100%;
+            height: auto;
+            top: auto;
+            left: auto;
+          }
+
+          img {
+            position: static;
+            object-fit: unset;
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $colour-cream;
+    z-index: 9999;
+    opacity: 0;
+    animation: fadeInOverlay 0.3s ease-out forwards;
+
+    &.closing {
+      opacity: 1;
+      animation: fadeOutOverlay 0.3s ease-out 0.4s forwards;
+
+      .inner-wrap {
+        opacity: 1;
+        animation: fadeOutContent 0.4s ease-out forwards;
+      }
+    }
+
+    .inner-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      @include flex;
+      @include justify-content(center);
+      @include align-items(center);
+      padding: get-rem-desktop(100) get-rem-desktop(50);
+      opacity: 0;
+      animation: fadeInContent 0.4s ease-out 0.2s forwards;
+
+      @media (max-width: 1440px) {
+        padding: get-rem-tablet(100) get-rem-tablet(30);
+      }
+
+      @media (max-width: 950px) and (orientation: landscape) {
+        padding: get-rem-mobile(45) get-rem-mobile(20);
+      }
+
+      @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2), only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+        padding-left: get-rem-mobile(65);
+        padding-right: get-rem-mobile(65);
+      }
+
+      @media (max-width: 768px) and (orientation: portrait) {
+        padding: get-rem-mobile(150) 0;
+      }
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      @include flex;
+      @include justify-content(center);
+      @include align-items(center);
+      overflow: hidden;
+
+      .carousel-close-wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10000;
+
+        .carousel-close {
+          position: absolute;
+          top: 50%;
+          @include transform(translateY(-50%));
+          right: calc(get-rem-desktop(50) + 0.5em);
+          cursor: pointer;
+
+          @media (max-width: 1440px) {
+            right: calc(get-rem-tablet(30) + 0.5em);
+          }
+
+          @media (max-width: 950px) and (orientation: landscape) {
+            width: 30px;
+            height: 30px;
+            top: get-rem-mobile(20);
+            left: unset;
+            right: get-rem-mobile(20);
+            @include transform(none);
+
+            &.desktop {
+              display: none;
+            }
+
+            &.mobile {
+              display: block;
+            }
+
+            .menu-bar {
+              position: absolute;
+              width: 30px;
+              height: 1px;
+              background: $colour-burgundy;
+            
+              &[data-position=top] {
+                transform: translateY(0) rotate(45deg) scaleX(1.05);
+              }
+        
+              &[data-position=bottom] {
+                transform: translateY(0) rotate(-45deg) scaleX(1.05);
+              }
+            }
+          }
+
+          @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2), only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+            right: get-rem-mobile(65);
+          }
+
+          @media only screen and (max-width: 768px) and (orientation: portrait) {
+            left: get-rem-mobile(15);
+            right: unset;
+            width: 30px;
+            height: 30px;
+  
+            .menu-bar {
+              position: absolute;
+              width: 30px;
+              height: 1px;
+              background: $colour-burgundy;
+            
+              &[data-position=top] {
+                transform: translateY(0) rotate(45deg) scaleX(1.05);
+              }
+        
+              &[data-position=bottom] {
+                transform: translateY(0) rotate(-45deg) scaleX(1.05);
+              }
+            }
+          }
+        }
+      }
+
+      .carousel {
+        width: calc(100% - get-rem-desktop(150));
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: 1440px) {
+          width: calc(100% - get-rem-tablet(96));
+        }
+
+        @media (max-width: 950px) and (orientation: landscape) {
+          width: calc(100% - get-rem-mobile(103));
+        }
+  
+        @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2), only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+          width: calc(100% - get-rem-mobile(143));
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+
+        .carousel-cell {
+          width: 100%;
+          height: 100%;
+          @include flex;
+          @include justify-content(center);
+          @include align-items(center);
+
+          .carousel-image {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            min-width: 0;
+            min-height: 0;
+            @include flex;
+            @include flex-direction(column);
+            @include justify-content(center);
+            @include align-items(center);
+            padding-left: get-rem-desktop(50);
+            padding-right: get-rem-desktop(50);
+            box-sizing: border-box;
+            overflow: hidden;
+
+            @media (max-width: 1440px) {
+              padding-left: get-rem-tablet(30);
+              padding-right: get-rem-tablet(30);
+            }
+
+            @media (max-width: 768px) {
+              padding-left: get-rem-mobile(15);
+              padding-right: get-rem-mobile(15);
+            }
+
+            .carousel-img {
+              width: 100%;
+              height: 100%;
+              max-width: 100%;
+              max-height: 100%;
+              min-width: 0;
+              min-height: 0;
+              object-fit: contain;
+              object-position: center;
+              display: block;
+              flex-shrink: 1;
+              // Ensure image recalculates on container size change
+              will-change: width, height;
+            }
+          }
+        }
+      }
+    }
+
+    .carousel-arrows {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      @include flex;
+      @include justify-content(space-between);
+      width: 100%;
+      pointer-events: none;
+      z-index: 10001;
+      padding: 0 get-rem-desktop(50);
+
+      @media (max-width: 1440px) {
+        padding: 0 get-rem-tablet(30);
+      }
+
+      @media (max-width: 950px) and (orientation: landscape) {
+        padding: 0 get-rem-mobile(20);
+      }
+
+      @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2), only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+        padding: 0 get-rem-mobile(65);
+      }
+
+      @media only screen and (max-width: 768px) and (orientation: portrait) {
+        position: fixed;
+        top: unset;
+        bottom: get-rem-mobile(49);
+        padding: 0 get-rem-mobile(15);
+      }
+
+      .left-arrow,
+      .right-arrow {
+        cursor: pointer;
+        position: relative;
+        overflow: visible;
+        background: transparent;
+        border: none;
+        pointer-events: auto;
+        z-index: 10002;
+        @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+
+        @media (hover: hover) {
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 200%;
+          height: 200%;
+        }
+
+        svg {
+          fill: none;
+          stroke: $colour-burgundy;
+          stroke-width: 1px;
+          width: 25px;
+          height: auto;
+          display: block;
+
+          @media (max-width: 1440px) {
+            width: 18px;
+          }
+
+          @media (max-width: 950px) and (orientation: landscape) {
+            width: 13px;
+          }
+
+          @media (max-width: 768px) and (orientation: portrait) {
+            width: 7.5px;
+            stroke-width: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-caption {
+    position: absolute;
+    bottom: get-rem-desktop(40);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 1000;
+    opacity: 1;
+    @include transition(opacity 0.5s ease-in-out);
+
+    @media (max-width: 1440px) {
+      bottom: get-rem-tablet(40);
+    }
+
+    @media (max-width: 950px) and (orientation: landscape) {
+      bottom: get-rem-mobile(12);
+    }
+
+    @media (max-width: 768px) and (orientation: portrait) {
+      bottom: get-rem-mobile(53);
+    }
+  }
+
+  .carousel {
+    .flickity-viewport {
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .flickity-slider {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flickity-button {
+      display: none !important;
+    }
+  }
+
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutContent {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

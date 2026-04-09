@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "createdAt": "2026-03-31T13:30:45.039Z",
+  "workspaces": [
+    {
+      "name": "production",
+      "title": "Production",
+      "basePath": "/studio/production",
+      "projectId": "q5vp2t4f",
+      "dataset": "production",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><rect width=\"32\" height=\"32\" rx=\"2\" fill=\"#cc2819\"></rect><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" alignment-baseline=\"middle\" fill=\"hsla(5, 78%, 5%, 1)\" style=\"font-family:Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, &quot;Liberation Sans&quot;, Helvetica, Arial, system-ui, sans-serif;font-weight:500;font-size:13px;transform:translateY(1px)\">P</text></svg>",
+      "mediaLibrary": {
+        "enabled": false
+      },
+      "schema": "5842b020.create-schema.json",
+      "tools": "ba47da56.create-tools.json"
+    },
+    {
+      "name": "staging",
+      "title": "Staging",
+      "basePath": "/studio/staging",
+      "projectId": "q5vp2t4f",
+      "dataset": "staging",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><rect width=\"32\" height=\"32\" rx=\"2\" fill=\"#f77769\"></rect><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" alignment-baseline=\"middle\" fill=\"hsla(6, 90%, 29%, 1)\" style=\"font-family:Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, &quot;Liberation Sans&quot;, Helvetica, Arial, system-ui, sans-serif;font-weight:500;font-size:13px;transform:translateY(1px)\">S</text></svg>",
+      "mediaLibrary": {
+        "enabled": false
+      },
+      "schema": "5842b020.create-schema.json",
+      "tools": "ba47da56.create-tools.json"
+    }
+  ],
+  "studioVersion": "4.22.0"
+}

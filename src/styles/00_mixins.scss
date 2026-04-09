@@ -1,0 +1,707 @@
+/*
+VARIABLES --------------------
+*/
+
+$colour-black: #000000;
+$colour-cream: #FFF9F2;
+$colour-burgundy: #581B25;
+$colour-light-purple: #E3DDE7;
+$colour-green: #C4C7B2;
+$colour-tan: #E6D3C3;
+$colour-white: #FFFFFF;
+
+$header-height-desktop: get-rem-desktop(130);
+
+/*
+VW SIZING FUNCTION --------------------
+*/
+
+@function get-rem-desktop($target) { 
+	@return calc($target/16) + rem;
+}
+
+@function get-rem-tablet($target) { 
+	@return calc($target/16) + rem;
+}
+
+@function get-rem-mobile($target) { 
+	@return calc($target/16) + rem;
+}
+
+/*
+FONT SIZE MIXIN FUNCTION --------------------
+*/
+
+// default font scale bounding
+$font-lock-min:  393px !default; 
+$font-lock-max: 1920px !default;
+$font-lock-tablet: 1440px !default;
+
+// font-size 
+@mixin font-size(
+	$mobile,
+	$tablet: null,
+	$desktop: null,
+	$lock-min: $font-lock-min,
+	$lock-max: $font-lock-max,
+	$lock-tablet: $font-lock-tablet
+) {
+	& {
+		font-size: $mobile;
+	}
+	
+	// If tablet parameter is provided, create three-stage scaling
+	@if $tablet {
+		// Mobile to tablet scaling
+		@media (min-width: $lock-min) and (max-width: #{$lock-tablet - 1px}) {
+			& {
+				font-size: calc(#{$mobile} + #{num($tablet) - num($mobile)} * (100vw - #{$lock-min}) / #{num($lock-tablet) - num($lock-min)});
+			}
+		}
+		
+		// Tablet to desktop scaling
+		@media (min-width: $lock-tablet) {
+			& {
+				font-size: calc(
+					#{$tablet} + #{num($desktop) - num($tablet)} * (100vw - #{$lock-tablet}) /
+						#{num($lock-max) - num($lock-tablet)}
+				);
+			}
+		}
+		
+		// Desktop max size
+		@media (min-width: $lock-max) {
+			& {
+				font-size: $desktop;
+			}
+		}
+	}
+	// Fallback to original two-stage scaling if no tablet parameter
+	@else if $desktop {
+		@media (min-width: $lock-min) {
+			& {
+				font-size: calc(
+					#{$mobile} + #{num($desktop) - num($mobile)} * (100vw - #{$lock-min}) /
+						#{num($lock-max) - num($lock-min)}
+				);
+			}
+		}
+		@media (min-width: $lock-max) {
+			& {
+				font-size: $desktop;
+			}
+		}
+	}
+}
+
+// strip units helper function
+@function num($input) {
+	$numVar: $input * 0 + 1;
+	@return calc($input/$numVar);
+}
+
+/*
+GRID SIZING --------------------
+*/
+
+$gutter_lg: get-rem-desktop(15);
+$gutter_sm: get-rem-mobile(10);
+
+@mixin grid-generator($grid-columns, $grid-gutter-width, $grid-size) {
+  .row-#{$grid-size} {
+    display: grid;
+    column-gap: $grid-gutter-width;
+    grid-template-columns: repeat($grid-columns, 1fr);
+  }
+
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-#{$grid-columns}_#{$grid-size} {
+      grid-column: span $i;
+    }
+  }
+}
+
+@media only screen and (min-width: 769px),
+only screen and (orientation: landscape) {
+  @include grid-generator(12, $gutter_lg, lg);
+}
+
+@media only screen and (max-width: 768px) and (orientation: portrait) {
+  @include grid-generator(5, $gutter_sm, sm);
+}
+
+/*
+MIXINS --------------------
+*/
+
+@mixin underline {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+@mixin reset-ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+@mixin reset-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+@mixin reset-input {
+	position: relative;
+	display: block;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: none; outline: none;
+	@include border-radius(0px);
+	@include box-shadow(0px);
+	resize: none;
+	margin: 0;
+  padding: 0;
+	line-height: 1;
+	-webkit-font-smoothing: inherit;
+	-moz-osx-font-smoothing: inherit;
+	white-space: nowrap;
+	font-weight: normal;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+@mixin animation($property) {
+	animation: $property;
+	-o-animation: $property;
+	-ms-animation: $property;
+	-moz-animation: $property;
+	-webkit-animation: $property;
+}
+
+@mixin transition($property) {
+	transition: $property;
+	-o-transition: $property;
+	-ms-transition: $property;
+	-moz-transition: $property;
+	-webkit-transition: $property;
+}
+
+@mixin transition-important($property) {
+	transition: $property !important;
+	-o-transition: $property !important;
+	-ms-transition: $property !important;
+	-moz-transition: $property !important;
+	-webkit-transition: $property !important;
+}
+
+@mixin transition-multiple($property...) {
+	transition: $property;
+	-o-transition: $property;
+	-ms-transition: $property;
+	-moz-transition: $property;
+	-webkit-transition: $property;
+}
+
+@mixin transition-transform($time, $ease) {
+	-webkit-transition: -webkit-transform $time $ease;
+	-moz-transition: -moz-transform $time $ease;
+	-ms-transition: -ms-transform $time $ease;
+	-o-transition: -o-transform $time $ease;
+	transition: transform $time $ease;
+}
+
+@mixin transition-box-shadow($time, $ease) {
+	-webkit-transition: -webkit-box-shadow $time $ease;
+	-moz-transition: -moz-box-shadow $time $ease;
+	-ms-transition: -ms-box-shadow $time $ease;
+	-o-transition: -o-box-shadow $time $ease;
+	transition: box-shadow $time $ease;
+}
+
+@mixin transform($property) {
+	transform: $property;
+	-o-transform: $property;
+	-ms-transform: $property;
+	-moz-transform: $property;
+	-webkit-transform: $property;
+}
+
+@mixin transform-important($property) {
+	transform: $property !important;
+	-o-transform: $property !important;
+	-ms-transform: $property !important;
+	-moz-transform: $property !important;
+	-webkit-transform: $property !important;
+}
+
+@mixin transform-origin($property) {
+	transform-origin: $property;
+	-o-transform-origin: $property;
+	-ms-transform-origin: $property;
+	-moz-transform-origin: $property;
+	-webkit-transform-origin: $property;
+}
+
+@mixin transition-transform-additional($timings, $additional...) {
+	transition: transform $timings, $additional;
+	-o-transition: -o-transform $timings, $additional;
+	-ms-transition: -ms-transform $timings, $additional;
+	-moz-transition: -moz-transform $timings, $additional;
+	-webkit-transition: -webkit-transform $timings, $additional;
+}
+
+@mixin box-shadow($property) {
+	box-shadow: $property;
+	-o-box-shadow: $property;
+	-ms-box-shadow: $property;
+	-moz-box-shadow: $property;
+	-webkit-box-shadow: $property;
+}
+
+@mixin border-radius($property) {
+	border-radius: $property;
+	-o-border-radius: $property;
+	-ms-border-radius: $property;
+	-moz-border-radius: $property;
+	-webkit-border-radius: $property;
+}
+
+@mixin calc($property, $expression) {
+	#{$property}: calc(#{$expression});
+	#{$property}: -o-calc(#{$expression});
+	#{$property}: -ms-calc(#{$expression});
+	#{$property}: -moz-calc(#{$expression});
+	#{$property}: -webkit-calc(#{$expression});
+}
+
+@mixin animation-name($property) {
+	animation-name: $property;
+	-o-animation-name: $property;
+	-ms-animation-name: $property;
+	-moz-animation-name: $property;
+	-webkit-animation-name: $property;
+}
+
+@mixin animation-duration($property) {
+	animation-duration: $property;
+	-o-animation-duration: $property;
+	-ms-animation-duration: $property;
+	-moz-animation-duration: $property;
+	-webkit-animation-duration: $property;
+}
+
+@mixin animation-delay($property) {
+	animation-delay: $property;
+	-o-animation-delay: $property;
+	-ms-animation-delay: $property;
+	-moz-animation-delay: $property;
+	-webkit-animation-delay: $property;
+}
+
+@mixin animation-iteration-count($property) {
+	animation-iteration-count: $property;
+	-o-animation-iteration-count: $property;
+	-ms-animation-iteration-count: $property;
+	-moz-animation-iteration-count: $property;
+	-webkit-animation-iteration-count: $property;
+}
+
+@mixin flex() {
+	display: flex;
+	display: -o-flex;
+	display: -ms-flex;
+	display: -moz-flex;
+	display: -webkit-flex;
+}
+
+@mixin justify-content($property) {
+	justify-content: $property;
+	-o-justify-content: $property;
+	-ms-justify-content: $property;
+	-moz-justify-content: $property;
+	-webkit-justify-content: $property;
+}
+
+@mixin flex-wrap($property) {
+	flex-wrap: $property;
+	-o-flex-wrap: $property;
+	-ms-flex-wrap: $property;
+	-moz-flex-wrap: $property;
+	-webkit-flex-wrap: $property;
+}
+
+@mixin flex-direction($property) {
+	flex-direction: $property;
+	-o-flex-direction: $property;
+	-ms-flex-direction: $property;
+	-moz-flex-direction: $property;
+	-webkit-flex-direction: $property;
+}
+
+@mixin align-items($property) {
+	align-items: $property;
+	-o-align-items: $property;
+	-ms-align-items: $property;
+	-moz-align-items: $property;
+	-webkit-align-items: $property;
+}
+
+@mixin align-self($property) {
+	align-self: $property;
+	-o-align-self: $property;
+	-ms-align-self: $property;
+	-moz-align-self: $property;
+	-webkit-align-self: $property;
+}
+
+@mixin align-self($property) {
+	align-self: $property;
+	-o-align-self: $property;
+	-ms-align-self: $property;
+	-moz-align-self: $property;
+	-webkit-align-self: $property;
+}
+
+@mixin align-content($property) {
+	align-content: $property;
+	-o-align-content: $property;
+	-ms-align-content: $property;
+	-moz-align-content: $property;
+	-webkit-align-content: $property;
+}
+
+@mixin filter($property) {
+	filter: $property;
+	-o-filter: $property;
+	-ms-filter: $property;
+	-moz-filter: $property;
+	-webkit-filter: $property;
+}
+
+@mixin filter-important($property) {
+	filter: $property !important;
+	-o-filter: $property !important;
+	-ms-filter: $property !important;
+	-moz-filter: $property !important;
+	-webkit-filter: $property !important;
+}
+
+@mixin sticky() {
+	position: sticky;
+	position: -o-sticky;
+	position: -ms-sticky;
+	position: -moz-sticky;
+	position: -webkit-sticky;
+}
+
+@mixin transition-filter($time, $ease) {
+	-webkit-transition: -webkit-filter $time $ease;
+	-moz-transition: -moz-filter $time $ease;
+	-ms-transition: -ms-filter $time $ease;
+	-o-transition: -o-filter $time $ease;
+	transition: filter $time $ease;
+}
+
+@mixin background-size($property) {
+	background-size: $property;
+	-o-background-size: $property;
+	-ms-background-size: $property;
+	-moz-background-size: $property;
+	-webkit-background-size: $property;
+}
+
+@mixin backdrop-filter($property) {
+	backdrop-filter: $property;
+	-o-backdrop-filter: $property;
+	-ms-backdrop-filter: $property;
+	-moz-backdrop-filter: $property;
+	-webkit-backdrop-filter: $property;
+}
+
+@mixin font-feature-settings($property) {
+	font-feature-settings: $property;
+	-o-font-feature-settings: $property;
+	-ms-font-feature-settings: $property;
+	-moz-font-feature-settings: $property;
+	-webkit-font-feature-settings: $property;
+}
+
+@mixin input-placeholder($property) {
+	&::-webkit-input-placeholder {
+		color: $property;
+	}
+	&::-moz-placeholder {
+		color: $property;
+	}
+	&:-ms-input-placeholder {
+		color: $property;
+	}
+	&:-moz-placeholder {
+		color: $property;
+	}
+}
+
+@mixin drag-move-cursors() {
+	cursor: move;
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+	
+	&:active {
+		cursor: grabbing;
+		cursor: -moz-grabbing;
+		cursor: -webkit-grabbing;
+	}
+	
+}
+
+/* ASPECT RATIO MIXIN */
+
+@mixin aspect-ratio($width, $height) {
+	&:before {
+		display: block;
+		content: "";
+		width: 100%;
+		padding-bottom: calc($height / $width) * 100%;
+	}
+}
+
+/* MEDIA QUERY MIXINS */
+
+@mixin portrait-mobile-devices {
+	@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait), 
+	only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 568px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait), 
+	only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 667px) 
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait), 
+	only screen 
+	and (min-device-width: 414px) 
+	and (max-device-width: 736px) 
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (orientation: portrait), 
+	only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 812px) 
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (orientation: portrait),
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 2)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 320px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 4)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 4)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 384px) 
+	and (device-height: 592px) 
+	and (-webkit-device-pixel-ratio: 2)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 592px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 592px) 
+	and (-webkit-device-pixel-ratio: 4)
+	and (orientation: portrait), 
+	screen 
+	and (device-width: 480px) 
+	and (device-height: 800px)
+	and (orientation: portrait),
+	only screen and (max-width: 480px) { 
+		@content; 
+	}
+}
+
+@mixin landscape-mobile-devices {
+	@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape), 
+	only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 568px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape), 
+	only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 667px) 
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape), 
+	only screen 
+	and (min-device-width: 414px) 
+	and (max-device-width: 736px) 
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (orientation: landscape), 
+	only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 812px) 
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (orientation: landscape),
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 2)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 320px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 4)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 640px) 
+	and (-webkit-device-pixel-ratio: 4)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 384px) 
+	and (device-height: 592px) 
+	and (-webkit-device-pixel-ratio: 2)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 592px) 
+	and (-webkit-device-pixel-ratio: 3)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 360px) 
+	and (device-height: 592px) 
+	and (-webkit-device-pixel-ratio: 4)
+	and (orientation: landscape), 
+	screen 
+	and (device-width: 480px) 
+	and (device-height: 800px)
+	and (orientation: landscape) { 
+		@content; 
+	}
+}
+
+@mixin small-desktop-tablet-devices {
+	@media only screen and (max-width: 1024px),
+	only screen 
+	and (min-device-width : 768px) 
+	and (max-device-width : 1024px) 
+	and (orientation : portrait) {
+		@content;
+	}
+}
+
+@mixin tablet-devices {
+	@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1),
+	only screen 
+	and (min-device-width: 768px) 
+	and (max-device-width: 1024px) 
+	and (-webkit-min-device-pixel-ratio: 2),
+	only screen 
+	and (min-device-width: 834px) 
+	and (max-device-width: 1112px)
+	and (-webkit-min-device-pixel-ratio: 2),
+	only screen 
+	and (min-device-width: 1024px) 
+	and (max-device-width: 1440px)
+	and (-webkit-min-device-pixel-ratio: 2) {
+	  @content; 
+	}
+}
+
+/*
+EXTEND / INHERITANCE --------------------
+*/
+
+%background-cover {
+	background: no-repeat 50% 50%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;	
+}
+
+%centered-element {
+	top: 50%; left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+}
+
+%centered-vertically {
+	top: 50%;
+	transform: translate(-0%, -50%);
+	-o-transform: translate(-0%, -50%);
+	-ms-transform: translate(-0%, -50%);
+	-moz-transform: translate(-0%, -50%);
+	-webkit-transform: translate(-0%, -50%);
+}
+
+%centered-horizontally {
+	left: 50%; margin-right: -0%;
+	transform: translate(-50%, -0%);
+	-o-transform: translate(-50%, -0%);
+	-ms-transform: translate(-50%, -0%);
+	-moz-transform: translate(-50%, -0%);
+	-webkit-transform: translate(-50%, -0%);
+}

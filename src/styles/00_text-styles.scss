@@ -1,0 +1,107 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 0px;
+  font-weight: normal;
+}
+
+h1,
+.h1 {
+  font-family: 'Millionaire-Roman';  
+  line-height: 140%;
+  @include font-size(40px, 35px, 50px);
+
+  &.smaller {
+    line-height: 150%;
+    @include font-size(25px, 35px, 50px);
+  }
+}
+
+h2,
+.h2 {
+  font-family: 'Millionaire-Roman';  
+  line-height: 150%;
+  @include font-size(25px, 25px, 35px);
+}
+
+h3,
+.h3,
+.artefact-image .learn-more {
+  font-family: 'Millionaire-Roman';  
+  line-height: 140%;
+  @include font-size(20px, 20px, 28px);
+
+  @media only screen and (max-width: 768px) {
+    line-height: 150%;
+  }
+}
+
+.press-header {
+  font-family: 'Millionaire-Roman';  
+  line-height: 140%;
+  @include font-size(25px, 20px, 28px);
+
+  @media only screen and (max-width: 768px) {
+    line-height: 150%;
+  }
+}
+
+.site-header,
+.carousel-close {
+  font-family: 'Millionaire-Roman';  
+  line-height: normal;
+  @include font-size(28px, 15px, 20px);
+
+  @media only screen and (min-width: 768px) and (max-width: 1440px) and (-webkit-device-pixel-ratio: 2), only screen and (min-width: 768px) and (max-width: 1440px) and (-webkit-device-pixel-ratio: 3) {
+    font-size: 19px;
+  }
+}
+
+.site-footer {
+  font-family: 'Dia';  
+  line-height: normal;
+  letter-spacing: 0.02em;
+  @include font-size(17px, 13px, 18px);
+
+  .uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+}
+
+.site-footer input,
+.footer-lottie-text {
+  font-family: 'Millionaire-Roman';  
+  line-height: normal;
+  @include font-size(20px, 13px, 18px);
+}
+
+.caption-font {
+  font-family: 'Dia';  
+  line-height: 140%;
+  @include font-size(12px, 13px, 15px);
+}
+
+.cta-font,
+.spark-registration-form input,
+.spark-registration-form select,
+.spark-registration-form textarea,
+.spark-registration-form button,
+.spark-registration-form .rs__control,
+.spark-registration-form .rs__option,
+.sign-in-hero-media-block form input,
+.contact-form-block form input,
+.contact-form-block form select,
+.contact-form-block form textarea,
+.contact-form-block form button {
+  font-family: 'Dia';  
+  line-height: 140%;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  @include font-size(12px, 12px, 15px);
+}
+
+.dropdown-content {
+  @include font-size(18px, 15px, 16px);
+}

@@ -1,0 +1,280 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+// Press Page
+.page-type-press {
+  .flexible-content {
+    background-color: $colour-cream;
+    padding-top: get-rem-desktop(90);
+    padding-bottom: get-rem-desktop(90);
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-desktop(90);
+    overflow: hidden;
+
+    @media only screen and (max-width: 1440px) {
+      padding-top: get-rem-tablet(100);
+      padding-bottom: get-rem-tablet(100);
+      row-gap: get-rem-tablet(100);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-top: get-rem-mobile(75);
+      padding-bottom: get-rem-mobile(75);
+      row-gap: get-rem-mobile(75);
+    }
+  }
+}
+
+.press-row {
+  &.row-1 {
+    .card-1 {
+      .media-wrap {
+        aspect-ratio: 3 / 4;
+
+        @media only screen and (max-width: 768px) {
+          margin-right: get-rem-mobile(149);
+        }
+      }
+    }
+
+    .card-2 {
+      margin-top: get-rem-desktop(180);
+
+      @media only screen and (max-width: 1440px) {
+        margin-top: get-rem-tablet(200);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin-top: get-rem-mobile(75);
+        margin-left: get-rem-mobile(75);
+      }
+
+      .media-wrap {
+        aspect-ratio: 4 / 3;
+        margin-right: get-rem-desktop(-50);
+        width: calc(100% + get-rem-desktop(50));
+
+        @media only screen and (max-width: 1440px) {
+          margin-right: get-rem-tablet(-30);
+          width: calc(100% + get-rem-tablet(30));
+        }
+      }
+    }
+  }
+
+  &.row-2 {
+    // @media only screen and (max-width: 768px) {
+    //   margin-bottom: get-rem-mobile(70);
+    // }
+
+    .card-1 {
+      .media-wrap {
+        aspect-ratio: 4 / 3;
+        margin-left: get-rem-desktop(-50);
+        width: calc(100% + get-rem-desktop(50));
+
+        @media only screen and (max-width: 1440px) {
+          margin-left: get-rem-tablet(-30);
+          width: calc(100% + get-rem-tablet(30));
+        }
+
+        @media only screen and (max-width: 768px) {
+          margin-left: 0;
+          margin-right: get-rem-mobile(75);
+          width: unset;
+        }
+      }
+    }
+
+    .card-2 {
+      margin-top: get-rem-desktop(180);
+
+      @media only screen and (max-width: 1440px) {
+        margin-top: get-rem-tablet(200);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin-top: get-rem-mobile(75);
+        margin-left: get-rem-mobile(75);
+      }
+
+      .media-wrap {
+        aspect-ratio: 4 / 3;
+
+        @media only screen and (max-width: 768px) {
+          margin-right: get-rem-mobile(-15);
+          width: calc(100% + get-rem-mobile(15));
+        }
+      }
+    }
+  }
+
+  .press-card {
+    .media-wrap {
+      &.logo-wrap {
+        @include flex;
+        @include justify-content(center);
+        @include align-items(center);
+
+        img {
+          max-width: get-rem-desktop(246);
+
+          @media only screen and (max-width: 1440px) {
+            max-width: get-rem-tablet(175);
+          }
+
+          @media only screen and (max-width: 768px) {
+            max-width: get-rem-mobile(123);
+          }
+        }
+      }
+    }
+
+    .text-wrap {
+      margin-top: get-rem-desktop(45);
+      max-width: get-rem-desktop(600);
+
+      @media only screen and (max-width: 1440px) {
+        margin-top: get-rem-tablet(45);
+        max-width: get-rem-tablet(420);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin-top: get-rem-mobile(20);
+        max-width: get-rem-mobile(288);
+      }
+
+      .date {
+        margin-bottom: get-rem-desktop(15);
+
+        @media only screen and (max-width: 1440px) {
+          margin-bottom: get-rem-tablet(15);
+        }
+
+        @media only screen and (max-width: 768px) {
+          margin-bottom: get-rem-mobile(12);
+        }
+      }
+
+      .title {
+        margin-bottom: get-rem-desktop(8);
+
+        @media only screen and (max-width: 1440px) {
+          margin-bottom: get-rem-tablet(10);
+        }
+
+        @media only screen and (max-width: 768px) {
+          margin-bottom: get-rem-mobile(5);
+        }
+      }
+
+      .underline-link {
+        margin-top: get-rem-desktop(10);
+
+        @media only screen and (max-width: 1440px) {
+          margin-top: get-rem-tablet(8);
+        }
+
+        @media only screen and (max-width: 768px) {
+          margin-top: get-rem-mobile(10);
+        }
+      }
+    }
+  }
+}
+
+.testimonial-row {
+  // margin-bottom: get-rem-desktop(150);
+  padding-top: get-rem-desktop(195);
+  padding-bottom: get-rem-desktop(182);
+  text-align: center;
+
+  @media only screen and (max-width: 1440px) {
+    // margin-bottom: get-rem-tablet(100);
+    padding-top: get-rem-tablet(145);
+    padding-bottom: get-rem-tablet(135);
+  }
+
+  @media only screen and (max-width: 768px) {
+    // margin-bottom: get-rem-mobile(75);
+    padding-top: get-rem-mobile(130);
+    padding-bottom: get-rem-mobile(120);
+  }
+
+  .source {
+    margin-bottom: get-rem-desktop(25);
+
+    @media only screen and (max-width: 1440px) {
+      margin-bottom: get-rem-tablet(25);
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: get-rem-mobile(18);
+    }
+  }
+}
+
+// Single Press Post
+.press-post {
+  .hero-media-block {
+    .publish-date {
+      margin-bottom: get-rem-desktop(25);
+
+      @media only screen and (max-width: 1440px) {
+        margin-bottom: get-rem-tablet(25);
+      }
+
+      @media only screen and (max-width: 768px) {
+        margin-bottom: get-rem-mobile(5);
+      }
+    }
+  }
+
+  .content-wrap {
+    padding-top: get-rem-desktop(148);
+    padding-bottom: get-rem-desktop(145);
+
+    @media only screen and (max-width: 1440px) {
+      padding-top: get-rem-tablet(98);
+      padding-bottom: get-rem-tablet(95);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-top: get-rem-mobile(70);
+      padding-bottom: get-rem-mobile(70);
+    }
+  }
+
+  .press-header {
+    margin-bottom: get-rem-desktop(30);
+
+    @media only screen and (max-width: 1440px) {
+      margin-bottom: get-rem-tablet(35);
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: get-rem-mobile(30);
+    }
+  }
+
+  .underline-link {
+    margin-top: get-rem-desktop(35);
+
+    @media only screen and (max-width: 1440px) {
+      margin-top: get-rem-tablet(40);
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-top: get-rem-mobile(35);
+    }
+  }
+
+  .media-wrap {
+    aspect-ratio: 3 / 4;
+
+    @media only screen and (max-width: 768px) {
+      margin-top: get-rem-mobile(70);
+    }
+  }
+}

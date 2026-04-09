@@ -1,0 +1,39 @@
+/* Studio-specific CSS to override any global styles that might affect Sanity Studio */
+
+/* Override Tailwind's preflight reset and global SVG rules */
+/* Target all SVGs in the studio to restore their natural sizing */
+svg {
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+/* Ensure icons maintain their intended size */
+[class*="icon"] svg,
+[class*="Icon"] svg,
+button svg,
+[role="button"] svg,
+[data-sanity] svg,
+svg[width],
+svg[height] {
+  width: auto !important;
+  height: auto !important;
+  flex-shrink: 0;
+}
+
+/* Reset any global image/video rules that might affect the studio */
+img,
+video {
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Override the global rule from 00_base.scss that sets svg to width: 100% */
+svg {
+  width: auto !important;
+  height: auto !important;
+}
+

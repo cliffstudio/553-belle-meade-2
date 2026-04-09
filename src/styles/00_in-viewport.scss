@@ -1,0 +1,21 @@
+@use '00_mixins' as *;
+
+.out-of-view {
+  opacity: 0;
+  @include transform(translateY(2vh));
+	@include transition-transform-additional(1000ms cubic-bezier(0.19, 1, 0.22, 1) 400ms, opacity 1000ms cubic-bezier(0.19, 1, 0.22, 1) 400ms);
+	
+	&.am-in-view {
+		opacity: 1;
+		@include transform(translateY(0));
+	}
+}
+
+.out-of-opacity {
+  opacity: 0;
+  @include transition(opacity 1000ms cubic-bezier(0.25,0.1,0.25,1) 400ms);
+  
+  &.am-in-view {
+    opacity: 1;
+  }
+}
