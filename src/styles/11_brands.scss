@@ -204,15 +204,17 @@
     flex-shrink: 0;
 
     button {
-      @include font-size(12px, 12px, 12px);
-      text-transform: uppercase;
-      background: transparent;
-      border: 0;
-      border-radius: 999px;
-      color: $colour-burgundy;
-      cursor: pointer;
-      padding: get-rem-desktop(5) get-rem-desktop(8) get-rem-desktop(4);
-      @include transition-multiple(background-color 200ms ease, color 200ms ease);
+      & {
+        text-transform: uppercase;
+        background: transparent;
+        border: 0;
+        border-radius: 999px;
+        color: $colour-burgundy;
+        cursor: pointer;
+        padding: get-rem-desktop(5) get-rem-desktop(8) get-rem-desktop(4);
+        @include font-size(12px, 12px, 12px);
+        @include transition-multiple(background-color 200ms ease, color 200ms ease);
+      }
 
       &.is-active {
         background-color: $colour-burgundy;

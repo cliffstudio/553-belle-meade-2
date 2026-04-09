@@ -1,6 +1,8 @@
 // sanity.client.ts
 import { createClient } from 'next-sanity'
-import { projectId, dataset } from './src/sanity/env'
+
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'missing-project-id'
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 
 export const client = createClient({
   projectId,

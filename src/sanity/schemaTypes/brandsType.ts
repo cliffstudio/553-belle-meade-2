@@ -1,4 +1,4 @@
-import { defineType, defineField, ALL_FIELDS_GROUP } from 'sanity'
+import { defineType, defineField } from 'sanity'
 import { BlockContentIcon, CaseIcon } from '@sanity/icons'
 
 export const brandsType = defineType({
