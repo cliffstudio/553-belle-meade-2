@@ -8,7 +8,9 @@
   width: 100%;
   will-change: background-color, padding-bottom, transform;
   @include transition-multiple(background-color 400ms cubic-bezier(0.25,0.1,0.25,1), padding-bottom 400ms cubic-bezier(0.25,0.1,0.25,1));
-  transition: opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+  & {
+    transition: opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+  }
   
   @media only screen and (max-width: 950px) and (orientation: landscape) {
     @include transition-multiple(background-color 400ms cubic-bezier(0.25,0.1,0.25,1), padding-bottom 400ms cubic-bezier(0.25,0.1,0.25,1), transform 300ms cubic-bezier(0.25,0.1,0.25,1));
