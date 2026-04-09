@@ -6,8 +6,20 @@
   padding-top: get-rem-desktop(100);
   padding-bottom: get-rem-desktop(100);
 
+  @media only screen and (max-width: 768px) {
+    padding-top: get-rem-mobile(80);
+    padding-bottom: get-rem-mobile(55);
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-mobile(75);
+  }
+
   .top-text-wrap {
     margin-bottom: get-rem-desktop(150);
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: get-rem-mobile(65);
+    }
 
     .heading {
       margin-bottom: get-rem-desktop(20);
@@ -45,14 +57,6 @@
 
       .detail-subtitle {
         margin-bottom: get-rem-desktop(4);
-
-        // @media only screen and (max-width: 1440px) {
-        //   margin-bottom: get-rem-tablet(10);
-        // }
-
-        // @media only screen and (max-width: 768px) {
-        //   margin-bottom: get-rem-mobile(10);
-        // }
       }
 
       .plan-your-visit-detail-items {
@@ -67,5 +71,25 @@
     @include flex;
     @include flex-direction(column);
     gap: get-rem-desktop(25);
+    margin-bottom: get-rem-desktop(25);
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: get-rem-mobile(10);
+      gap: get-rem-mobile(10);
+    }
+    
+    .media-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  .plan-your-visit-map {
+    aspect-ratio: 4 / 3;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
   }
 }

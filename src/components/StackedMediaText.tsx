@@ -613,7 +613,7 @@ export default function StackedMediaText({ layout = 'layout-1', mediaType = 'ima
             {mediaType === 'image' && image && (
               <div className="media-wrap out-of-opacity">
                 <img 
-data-src={urlFor(image).url()}
+                data-src={urlFor(image).url()}
                 alt={image?.alt ?? ''}
                 className="lazy full-bleed-image"
                 style={{

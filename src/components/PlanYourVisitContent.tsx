@@ -35,13 +35,15 @@ const PlanYourVisitContent: React.FC<PlanYourVisitContentProps> = ({
   images,
 }) => {
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''
-  const mapQuery = 'Belle Meade Historic Site, Nashville TN'
+  const mapQuery = '36.1252180213064,-86.84926775767276'
+  /** Lower = zoomed out (Embed API accepts roughly 0–21; default is often ~15). */
+  const mapZoom = 12
   // TODO: Add your Snazzy Maps (or Google map style/map_id) value here.
   const mapStyleId = ''
 
   const googleMapEmbedSrc = `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${encodeURIComponent(
     mapQuery
-  )}${mapStyleId ? `&map_id=${encodeURIComponent(mapStyleId)}` : ''}`
+  )}&zoom=${mapZoom}${mapStyleId ? `&map_id=${encodeURIComponent(mapStyleId)}` : ''}`
 
   return (
     <>
