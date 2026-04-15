@@ -10,6 +10,7 @@ export interface BrandDirectoryCategory {
 export interface BrandDirectoryItem {
   id: string
   title: string
+  shortDescription?: string
   href: string
   image?: SanityImage
   category?: BrandDirectoryCategory

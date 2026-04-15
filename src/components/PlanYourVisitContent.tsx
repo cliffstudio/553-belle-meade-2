@@ -6,6 +6,58 @@ import { PortableText } from '@portabletext/react'
 import { PortableTextBlock, SanityImage } from '../types/sanity'
 import { portableTextComponents } from '../utils/portableTextComponents'
 import { urlFor } from '../sanity/utils/imageUrlBuilder'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+const GOOGLE_MAP_STYLES: google.maps.MapTypeStyle[] = [
+  { featureType: 'administrative', elementType: 'all', stylers: [{ color: '#581b25' }, { weight: '0.01' }] },
+  {
+    featureType: 'administrative.country',
+    elementType: 'geometry.fill',
+    stylers: [{ color: '#fff9f2' }, { visibility: 'on' }],
+  },
+  {
+    featureType: 'administrative.province',
+    elementType: 'geometry.fill',
+    stylers: [{ color: '#fff9f2' }, { visibility: 'on' }],
+  },
+  { featureType: 'administrative.locality', elementType: 'geometry.fill', stylers: [{ color: '#fff9f2' }] },
+  { featureType: 'administrative.neighborhood', elementType: 'all', stylers: [{ visibility: 'off' }] },
+  {
+    featureType: 'administrative.neighborhood',
+    elementType: 'geometry.fill',
+    stylers: [{ color: '#fff9f2' }, { visibility: 'on' }],
+  },
+  {
+    featureType: 'administrative.land_parcel',
+    elementType: 'geometry.fill',
+    stylers: [{ color: '#fff9f2' }, { visibility: 'on' }],
+  },
+  { featureType: 'landscape', elementType: 'all', stylers: [{ color: '#fff9f2' }] },
+  { featureType: 'landscape.natural.landcover', elementType: 'geometry.fill', stylers: [{ color: '#fff9f2' }] },
+  {
+    featureType: 'landscape.natural.terrain',
+    elementType: 'geometry.fill',
+    stylers: [{ color: '#fff9f2' }, { visibility: 'on' }],
+  },
+  { featureType: 'poi', elementType: 'all', stylers: [{ visibility: 'off' }] },
+  { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] },
+  { featureType: 'poi.park', elementType: 'all', stylers: [{ visibility: 'simplified' }, { hue: '#ff0000' }] },
+  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#898f65' }] },
+  {
+    featureType: 'poi.park',
+    elementType: 'labels',
+    stylers: [{ color: '#581b25' }, { weight: '0.01' }, { visibility: 'off' }],
+  },
+  { featureType: 'poi.park', elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+  { featureType: 'road', elementType: 'geometry.fill', stylers: [{ color: '#c6bbcf' }] },
+  { featureType: 'road', elementType: 'labels', stylers: [{ visibility: 'simplified' }] },
+  { featureType: 'road', elementType: 'labels.text', stylers: [{ color: '#581b25' }] },
+  { featureType: 'road.highway', elementType: 'all', stylers: [{ visibility: 'simplified' }] },
+  { featureType: 'transit', elementType: 'all', stylers: [{ visibility: 'off' }] },
+  { featureType: 'water', elementType: 'all', stylers: [{ color: '#aec4e8' }] },
+]
+const GOOGLE_MAP_CENTER = { lat: 36.12505336698718, lng: -86.84925702883638 }
 
 interface PlanYourVisitDetailItem {
   _key?: string
@@ -35,15 +87,88 @@ const PlanYourVisitContent: React.FC<PlanYourVisitContentProps> = ({
   images,
 }) => {
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''
-  const mapQuery = '36.1252180213064,-86.84926775767276'
   /** Lower = zoomed out (Embed API accepts roughly 0–21; default is often ~15). */
   const mapZoom = 12
-  // TODO: Add your Snazzy Maps (or Google map style/map_id) value here.
-  const mapStyleId = ''
+  const mapRef = React.useRef<HTMLDivElement>(null)
+  const sectionRef = React.useRef<HTMLElement>(null)
+  const leftContentRef = React.useRef<HTMLDivElement>(null)
+  const rightContentRef = React.useRef<HTMLDivElement>(null)
 
-  const googleMapEmbedSrc = `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${encodeURIComponent(
-    mapQuery
-  )}&zoom=${mapZoom}${mapStyleId ? `&map_id=${encodeURIComponent(mapStyleId)}` : ''}`
+  React.useEffect(() => {
+    if (!googleMapsApiKey || !mapRef.current) return
+
+    const initMap = () => {
+      if (!mapRef.current || !window.google?.maps) return
+
+      const map = new window.google.maps.Map(mapRef.current, {
+        center: GOOGLE_MAP_CENTER,
+        zoom: mapZoom,
+        styles: GOOGLE_MAP_STYLES,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true,
+      })
+
+      new window.google.maps.Marker({
+        map,
+        position: GOOGLE_MAP_CENTER,
+      })
+    }
+
+    if (window.google?.maps) {
+      initMap()
+      return
+    }
+
+    const existingScript = document.getElementById('google-maps-script') as HTMLScriptElement | null
+    if (existingScript) {
+      existingScript.addEventListener('load', initMap, { once: true })
+      return () => existingScript.removeEventListener('load', initMap)
+    }
+
+    const script = document.createElement('script')
+    script.id = 'google-maps-script'
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(googleMapsApiKey)}`
+    script.async = true
+    script.defer = true
+    script.addEventListener('load', initMap, { once: true })
+    document.head.appendChild(script)
+
+    return () => script.removeEventListener('load', initMap)
+  }, [googleMapsApiKey, mapZoom])
+
+  React.useEffect(() => {
+    if (!sectionRef.current || !leftContentRef.current || !rightContentRef.current) return
+
+    gsap.registerPlugin(ScrollTrigger)
+
+    const mm = gsap.matchMedia()
+    mm.add('(min-width: 769px)', () => {
+      const leftContent = leftContentRef.current
+      const rightContent = rightContentRef.current
+
+      if (!leftContent || !rightContent) return
+      if (rightContent.offsetHeight <= leftContent.offsetHeight) return
+
+      const trigger = ScrollTrigger.create({
+        trigger: leftContent,
+        start: 'bottom bottom-=100',
+        endTrigger: rightContent,
+        end: 'bottom bottom-=100',
+        pin: true,
+        pinSpacing: false,
+        invalidateOnRefresh: true,
+      })
+
+      return () => {
+        trigger.kill()
+      }
+    })
+
+    return () => {
+      mm.revert()
+    }
+  }, [details, images, body, heading])
 
   return (
     <>
@@ -53,8 +178,8 @@ const PlanYourVisitContent: React.FC<PlanYourVisitContentProps> = ({
         </div>
       </section>
 
-      <section className="plan-your-visit-content h-pad row-lg">
-        <div className="left-content col-4-12_lg">
+      <section ref={sectionRef} className="plan-your-visit-content h-pad row-lg">
+        <div ref={leftContentRef} className="left-content col-4-12_lg">
           <div className="top-text-wrap max-width-big-text out-of-view">
             {heading && <div className="heading cta-font">{heading}</div>}
 
@@ -66,7 +191,7 @@ const PlanYourVisitContent: React.FC<PlanYourVisitContentProps> = ({
           </div>
 
           {!!details?.length && (
-            <div className="plan-your-visit-details max-width-big-text">
+            <div className="plan-your-visit-details max-width-big-text out-of-view">
               {details.map((detail, detailIndex) => (
                 <div className="plan-your-visit-detail" key={detail._key ?? `detail-${detailIndex}`}>
                   {detail.heading && <h3 className="detail-heading">{detail.heading}</h3>}
@@ -93,27 +218,22 @@ const PlanYourVisitContent: React.FC<PlanYourVisitContentProps> = ({
 
         <div className="col-1-12_lg dummy-col"></div>
 
-        <div className="right-content col-7-12_lg">
+        <div ref={rightContentRef} className="right-content col-7-12_lg">
           {!!images?.length && (
             <div className="plan-your-visit-images">
               {images.map((image, index) => (
-                <div className="plan-your-visit-image" key={image.asset?._ref ?? `image-${index}`}>
+                <div className="plan-your-visit-image out-of-opacity" key={image.asset?._ref ?? `image-${index}`}>
                   <img src={urlFor(image).url()} alt={image.alt ?? ''} />
                 </div>
               ))}
             </div>
           )}
 
-          <div className="plan-your-visit-map">
-            <iframe
-              title="Belle Meade map"
-              src={googleMapEmbedSrc}
-              width="100%"
-              height="450"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
+          <div className="plan-your-visit-map out-of-opacity">
+            <div
+              ref={mapRef}
+              aria-label="Belle Meade map"
+              className="map-iframe-wrap"
             />
           </div>
         </div>

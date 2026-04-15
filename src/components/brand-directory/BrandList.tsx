@@ -15,9 +15,10 @@ function BrandList({ items, activeIndex, setRowRef }: BrandListProps) {
           key={brand.id}
           ref={setRowRef(index)}
           data-index={index}
-          className={`brand-directory-list__title ${activeIndex === index ? 'is-active' : ''}`}
+          className={`brand-directory-list__title-wrap ${activeIndex === index ? 'is-active' : ''}`}
         >
-          <span className="h1">{brand.title}</span>
+          <span className="brand-directory-list__title h1">{brand.title}</span>
+          {brand.shortDescription && <span className="brand-directory-list__description">{brand.shortDescription}</span>}
         </div>
       ))}
     </div>

@@ -37,9 +37,9 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
       <div className="brand-directory-list-mobile h-pad">
         {items.map((brand) => (
           <div key={brand.id} className="brand-directory-list-mobile__item">
-            <Link href={brand.href} className="brand-directory-list__title is-active">
-              <span className="h1">{brand.title}</span>
-              {/* todo: add description */}
+            <Link href={brand.href} className="brand-directory-list__title-wrap is-active">
+              <span className="brand-directory-list__title h2">{brand.title}</span>
+              {brand.shortDescription && <span className="brand-directory-list__description">{brand.shortDescription}</span>}
             </Link>
           </div>
         ))}

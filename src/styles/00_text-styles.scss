@@ -48,7 +48,8 @@ h3,
 }
 
 .site-header,
-.carousel-close {
+.carousel-close,
+.brand-directory-list__description {
   font-family: 'Millionaire-Roman';  
   line-height: normal;
   @include font-size(28px, 15px, 20px);

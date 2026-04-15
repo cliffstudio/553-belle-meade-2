@@ -260,6 +260,7 @@ const flexibleContentFragment = `[] {
       _id,
       _createdAt,
       title,
+      shortDescription,
       slug,
       thumbnailImage ${imageFragment},
       "details": array::compact([

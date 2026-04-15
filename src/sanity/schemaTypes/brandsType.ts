@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, ALL_FIELDS_GROUP } from 'sanity'
 import { BlockContentIcon, CaseIcon } from '@sanity/icons'
 
 export const brandsType = defineType({
@@ -6,26 +6,27 @@ export const brandsType = defineType({
   title: 'Brands',
   type: 'document',
   icon: CaseIcon,
-  // groups: [
-  //   {
-  //     ...ALL_FIELDS_GROUP,
-  //     hidden: true,
-  //   },
-  //   {
-  //     name: 'thumbnail',
-  //     title: 'Thumbnail',
-  //   },
-  //   {
-  //     name: 'pageContent',
-  //     title: 'Page Content',
-  //   },
-  // ],
+  groups: [
+    {
+      ...ALL_FIELDS_GROUP,
+      hidden: true,
+    },
+    {
+      name: 'thumbnail',
+      title: 'Thumbnail',
+    },
+    {
+      name: 'pageContent',
+      title: 'Page Content',
+    },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'slug',
@@ -35,6 +36,7 @@ export const brandsType = defineType({
         source: 'title',
       },
       validation: (Rule) => Rule.required(),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'brandCategory',
@@ -45,6 +47,14 @@ export const brandsType = defineType({
         filter:
           '_id in *[_type == "brandSettings" && (_id == "brandSettings" || _id == "drafts.brandSettings")][0].brandCategories[]._ref',
       },
+      validation: (Rule) => Rule.required(),
+      group: 'thumbnail',
+    }),
+    defineField({
+      name: 'shortDescription',
+      title: 'Short Description',
+      type: 'string',
+      group: 'thumbnail',
     }),
     defineField({
       name: 'thumbnailImage',
@@ -72,16 +82,19 @@ export const brandsType = defineType({
         }
         return true
       }),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'openingHours',
       title: 'Opening Hours',
-      type: 'richPortableText'
+      type: 'richPortableText',
+      group: 'thumbnail',
     }),
     defineField({
       name: 'address',
       title: 'Address',
-      type: 'richPortableText'
+      type: 'richPortableText',
+      group: 'thumbnail',
     }),
     defineField({
       name: 'featuredImage',
@@ -109,11 +122,13 @@ export const brandsType = defineType({
         }
         return true
       }),
+      group: 'pageContent',
     }),
     defineField({
       name: 'content',
       title: 'Content',
       type: 'richPortableText',
+      group: 'pageContent',
     }),
     defineField({ 
       name: 'details',
@@ -151,7 +166,8 @@ export const brandsType = defineType({
             }
           }
         }
-      ]
+      ],
+      group: 'pageContent',
     }),
     defineField({
       name: 'locationImage',
@@ -176,6 +192,7 @@ export const brandsType = defineType({
         }
         return true
       }),
+      group: 'pageContent',
     }),
     defineField({
       name: 'desktopLayout',
@@ -187,7 +204,8 @@ export const brandsType = defineType({
           { title: 'Layout 1 (Portrait Image)', value: 'layout-1' },
           { title: 'Layout 2 (Landscape Image)', value: 'layout-2' },
         ]
-      }
+      },
+      group: 'pageContent',
     }),
     defineField({
       name: 'mobileLayout',
@@ -199,13 +217,15 @@ export const brandsType = defineType({
           { title: 'Layout 1 (Image at Top)', value: 'layout-1' },
           { title: 'Layout 2 (Image at Bottom)', value: 'layout-2' },
         ]
-      }
+      },
+      group: 'pageContent',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
       description: 'Override title, description and image for search and social. Empty = use Site Settings.',
+      group: 'pageContent',
     }),
   ],
   preview: {

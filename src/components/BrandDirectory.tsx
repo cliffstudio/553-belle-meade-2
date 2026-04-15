@@ -20,6 +20,7 @@ interface Brand {
   _id: string
   _createdAt?: string
   title?: string
+  shortDescription?: string
   slug?: {
     current?: string
   }
@@ -167,6 +168,7 @@ function BrandDirectory({
         return {
           id: brand._id,
           title: brand.title || 'Brand',
+          shortDescription: brand.shortDescription,
           href,
           image: brand.thumbnailImage,
           category: brand.brandCategory,
@@ -400,7 +402,13 @@ function BrandDirectory({
                     </>
                   )}
                 </Link>
-                <div className="brand-directory-title h3">
+                <div className="brand-directory-title h3 desktop">
+                  <div className="brand-directory-title__row">
+                    <Link href={href}>{brand.title}</Link>
+                    <BrandCategoryTitleIcon category={brand.brandCategory} />
+                  </div>
+                </div>
+                <div className="brand-directory-title h2 mobile">
                   <div className="brand-directory-title__row">
                     <Link href={href}>{brand.title}</Link>
                     <BrandCategoryTitleIcon category={brand.brandCategory} />
