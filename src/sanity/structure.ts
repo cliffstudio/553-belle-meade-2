@@ -1,5 +1,5 @@
 import type {StructureResolver} from 'sanity/structure'
-import { CogIcon } from '@sanity/icons'
+import { CogIcon, SearchIcon } from '@sanity/icons'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
@@ -29,6 +29,14 @@ export const structure: StructureResolver = (S) =>
             .documentId('brandSettings'),
         ),
       S.documentTypeListItem('menu').title('Menu'),
+      S.listItem()
+        .title('Search')
+        .icon(SearchIcon)
+        .child(
+          S.document()
+            .schemaType('search')
+            .documentId('search'),
+        ),
       S.documentTypeListItem('footer').title('Footer'),
       ...S.documentTypeListItems().filter(
         (item) =>
@@ -45,6 +53,7 @@ export const structure: StructureResolver = (S) =>
             'siteSettings',
             'brandSettings',
             'brandCategory',
+            'search',
           ].includes(item.getId()!),
       ),
     ])

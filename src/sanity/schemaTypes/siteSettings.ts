@@ -1,4 +1,4 @@
-import { defineField, ALL_FIELDS_GROUP } from 'sanity'
+import { defineField } from 'sanity'
 import { CogIcon } from '@sanity/icons'
 
 export const siteSettingsType = {
@@ -6,23 +6,12 @@ export const siteSettingsType = {
   title: 'Site Settings',
   type: 'document',
   icon: CogIcon,
-  groups: [
-    {
-      ...ALL_FIELDS_GROUP,
-      hidden: true,
-    },
-    {
-      name: 'seo',
-      title: 'SEO',
-    },
-  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       description: 'Site name in page titles (e.g. "Contact | Belle Meade Village"). Ignored if a page sets a custom SEO title.',
-      group: 'seo',
     }),
     defineField({
       name: 'description',
@@ -30,7 +19,6 @@ export const siteSettingsType = {
       type: 'text',
       rows: 3,
       description: 'Default description for search results and social shares.',
-      group: 'seo',
     }),
     defineField({
       name: 'socialimage',
@@ -59,7 +47,6 @@ export const siteSettingsType = {
         }
         return true
       }),
-      group: 'seo',
     }),
   ],
   preview: {

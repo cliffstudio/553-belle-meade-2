@@ -1,11 +1,17 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 'use client'
 
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { groq } from 'next-sanity'
 import Symbol from './Symbol'
 import { DisableBodyScroll, EnableBodyScroll, ClearScrollPosition } from '../utils/bodyScroll'
+import { client } from '../../sanity.client'
+import { urlFor } from '../sanity/utils/imageUrlBuilder'
+import type { SanityImage } from '../types/sanity'
+import { getExternalLinkProps } from '@/utils/getExternalLinkProps'
 
 // Type for menu items from menuType schema
 type MenuItem = {
@@ -37,6 +43,24 @@ interface HeaderProps {
   rightMenu?: Menu
 }
 
+type SearchResult = {
+  _id: string
+  _type: 'page' | 'brands' | 'events' | 'press'
+  title?: string
+  slug?: string
+}
+
+type SearchRecommendation = {
+  _key: string
+  caption?: string
+  pageLink?: {
+    _id: string
+    title?: string
+    slug?: string
+  }
+  image?: Partial<Pick<SanityImage, 'asset' | 'alt' | 'hotspot'>>
+}
+
 export default function Header({ leftMenu, rightMenu }: HeaderProps) {
   const leftNavRef = useRef<HTMLElement>(null)
   const rightNavRef = useRef<HTMLElement>(null)
@@ -44,10 +68,20 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
   const menuToggleRef = useRef<HTMLDivElement>(null)
   const menuOverlayRef = useRef<HTMLDivElement>(null)
   const menuOverlayInnerRef = useRef<HTMLDivElement>(null)
+  const searchOverlayRef = useRef<HTMLDivElement>(null)
+  const searchOverlayInnerRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+  const searchInnerTimeoutRef = useRef<number | null>(null)
   const pathname = usePathname()
   
   // Menu state
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [searchRecommendations, setSearchRecommendations] = useState<SearchRecommendation[]>([])
+  const [hoveredRecommendationKey, setHoveredRecommendationKey] = useState<string | null>(null)
+  const [isSearching, setIsSearching] = useState(false)
   const [headerExtraHeight, setHeaderExtraHeight] = useState(0)
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null)
   
@@ -109,10 +143,59 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
   
   const toggleMenu = () => {
     if (isMenuOpen) {
+      if (isSearchOpen) {
+        closeSearch()
+      }
       closeMenu()
     } else {
       openMenu()
     }
+  }
+
+  const openSearch = () => {
+    if (isSearchOpen) return
+    DisableBodyScroll()
+    setIsSearchOpen(true)
+    if (searchInnerTimeoutRef.current) {
+      window.clearTimeout(searchInnerTimeoutRef.current)
+    }
+    searchInnerTimeoutRef.current = window.setTimeout(() => {
+      if (searchOverlayInnerRef.current) {
+        searchOverlayInnerRef.current.classList.add('visible')
+      }
+      searchInputRef.current?.focus()
+    }, 400)
+  }
+
+  const closeSearch = () => {
+    if (!isSearchOpen) return
+    if (searchInnerTimeoutRef.current) {
+      window.clearTimeout(searchInnerTimeoutRef.current)
+      searchInnerTimeoutRef.current = null
+    }
+    if (searchOverlayInnerRef.current) {
+      searchOverlayInnerRef.current.classList.remove('visible')
+    }
+    EnableBodyScroll()
+    setIsSearchOpen(false)
+    setSearchQuery('')
+    setSearchResults([])
+    setHoveredRecommendationKey(null)
+  }
+
+  const toggleSearch = () => {
+    if (isSearchOpen) {
+      closeSearch()
+    } else {
+      openSearch()
+    }
+  }
+
+  const clearSearchQuery = () => {
+    setSearchQuery('')
+    setSearchResults([])
+    setIsSearching(false)
+    searchInputRef.current?.focus()
   }
   
 
@@ -274,6 +357,77 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
     return null
   }
 
+  const getSearchResultHref = (result: SearchResult) => {
+    const slug = result.slug || ''
+    if (result._type === 'page') return `/${slug}`
+    if (result._type === 'brands') return `/brands/${slug}`
+    if (result._type === 'events') return `/events/${slug}`
+    return `/press/${slug}`
+  }
+
+  const getSearchGroupLabel = (type: SearchResult['_type']) => {
+    if (type === 'page') return 'Pages'
+    if (type === 'brands') return 'Brands'
+    if (type === 'events') return 'Events'
+    return 'Press'
+  }
+
+  const hasSearchQuery = searchQuery.trim().length > 0
+  const searchResultsHref = `/search?q=${encodeURIComponent(searchQuery.trim())}`
+  const displayRecommendations = searchRecommendations.filter((recommendation) => recommendation.pageLink?.slug)
+  const defaultFeaturedRecommendation = displayRecommendations.find(
+    (recommendation) => recommendation.pageLink?.slug && recommendation.image?.asset?._ref
+  )
+  const hoveredRecommendation = displayRecommendations.find(
+    (recommendation) => recommendation._key === hoveredRecommendationKey
+  )
+  const featuredRecommendation =
+    (hoveredRecommendation?.image?.asset?._ref ? hoveredRecommendation : null) || defaultFeaturedRecommendation
+
+  useEffect(() => {
+    let isCancelled = false
+
+    const fetchSearchRecommendations = async () => {
+      try {
+        const recommendations = await client.fetch<SearchRecommendation[]>(
+          groq`
+            *[
+              _type == "search" &&
+              !(_id in path("drafts.**"))
+            ][0].recommendations[]{
+              _key,
+              caption,
+              pageLink->{
+                _id,
+                title,
+                "slug": slug.current
+              },
+              image{
+                asset,
+                alt
+              }
+            }
+          `
+        )
+
+        if (!isCancelled) {
+          setSearchRecommendations(recommendations || [])
+        }
+      } catch (error) {
+        if (!isCancelled) {
+          console.error('Failed to load search recommendations:', error)
+          setSearchRecommendations([])
+        }
+      }
+    }
+
+    fetchSearchRecommendations()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [])
+
   useEffect(() => {
     const setNavItemWidths = () => {
       const navContainers = [leftNavRef.current, rightNavRef.current]
@@ -289,7 +443,7 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
         menuItems.forEach(menuItem => {
           if (!(menuItem instanceof HTMLElement)) return
           
-          const link = menuItem.querySelector('a')
+          const link = menuItem.querySelector('a, button')
           if (!link || !(link instanceof HTMLElement)) return
           
           // Clear any existing fixed widths and heights to allow natural resizing
@@ -487,6 +641,44 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
     }
   }, [leftMenu, rightMenu])
 
+  useEffect(() => {
+    if (!isSearchOpen) return
+
+    const setSearchResultItemHeights = () => {
+      const searchResultItems = document.querySelectorAll('.search-result-item')
+
+      searchResultItems.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return
+
+        // Clear any existing fixed heights before measuring.
+        item.style.height = ''
+        item.style.minHeight = ''
+
+        // Force reflow before measurements.
+        void item.offsetHeight
+
+        const originalHeight = item.offsetHeight
+
+        // Temporarily switch to script font to capture hover-state height.
+        const originalFont = item.style.fontFamily
+        item.style.fontFamily = 'Millionaire-Script'
+        const scriptHeight = item.offsetHeight
+        item.style.fontFamily = originalFont
+
+        // Match menu-item approach: lock to the measured minimum height.
+        const minHeight = Math.min(originalHeight, scriptHeight)
+        item.style.height = `${minHeight}px`
+        item.style.minHeight = `${minHeight}px`
+      })
+    }
+
+    const frameId = requestAnimationFrame(setSearchResultItemHeights)
+
+    return () => {
+      cancelAnimationFrame(frameId)
+    }
+  }, [isSearchOpen, searchResults, searchRecommendations])
+
   // Apply extra height and background to header when dropdown is hovered
   useEffect(() => {
     if (headerRef.current) {
@@ -647,6 +839,32 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
     headerRef.current.style.opacity = '1'
   }, [pathname, isHomepage])
 
+  useEffect(() => {
+    return () => {
+      if (searchInnerTimeoutRef.current) {
+        window.clearTimeout(searchInnerTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      if (isSearchOpen) {
+        closeSearch()
+      }
+      if (isMenuOpen) {
+        closeMenu()
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMenuOpen, isSearchOpen])
+
   // Close any open menus/dropdowns on route change (covers iPad/desktop dropdowns)
   useEffect(() => {
     // Clear saved scroll position on route change to ensure new page starts at top
@@ -657,6 +875,9 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
     // Also ensure the mobile overlay is closed if it was open
     if (isMenuOpen) {
       closeMenu()
+    }
+    if (isSearchOpen) {
+      closeSearch()
     }
     
     // Force close any hover-based dropdowns on desktop by temporarily disabling hover
@@ -673,6 +894,94 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
+
+  useEffect(() => {
+    if (!isSearchOpen) return
+
+    const trimmedQuery = searchQuery.trim()
+    if (trimmedQuery.length < 2) {
+      setSearchResults([])
+      setIsSearching(false)
+      return
+    }
+
+    let isCancelled = false
+    const timeoutId = window.setTimeout(async () => {
+      setIsSearching(true)
+
+      const escapedQuery = trimmedQuery.toLowerCase().replace(/[*?[\]]/g, '')
+      const searchPattern = `*${escapedQuery}*`
+
+      try {
+        const results = await client.fetch<SearchResult[]>(
+          groq`
+            *[
+              (
+                _type == "page" &&
+                defined(slug.current) &&
+                !(_id in path("drafts.**")) &&
+                (
+                  string::lower(coalesce(title, "")) match $pattern ||
+                  string::lower(coalesce(seo.metaTitle, "")) match $pattern
+                )
+              ) ||
+              (
+                _type == "brands" &&
+                defined(slug.current) &&
+                !(_id in path("drafts.**")) &&
+                (
+                  string::lower(coalesce(title, "")) match $pattern ||
+                  string::lower(coalesce(shortDescription, "")) match $pattern
+                )
+              ) ||
+              (
+                _type == "events" &&
+                defined(slug.current) &&
+                !(_id in path("drafts.**")) &&
+                (
+                  string::lower(coalesce(title, "")) match $pattern ||
+                  string::lower(coalesce(eventLocation, "")) match $pattern
+                )
+              ) ||
+              (
+                _type == "press" &&
+                defined(slug.current) &&
+                !(_id in path("drafts.**")) &&
+                (
+                  string::lower(coalesce(title, "")) match $pattern ||
+                  string::lower(coalesce(excerpt, "")) match $pattern
+                )
+              )
+            ] | order(_updatedAt desc) [0...12] {
+              _id,
+              _type,
+              title,
+              "slug": slug.current
+            }
+          `,
+          { pattern: searchPattern }
+        )
+
+        if (!isCancelled) {
+          setSearchResults(results || [])
+        }
+      } catch (error) {
+        if (!isCancelled) {
+          console.error('Search failed:', error)
+          setSearchResults([])
+        }
+      } finally {
+        if (!isCancelled) {
+          setIsSearching(false)
+        }
+      }
+    }, 250)
+
+    return () => {
+      isCancelled = true
+      window.clearTimeout(timeoutId)
+    }
+  }, [isSearchOpen, searchQuery])
 
   // Enable wheel and touch scrolling on menu overlay inner-wrap
   useEffect(() => {
@@ -722,6 +1031,45 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
       document.removeEventListener('touchmove', handleTouchMove, { capture: true } as EventListenerOptions)
     }
   }, [isMenuOpen])
+
+  // Enable wheel and touch scrolling on search overlay inner container
+  useEffect(() => {
+    const searchInnerElement = searchOverlayInnerRef.current
+    if (!searchInnerElement || !isSearchOpen) return
+
+    const handleWheel = (e: WheelEvent) => {
+      const element = e.currentTarget as HTMLElement
+      const { scrollTop, scrollHeight, clientHeight } = element
+      const isAtTop = scrollTop <= 0
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
+      const isScrollingDown = e.deltaY > 0
+      const isScrollingUp = e.deltaY < 0
+
+      if ((isScrollingDown && !isAtBottom) || (isScrollingUp && !isAtTop)) {
+        e.stopPropagation()
+      }
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const target = e.target as Node
+      if (!searchInnerElement.contains(target)) return
+
+      const { scrollHeight, clientHeight } = searchInnerElement
+      const canScroll = scrollHeight > clientHeight
+
+      if (canScroll) {
+        e.stopImmediatePropagation()
+      }
+    }
+
+    searchInnerElement.addEventListener('wheel', handleWheel, { passive: false, capture: true })
+    document.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true })
+
+    return () => {
+      searchInnerElement.removeEventListener('wheel', handleWheel, { capture: true } as EventListenerOptions)
+      document.removeEventListener('touchmove', handleTouchMove, { capture: true } as EventListenerOptions)
+    }
+  }, [isSearchOpen])
 
   // Render mobile menu items (accordion dropdowns for mobile overlay)
   const renderMobileMenuItem = (item: MenuItem, index: number) => {
@@ -851,6 +1199,18 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
             <div className="desktop">
               <nav ref={rightNavRef} className="right-nav">
                 {rightMenu?.items?.map((item, index) => renderMenuItem(item, index))}
+
+                <div className="menu-item">
+                  <button
+                    type="button"
+                    className="menu-item-button"
+                    onClick={toggleSearch}
+                    aria-expanded={isSearchOpen}
+                    aria-controls="header-search-overlay"
+                  >
+                    {isSearchOpen ? 'Close' : 'Search'}
+                  </button>
+                </div>
               </nav>
             </div>
           </div>
@@ -862,6 +1222,159 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
         <div className="inner-wrap h-pad" ref={menuOverlayInnerRef}>
           {leftMenu?.items?.map((item, index) => renderMobileMenuItem(item, index))}
           {rightMenu?.items?.map((item, index) => renderMobileMenuItem(item, index))}
+          <button
+            type="button"
+            className="menu-item-button"
+            onClick={toggleSearch}
+            aria-expanded={isSearchOpen}
+            aria-controls="header-search-overlay"
+          >Search</button>
+        </div>
+      </div>
+
+      <div
+        id="header-search-overlay"
+        className={`search-overlay z-400 ${isSearchOpen ? 'visible' : ''}`}
+        ref={searchOverlayRef}
+        aria-hidden={!isSearchOpen}
+      >
+        <div className="search-overlay-inner row-lg h-pad" ref={searchOverlayInnerRef}>
+          <div className="col-2-12_lg"></div>
+
+          <div className="col-8-12_lg inner-wrap">
+            <div className="search-overlay-content">
+              <div className="search-input-wrap">
+                <input
+                  id="header-search-input"
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search"
+                  className="search-input h2"
+                  aria-label="Search"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      event.preventDefault()
+                    }
+                  }}
+                  autoComplete="off"
+                />
+                {searchQuery.length > 0 && (
+                  <button
+                    type="button"
+                    className="search-clear-button"
+                    aria-label="Clear search"
+                    onClick={clearSearchQuery}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+
+              {isSearching && <div className="search-status">Searching...</div>}
+
+              {!isSearching && searchQuery.trim().length >= 2 && searchResults.length === 0 && (
+                <div className="search-status">No results found.</div>
+              )}
+
+              {!isSearching && searchResults.length > 0 && (
+                <div className="search-results">
+                  {(['page', 'brands', 'events', 'press'] as const).map((groupType) => {
+                    const groupedResults = searchResults.filter((result) => result._type === groupType)
+                    if (groupedResults.length === 0) return null
+
+                    return (
+                      <div key={groupType} className="search-results-group">
+                        <div className="search-results-group-title uppercase cta-font">{getSearchGroupLabel(groupType)}</div>
+                        <div className="search-results-group-items">
+                          {groupedResults.map((result) => (
+                            <Link
+                              key={result._id}
+                              href={getSearchResultHref(result)}
+                              className="search-result-item"
+                              onClick={() => {
+                                closeSearch()
+                                ClearScrollPosition()
+                              }}
+                            >
+                              <span className="search-result-title">{result.title || 'Untitled'}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+
+                  {searchResultsHref && <div className="search-view-all-results cta-font underline-link link cream">
+                    <a href={searchResultsHref} {...getExternalLinkProps()}>View all results</a>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 27">
+                      <path d="M1 1L13.5 13.5L0.999999 26"/>
+                    </svg>
+                  </div>}
+                </div>
+              )}
+
+              {displayRecommendations.length > 0 && !hasSearchQuery && (
+                <div className="search-recommendations">
+                  <div>
+                    <div className="search-results-group-title uppercase cta-font">Recommendations</div>
+
+                    <div
+                      className="search-recommendations-list"
+                      onMouseLeave={() => setHoveredRecommendationKey(null)}
+                    >
+                      {displayRecommendations.map((recommendation) => (
+                        <Link
+                          key={recommendation._key}
+                          href={`/${recommendation.pageLink?.slug || ''}`}
+                          className="search-result-item"
+                          onMouseOver={() => setHoveredRecommendationKey(recommendation._key)}
+                          onFocus={() => setHoveredRecommendationKey(recommendation._key)}
+                          onClick={() => {
+                            closeSearch()
+                            ClearScrollPosition()
+                          }}
+                        >
+                          <span className="search-result-title">{recommendation.pageLink?.title || 'Untitled'}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {featuredRecommendation && (
+                    <Link
+                      href={`/${featuredRecommendation.pageLink?.slug || ''}`}
+                      className="search-recommendation-feature"
+                      onClick={() => {
+                        closeSearch()
+                        ClearScrollPosition()
+                      }}
+                    >
+                      <div className="media-wrap">
+                        <img 
+                          src={urlFor(featuredRecommendation.image!).width(600).height(380).fit('crop').url() ?? ''}
+                          alt={featuredRecommendation.image?.alt ?? ''}
+                          className="full-bleed-image"
+                          style={{
+                            objectPosition: featuredRecommendation.image?.hotspot
+                              ? `${featuredRecommendation.image.hotspot.x * 100}% ${featuredRecommendation.image.hotspot.y * 100}%`
+                              : "center",
+                          }}
+                        />
+                      </div>
+                      {featuredRecommendation.caption && (
+                        <div className="media-caption caption-font">{featuredRecommendation.caption}</div>
+                      )}
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="col-2-12_lg"></div>
         </div>
       </div>
     </>

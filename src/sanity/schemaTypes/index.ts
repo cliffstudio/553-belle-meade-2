@@ -1,6 +1,7 @@
 // Global
 import { pageType } from './pageType'
 import { menuType } from './menuType'
+import { searchType } from './searchType'
 import { footerType } from './footerType'
 import { pressType } from './pressType'
 import { eventsType } from './eventsType'
@@ -54,6 +55,7 @@ export const schemaTypes = [
   // Global
   pageType,
   menuType,
+  searchType,
   footerType,
   pressType,
   eventsType,

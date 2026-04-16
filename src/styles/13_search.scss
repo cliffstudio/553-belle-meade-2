@@ -1,0 +1,106 @@
+@use '00_mixins' as *;
+@use '00_base' as *;
+
+.page-search {
+  .search-page {
+    padding-top: get-rem-desktop(220);
+    padding-bottom: get-rem-desktop(120);
+    background-color: $colour-burgundy;
+    color: $colour-cream;
+
+    @media only screen and (max-width: 1440px) {
+      padding-top: get-rem-tablet(170);
+      padding-bottom: get-rem-tablet(100);
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding-top: get-rem-mobile(150);
+      padding-bottom: get-rem-mobile(50);
+    }
+  }
+
+  .search-page-header {
+    margin-bottom: get-rem-desktop(100);
+
+    // @media only screen and (max-width: 1440px) {
+    // }
+
+    // @media only screen and (max-width: 768px) {
+    // }
+  }
+
+  .search-page-results {
+    @include flex;
+    @include flex-direction(column);
+    row-gap: get-rem-desktop(50);
+
+    // @media only screen and (max-width: 1440px) {
+    // }
+
+    // @media only screen and (max-width: 768px) {
+    //   row-gap: get-rem-mobile(60);
+    // }
+  }
+
+  .search-page-result {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: get-rem-desktop(170);
+
+    // @media only screen and (max-width: 1440px) {
+    // }
+
+    @media only screen and (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+      row-gap: get-rem-mobile(30);
+    }
+  }
+
+  .search-page-result-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    background-color: rgba($colour-cream, 0.12);
+    overflow: hidden;
+  }
+
+  .search-page-result-media-placeholder {
+    opacity: 0.35;
+  }
+
+  .search-page-result-content {
+    max-width: get-rem-desktop(445);
+
+  //   @media only screen and (max-width: 1440px) {
+  //     max-width: get-rem-tablet(360);
+  //   }
+
+  //   @media only screen and (max-width: 950px) {
+  //     max-width: 100%;
+  //   }
+  }
+
+  .search-page-result-label {
+    margin-bottom: get-rem-desktop(20);
+
+    @media only screen and (max-width: 1440px) {
+      margin-bottom: get-rem-tablet(10);
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: get-rem-mobile(10);
+    }
+  }
+
+  .search-page-result-summary {
+    margin-top: get-rem-desktop(10);
+
+    @media only screen and (max-width: 1440px) {
+      margin-top: get-rem-tablet(10);
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-top: get-rem-mobile(8);
+    }
+  }
+}
