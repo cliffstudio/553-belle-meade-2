@@ -53,8 +53,8 @@
     aspect-ratio: 1820 / 850;
     height: auto;
 
-    @media (max-width: 1440px) {
-      aspect-ratio: 1300 / 510;
+    @media only screen and (max-width: 1440px) and (orientation: portrait) {
+      aspect-ratio: 3 / 2;
     }
 
     @media (max-width: 768px) {

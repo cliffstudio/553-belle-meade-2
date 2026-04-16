@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField, ALL_FIELDS_GROUP } from 'sanity'
 import { BlockContentIcon, CalendarIcon } from '@sanity/icons'
 
 export const eventsType = defineType({
@@ -6,12 +6,27 @@ export const eventsType = defineType({
   title: 'Events',
   type: 'document',
   icon: CalendarIcon,
+  groups: [
+    {
+      ...ALL_FIELDS_GROUP,
+      hidden: true,
+    },
+    {
+      name: 'thumbnail',
+      title: 'Thumbnail',
+    },
+    {
+      name: 'pageContent',
+      title: 'Page Content',
+    },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'slug',
@@ -21,6 +36,7 @@ export const eventsType = defineType({
         source: 'title',
       },
       validation: (Rule) => Rule.required(),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'thumbnailImage',
@@ -48,6 +64,7 @@ export const eventsType = defineType({
         }
         return true
       }),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'eventStartDateTime',
@@ -58,6 +75,7 @@ export const eventsType = defineType({
         timeFormat: 'HH:mm',
       },
       validation: (Rule) => Rule.required(),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'eventEndDateTime',
@@ -67,20 +85,21 @@ export const eventsType = defineType({
         dateFormat: 'DD/MM/YYYY',
         timeFormat: 'HH:mm',
       },
-      validation: (Rule) =>
-        Rule.required().custom((endDateTime, context): true | string => {
-          const startDateTime = (context.document as { eventStartDateTime?: string })?.eventStartDateTime
-          if (!endDateTime || !startDateTime) return true
-          if (new Date(endDateTime).getTime() <= new Date(startDateTime).getTime()) {
-            return 'End date/time must be after start date/time.'
-          }
-          return true
-        }),
+      validation: (Rule) => Rule.required().custom((endDateTime, context): true | string => {
+        const startDateTime = (context.document as { eventStartDateTime?: string })?.eventStartDateTime
+        if (!endDateTime || !startDateTime) return true
+        if (new Date(endDateTime).getTime() <= new Date(startDateTime).getTime()) {
+          return 'End date/time must be after start date/time.'
+        }
+        return true
+      }),
+      group: 'thumbnail',
     }),
     defineField({
       name: 'eventLocation',
       title: 'Location',
       type: 'string',
+      group: 'thumbnail',
     }),
     defineField({
       name: 'featuredImage',
@@ -108,16 +127,19 @@ export const eventsType = defineType({
         }
         return true
       }),
+      group: 'pageContent',
     }),
     defineField({
       name: 'content',
       title: 'Content',
       type: 'richPortableText',
+      group: 'pageContent',
     }),
     defineField({ 
       name: 'cta', 
       title: 'CTA',
-      type: 'link' 
+      type: 'link', 
+      group: 'pageContent',
     }),
     defineField({ 
       name: 'details',
@@ -154,7 +176,8 @@ export const eventsType = defineType({
             }
           }
         }
-      ]
+      ],
+      group: 'pageContent',
     }),
     defineField({
       name: 'desktopLayout',
@@ -166,7 +189,8 @@ export const eventsType = defineType({
           { title: 'Layout 1 (Portrait Image)', value: 'layout-1' },
           { title: 'Layout 2 (Landscape Image)', value: 'layout-2' },
         ]
-      }
+      },
+      group: 'pageContent',
     }),
     defineField({
       name: 'mobileLayout',
@@ -178,13 +202,15 @@ export const eventsType = defineType({
           { title: 'Layout 1 (Image at Top)', value: 'layout-1' },
           { title: 'Layout 2 (Image at Bottom)', value: 'layout-2' },
         ]
-      }
+      },
+      group: 'pageContent',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
       description: 'Override title, description and image for search and social. Empty = use Site Settings.',
+      group: 'pageContent',
     }),
   ],
   preview: {

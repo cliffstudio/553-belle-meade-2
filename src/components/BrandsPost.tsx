@@ -52,8 +52,8 @@ const BrandsPost: React.FC<BrandsPostProps> = ({
       </section>
 
       <section className={`brands-post desktop-${desktopLayout} mobile-${mobileLayout}`}>
-        <div className="content-wrap row-lg h-pad">
-          <div className="col-4-12_lg out-of-view events-content-col events-content-col--text">
+        <div className="content-wrap h-pad">
+          <div className="out-of-view events-content-col events-content-col--text">
             {content && (
               <div className="content">
                 <PortableText value={content} components={portableTextComponents} />
@@ -105,9 +105,7 @@ const BrandsPost: React.FC<BrandsPostProps> = ({
             )}
           </div>
 
-          <div className={`${spacerColClass} desktop`}></div>
-
-          <div className={`${mediaColClass} out-of-opacity events-content-col events-content-col--media`}>
+          <div className="out-of-opacity events-content-col events-content-col--media">
             {featuredImage && (
               <div className="media-wrap relative">
                 <img 

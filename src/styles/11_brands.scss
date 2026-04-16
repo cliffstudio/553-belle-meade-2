@@ -16,15 +16,30 @@
   .content-wrap {
     padding-top: get-rem-desktop(148);
     padding-bottom: get-rem-desktop(145);
+    @include flex;
+    @include justify-content(space-between);
+    gap: get-rem-desktop(145);
 
     @media only screen and (max-width: 1440px) {
       padding-top: get-rem-tablet(98);
       padding-bottom: get-rem-tablet(95);
+      gap: get-rem-tablet(100);
     }
 
     @media only screen and (max-width: 768px) {
       padding-top: get-rem-mobile(70);
       padding-bottom: get-rem-mobile(70);
+      @include flex-direction(column);
+    }
+
+    .events-content-col--text {
+      width: 100%;
+      max-width: get-rem-desktop(600);
+    }
+
+    .events-content-col--media {
+      width: 100%;
+      max-width: get-rem-desktop(560);
     }
   }
 
@@ -97,6 +112,7 @@
       fill: none;
       flex-shrink: 0;
       stroke-width: 0.5px;
+      position: relative;
 
       a {
         position: absolute;

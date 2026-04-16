@@ -98,8 +98,8 @@ const EventsPost: React.FC<EventsPostProps> = ({
       </section>
 
       <section className={`events-post desktop-${desktopLayout} mobile-${mobileLayout}`}>
-        <div className="content-wrap row-lg h-pad">
-          <div className="col-4-12_lg out-of-view events-content-col events-content-col--text">
+        <div className="content-wrap h-pad">
+          <div className="out-of-view events-content-col events-content-col--text">
             <h2 className="events-header">{title}</h2>
 
             {content && (
@@ -134,9 +134,7 @@ const EventsPost: React.FC<EventsPostProps> = ({
             )}
           </div>
 
-          <div className={`${spacerColClass} desktop`}></div>
-
-          <div className={`${mediaColClass} out-of-opacity events-content-col events-content-col--media`}>
+          <div className="out-of-opacity events-content-col events-content-col--media">
             {featuredImage && (
               <div className="media-wrap relative">
                 <img 
