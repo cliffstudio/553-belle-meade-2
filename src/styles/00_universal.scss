@@ -788,6 +788,11 @@ section {
   }
 }
 
+.slideshow-with-border-block {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .large-media-text-block,
 .small-media-text-block {
   .media-wrap {
@@ -1275,15 +1280,18 @@ section {
 
 .text-block {
   padding-top: get-rem-desktop(90);
+  padding-bottom: get-rem-desktop(90);
   background-color: $colour-burgundy;
   color: $colour-cream;
 
   @media only screen and (max-width: 1440px) {
     padding-top: get-rem-tablet(100);
+    padding-bottom: get-rem-tablet(100);
   }
 
   @media only screen and (max-width: 768px) {
     padding-top: get-rem-mobile(75);
+    padding-bottom: get-rem-mobile(75);
   }
 
   .text-wrap {

@@ -94,21 +94,6 @@
     &.columns-3 {
       grid-template-columns: repeat(3, 1fr);
 
-      @media only screen and (max-width: 768px) {
-        width: 100vw;
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
-        margin-left: get-rem-mobile(-15);
-        margin-right: get-rem-mobile(-15);
-        padding-left: get-rem-mobile(15);
-        padding-right: get-rem-mobile(15);
-        @include flex;
-
-        &::-webkit-scrollbar {
-          display: none;
-        }
-      }
-
       .events-card {
         @media screen and (max-width: 768px) {
           width: get-rem-mobile(315);
@@ -123,22 +108,7 @@
 
     &.columns-4 {
       grid-template-columns: repeat(4, 1fr);
-
-      @media only screen and (max-width: 768px) {
-        width: 100vw;
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
-        margin-left: get-rem-mobile(-15);
-        margin-right: get-rem-mobile(-15);
-        padding-left: get-rem-mobile(15);
-        padding-right: get-rem-mobile(15);
-        @include flex;
-
-        &::-webkit-scrollbar {
-          display: none;
-        }
-      }
-
+      
       .events-card {
         @media screen and (max-width: 768px) {
           width: get-rem-mobile(315);
@@ -147,6 +117,26 @@
         
         .media-wrap {
           aspect-ratio: 1 / 1;
+        }
+      }
+    }
+
+    &.columns-3,
+    &.columns-4 {
+      @media only screen and (max-width: 768px) {
+        width: 100vw;
+        margin-left: get-rem-mobile(-15);
+        margin-right: get-rem-mobile(-15);
+        padding-left: get-rem-mobile(15);
+        padding-right: get-rem-mobile(15);
+        @include flex;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
         }
       }
     }

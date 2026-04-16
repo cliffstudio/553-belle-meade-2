@@ -21,8 +21,10 @@ export default function LazyLoadInitializer() {
     if (typeof window !== 'undefined' && ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger)
       ScrollTrigger.config({ ignoreMobileResize: true })
-      // Normalize wheel/touch input across devices (helps mobile smoothness)
-      ScrollTrigger.normalizeScroll(true)
+      // Keep global smoothness while allowing nested scrollers (e.g. horizontal carousels) to work.
+      ScrollTrigger.normalizeScroll({
+        allowNestedScroll: true,
+      })
       
       // ScrollSmoother: only create on non-iOS desktop (same breakpoint as ScrollTrigger)
       const initOrKillScrollSmoother = async () => {
@@ -140,7 +142,9 @@ export default function LazyLoadInitializer() {
       if (typeof window !== 'undefined' && ScrollTrigger) {
         // Ensure plugin stays registered and normalization remains active after route changes
         gsap.registerPlugin(ScrollTrigger)
-        ScrollTrigger.normalizeScroll(true)
+        ScrollTrigger.normalizeScroll({
+          allowNestedScroll: true,
+        })
         ScrollTrigger.refresh()
       }
     }, 100)
