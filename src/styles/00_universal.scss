@@ -28,9 +28,6 @@
 }
 
 .underline-link {
-  @include flex;
-  @include align-items(center);
-  column-gap: get-rem-desktop(10);
   margin-top: get-rem-desktop(22);
 
   @media only screen and (max-width: 1440px) {
@@ -42,8 +39,8 @@
   }
 
   a {
-    display: block;
-    width: fit-content;
+    display: inline;
+    width: auto;
     position: relative;
 
     &:after {
@@ -70,11 +67,15 @@
   }
 
   svg {
+    display: inline-block;
+    margin-left: get-rem-desktop(10);
+    vertical-align: middle;
     width: get-rem-desktop(5);
     height: get-rem-desktop(10);
     fill: none;
     stroke: $colour-burgundy;
     stroke-width: 2px;
+    margin-bottom: 0.15em;
   }
 
   &.cream {
