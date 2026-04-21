@@ -1,26 +1,34 @@
 import React from 'react'
+import Link from 'next/link'
 import { BrandDirectoryItem } from './types'
 
 interface BrandListProps {
   items: BrandDirectoryItem[]
   activeIndex: number
-  setRowRef: (index: number) => (node: HTMLElement | null) => void
+  progressIndex: number
 }
 
-function BrandList({ items, activeIndex, setRowRef }: BrandListProps) {
+function BrandList({ items, activeIndex, progressIndex }: BrandListProps) {
   return (
     <div className="brand-directory-list__left" aria-label="Brand list">
-      {items.map((brand, index) => (
-        <div
-          key={brand.id}
-          ref={setRowRef(index)}
-          data-index={index}
-          className={`brand-directory-list__title-wrap ${activeIndex === index ? 'is-active' : ''}`}
-        >
-          <span className="brand-directory-list__title h1">{brand.title}</span>
-          {brand.shortDescription && <span className="brand-directory-list__description">{brand.shortDescription}</span>}
-        </div>
-      ))}
+      {items.map((brand, index) => {
+        const distanceFromProgress = Math.abs(progressIndex - index)
+        const style = {
+          '--brand-row-opacity': Math.max(0.35, 1 - distanceFromProgress * 0.45),
+        } as React.CSSProperties
+
+        return (
+          <Link
+            key={brand.id}
+            href={brand.href}
+            className={`brand-directory-list__title-wrap ${activeIndex === index ? 'is-active' : ''}`}
+            style={style}
+          >
+            <span className="brand-directory-list__title h1">{brand.title}</span>
+            {brand.shortDescription && <span className="brand-directory-list__description">{brand.shortDescription}</span>}
+          </Link>
+        )
+      })}
     </div>
   )
 }

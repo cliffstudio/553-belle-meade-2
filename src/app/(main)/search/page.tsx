@@ -5,6 +5,7 @@ import { groq } from 'next-sanity'
 import { clientNoCdn } from '../../../../sanity.client'
 import { urlFor } from '../../../sanity/utils/imageUrlBuilder'
 import SearchResultsLazyLoad from '../../../components/SearchResultsLazyLoad'
+import BodyClassProvider from '../../../components/BodyClassProvider'
 
 type SearchPageResult = {
   _id: string
@@ -83,7 +84,29 @@ export default async function SearchPage(props: SearchPageProps) {
             !(_id in path("drafts.**")) &&
             (
               string::lower(coalesce(title, "")) match $pattern ||
-              string::lower(coalesce(seo.metaTitle, "")) match $pattern
+              string::lower(coalesce(seo.metaTitle, "")) match $pattern ||
+              string::lower(coalesce(seo.metaDescription, "")) match $pattern ||
+              string::lower(coalesce(planYourVisitHeading, "")) match $pattern ||
+              string::lower(coalesce(pt::text(planYourVisitBody), "")) match $pattern ||
+              string::lower(coalesce(array::join(planYourVisitBody[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(textBlocks[].title, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(textBlocks[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(planYourVisitDetails[].heading, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(planYourVisitDetails[].items[].subtitle, " "), "")) match $pattern ||
+              string::lower(coalesce(pt::text(planYourVisitDetails[].items[].body), "")) match $pattern ||
+              string::lower(coalesce(array::join(planYourVisitDetails[].items[].body[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].heading, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].subheading, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].title, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].introduction, " "), "")) match $pattern ||
+              string::lower(coalesce(pt::text(contentBlocks[].body), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].body[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].architects[].name, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].architects[].bio, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].floors[].label, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].floors[].mobileLabel, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].floors[].spots[].title, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(contentBlocks[].floors[].spots[].description, " "), "")) match $pattern
             )
           ) ||
           (
@@ -92,7 +115,18 @@ export default async function SearchPage(props: SearchPageProps) {
             !(_id in path("drafts.**")) &&
             (
               string::lower(coalesce(title, "")) match $pattern ||
-              string::lower(coalesce(shortDescription, "")) match $pattern
+              string::lower(coalesce(shortDescription, "")) match $pattern ||
+              string::lower(coalesce(seo.metaTitle, "")) match $pattern ||
+              string::lower(coalesce(seo.metaDescription, "")) match $pattern ||
+              string::lower(coalesce(pt::text(content), "")) match $pattern ||
+              string::lower(coalesce(array::join(content[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(pt::text(openingHours), "")) match $pattern ||
+              string::lower(coalesce(array::join(openingHours[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(pt::text(address), "")) match $pattern ||
+              string::lower(coalesce(array::join(address[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(details[].detailHeading, " "), "")) match $pattern ||
+              string::lower(coalesce(pt::text(details[].detailBody), "")) match $pattern ||
+              string::lower(coalesce(array::join(details[].detailBody[].children[].text, " "), "")) match $pattern
             )
           ) ||
           (
@@ -101,7 +135,14 @@ export default async function SearchPage(props: SearchPageProps) {
             !(_id in path("drafts.**")) &&
             (
               string::lower(coalesce(title, "")) match $pattern ||
-              string::lower(coalesce(eventLocation, "")) match $pattern
+              string::lower(coalesce(eventLocation, "")) match $pattern ||
+              string::lower(coalesce(seo.metaTitle, "")) match $pattern ||
+              string::lower(coalesce(seo.metaDescription, "")) match $pattern ||
+              string::lower(coalesce(pt::text(content), "")) match $pattern ||
+              string::lower(coalesce(array::join(content[].children[].text, " "), "")) match $pattern ||
+              string::lower(coalesce(array::join(details[].detailHeading, " "), "")) match $pattern ||
+              string::lower(coalesce(pt::text(details[].detailBody), "")) match $pattern ||
+              string::lower(coalesce(array::join(details[].detailBody[].children[].text, " "), "")) match $pattern
             )
           ) ||
           (
@@ -110,14 +151,42 @@ export default async function SearchPage(props: SearchPageProps) {
             !(_id in path("drafts.**")) &&
             (
               string::lower(coalesce(title, "")) match $pattern ||
-              string::lower(coalesce(excerpt, "")) match $pattern
+              string::lower(coalesce(excerpt, "")) match $pattern ||
+              string::lower(coalesce(source, "")) match $pattern ||
+              string::lower(coalesce(seo.metaTitle, "")) match $pattern ||
+              string::lower(coalesce(seo.metaDescription, "")) match $pattern ||
+              string::lower(coalesce(pt::text(content), "")) match $pattern ||
+              string::lower(coalesce(array::join(content[].children[].text, " "), "")) match $pattern
             )
           )
-        ] | order(_updatedAt desc) [0...100] {
+        ] {
           _id,
           _type,
           title,
           "slug": slug.current,
+          "searchPriority": select(
+            _type == "page" => select(
+              string::lower(coalesce(title, "")) match $pattern => 3,
+              string::lower(coalesce(seo.metaTitle, "")) match $pattern => 2,
+              1
+            ),
+            _type == "brands" => select(
+              string::lower(coalesce(title, "")) match $pattern => 3,
+              string::lower(coalesce(shortDescription, "")) match $pattern => 2,
+              1
+            ),
+            _type == "events" => select(
+              string::lower(coalesce(title, "")) match $pattern => 3,
+              string::lower(coalesce(eventLocation, "")) match $pattern => 2,
+              1
+            ),
+            _type == "press" => select(
+              string::lower(coalesce(title, "")) match $pattern => 3,
+              string::lower(coalesce(excerpt, "")) match $pattern => 2,
+              1
+            ),
+            1
+          ),
           "summary": select(
             _type == "brands" => shortDescription,
             _type == "events" => eventLocation,
@@ -131,7 +200,7 @@ export default async function SearchPage(props: SearchPageProps) {
             _type == "press" => coalesce(thumbnailImage, featuredImage),
             null
           )
-        }
+        } | order(searchPriority desc, _updatedAt desc) [0...100]
       `,
       { pattern: searchPattern },
       { next: { revalidate: 0 } }
@@ -140,6 +209,7 @@ export default async function SearchPage(props: SearchPageProps) {
 
   return (
     <section className="search-page h-pad row-lg">
+      <BodyClassProvider className="page-template-search" />
       <SearchResultsLazyLoad query={query} resultCount={results.length} />
       <div className="col-2-12_lg"></div>
 

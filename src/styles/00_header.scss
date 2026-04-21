@@ -24,6 +24,10 @@
     background-color: $colour-burgundy;
   }
 
+  &.search-open {
+    background-color: $colour-burgundy;
+  }
+
   &.dropdown-hovered:not(.header-scrolled):not(.menu-open) {
     background-color: $colour-burgundy;
   }
@@ -423,8 +427,9 @@
   .search-status {
     margin-top: get-rem-desktop(95);
 
-    // @media only screen and (max-width: 1440px) {
-    // }
+    @media only screen and (max-width: 1440px) {
+      margin-top: get-rem-tablet(75);
+    }
 
     @media only screen and (max-width: 768px) {
       margin-top: get-rem-mobile(80);
@@ -569,6 +574,12 @@
 
 body.page-type-gallery,
 body.page-type-events { 
+  .site-header {
+    background-color: $colour-burgundy;
+  }
+}
+
+body.page-template-search {
   .site-header {
     background-color: $colour-burgundy;
   }
