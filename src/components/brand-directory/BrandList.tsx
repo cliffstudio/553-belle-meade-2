@@ -14,7 +14,7 @@ function BrandList({ items, activeIndex, progressIndex }: BrandListProps) {
       {items.map((brand, index) => {
         const distanceFromProgress = Math.abs(progressIndex - index)
         const style = {
-          '--brand-row-opacity': Math.max(0.35, 1 - distanceFromProgress * 0.45),
+          '--brand-row-opacity': Math.max(0.5, 1 - distanceFromProgress * 0.5),
         } as React.CSSProperties
 
         return (

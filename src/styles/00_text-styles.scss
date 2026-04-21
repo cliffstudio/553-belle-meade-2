@@ -18,6 +18,12 @@ h1,
   }
 }
 
+.brand-directory-list.has-few-items {
+  .h1 {
+    @include font-size(25px, 45px, 65px);
+  }
+}
+
 h2,
 .h2 {
   font-family: 'Millionaire-Roman';  

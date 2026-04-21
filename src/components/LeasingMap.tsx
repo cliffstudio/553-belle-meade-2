@@ -570,10 +570,12 @@ export default function LeasingMap({
         return
       }
 
-      // Set SVG attributes to scale like the image (cover behavior)
+      // Match the image crop behaviour so the SVG overlay lines up across breakpoints.
+      // On mobile, the base image uses object-position: center right.
+      const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768
       svgElement.setAttribute('width', '100%')
       svgElement.setAttribute('height', '100%')
-      svgElement.setAttribute('preserveAspectRatio', 'xMidYMid slice')
+      svgElement.setAttribute('preserveAspectRatio', isMobileViewport ? 'xMaxYMid slice' : 'xMidYMid slice')
 
       // Clear container and inject the SVG
       containerRef.current.innerHTML = ''

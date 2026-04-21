@@ -87,8 +87,8 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
     () =>
       items.map((brand, index) => {
         const distance = Math.abs(progressIndex - index)
-        const opacity = Math.max(0, 1 - distance * 1.15)
         const isActive = activeIndex === index
+        const opacity = isActive ? 1 : Math.max(0, 1 - distance * 1.8)
 
         const style = {
           '--brand-card-opacity': opacity,
@@ -104,6 +104,7 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
             {brand.image && (
               <div className="media-wrap relative">
                 <img src={urlFor(brand.image).url()} alt={brand.image?.alt ?? brand.title} className="full-bleed-image" />
+                <a href={brand.href}></a>
               </div>
             )}
 
@@ -126,9 +127,13 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
 
               <div className="link-wrap">
                 {renderCategoryIcon(brand.category)}
-                <Link href={brand.href} className="underline-link cta-font">
-                  More info
-                </Link>
+
+                <div className="cta-font underline-link link">
+                  <a href={brand.href}>More Info</a>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 27">
+                    <path d="M1 1L13.5 13.5L0.999999 26" />
+                  </svg>
+                </div>
               </div>
             </div>
           </article>
@@ -153,7 +158,7 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
         }
       >
         <div className="brand-directory-scroll-sticky">
-          <div className="brand-directory-list h-pad">
+          <div className={`brand-directory-list h-pad ${items.length < 5 ? 'has-few-items' : ''}`}>
             <BrandList items={items} activeIndex={activeIndex} progressIndex={progressIndex} />
             <div className="brand-directory-list__right">{cards}</div>
           </div>

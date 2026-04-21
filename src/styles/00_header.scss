@@ -166,7 +166,6 @@
       }
     }
 
-    // Dropdown menu container
     .dropdown-menu {
       position: relative;
       display: flex;
@@ -393,12 +392,6 @@
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
 
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
-
     .inner-wrap {
       width: 100%;
     }
@@ -414,12 +407,6 @@
     @include align-items(center);
     border-bottom: 1px solid $colour-cream;
     column-gap: get-rem-desktop(20);
-
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
   }
 
   .search-results,
@@ -440,12 +427,6 @@
     @include flex;
     @include flex-direction(column);
     row-gap: get-rem-desktop(60);
-
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
   }
 
   .search-view-all-results {
@@ -459,12 +440,6 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: get-rem-desktop(15);
 
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
-
     &.search-recommendations-hidden {
       opacity: 0;
       pointer-events: none;
@@ -476,12 +451,6 @@
     @include flex;
     @include flex-direction(column);
     row-gap: get-rem-desktop(15);
-
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
   }
 
   .search-recommendation-feature {
@@ -496,12 +465,6 @@
 
     .media-caption {
       padding-top: get-rem-desktop(10);
-  
-      // @media only screen and (max-width: 1440px) {
-      // }
-
-      // @media only screen and (max-width: 768px) {
-      // }
     }
   }
 
@@ -509,12 +472,6 @@
     padding-bottom: get-rem-desktop(30);
     opacity: 1;
     @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
-
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
   }
 
   .search-result-item {
@@ -541,9 +498,6 @@
     // so we inset the glyphs slightly to avoid left-side clipping.
     text-indent: 0.12em;
 
-    // @media only screen and (max-width: 1440px) {
-    // }
-
     @media only screen and (max-width: 768px) {
       padding-bottom: get-rem-desktop(2);
     }
@@ -563,12 +517,6 @@
     cursor: pointer;
     font-family: 'Millionaire-Roman';
     padding-bottom: 0.25em;
-
-    // @media only screen and (max-width: 1440px) {
-    // }
-
-    // @media only screen and (max-width: 768px) {
-    // }
   }
 }
 

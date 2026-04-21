@@ -188,6 +188,10 @@
 
 // Brand Directory Block
 .brand-directory-block {
+  @media only screen and (max-width: 768px) {
+    overflow-x: hidden;
+  }
+
   .brand-directory-toolbar {
     padding-top: get-rem-desktop(25);
     padding-bottom: get-rem-desktop(25);
@@ -509,7 +513,7 @@
   // List View
   .brand-directory-scroll-sequence {
     position: relative;
-    min-height: calc(100vh + (var(--brand-directory-steps, 1) * 55vh));
+    min-height: calc(100svh + (var(--brand-directory-steps, 1) * 55svh));
     background-color: #F9EBDD;
 
     @media only screen and (max-width: 768px) {
@@ -519,10 +523,16 @@
 
   .brand-directory-scroll-sticky {
     position: sticky;
-    top: 0;
-    height: 100vh;
-    @include flex;
-    @include align-items(center);
+    top: 130px;
+    height: 100svh;
+
+    @media only screen and (max-width: 1440px) {
+      top: get-rem-tablet(109);
+    }
+
+    @media only screen and (max-width: 768px) {
+      top: get-rem-mobile(102);
+    }
   }
 
   .brand-directory-list {
@@ -531,6 +541,8 @@
     @include align-items(flex-start);
     @include justify-content(space-between);
     gap: get-rem-desktop(40);
+    padding-top: get-rem-desktop(45);
+    padding-bottom: get-rem-desktop(45);
 
     @media only screen and (max-width: 768px) {
       display: none;
@@ -549,15 +561,11 @@
       gap: get-rem-desktop(45);
       color: $colour-burgundy;
       text-decoration: none;
-      opacity: var(--brand-row-opacity, 0.4);
+      opacity: var(--brand-row-opacity, 0.5);
       @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
 
       @media only screen and (max-width: 1440px) {
         gap: get-rem-tablet(30);
-      }
-
-      .brand-directory-list__title {
-        @include transition-multiple(font-family 250ms ease, margin-top 250ms ease);
       }
 
       .brand-directory-list__description {
@@ -616,6 +624,15 @@
         height: 100%;
         display: block;
         object-fit: cover;
+      }
+
+      a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
       }
     }
 
