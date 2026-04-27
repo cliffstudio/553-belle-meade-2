@@ -384,37 +384,31 @@ function BrandDirectory({
             const href = brand.slug?.current ? `/brands/${brand.slug.current}` : '#'
 
             return (
-              <div key={brand._id} className="brand-directory-card out-of-opacity">
-                <Link
-                  href={href}
-                  className="brand-directory-media-link"
-                  aria-label={brand.title || 'View brand'}
-                >
-                  {brand.thumbnailImage && (
-                    <>
-                      <img 
-                        data-src={urlFor(brand.thumbnailImage).url()}
-                        alt={brand.thumbnailImage?.alt ?? brand.title ?? ''}
-                        className="lazy full-bleed-image"
-                        onLoad={handleImageLoad}
-                      />
-                      <div className="loading-overlay" />
-                    </>
-                  )}
-                </Link>
+              <a href={href} key={brand._id} className="brand-directory-card out-of-opacity">
+                {brand.thumbnailImage && (
+                  <div className="brand-directory-media">
+                    <img 
+                      data-src={urlFor(brand.thumbnailImage).url()}
+                      alt={brand.thumbnailImage?.alt ?? brand.title ?? ''}
+                      className="lazy full-bleed-image"
+                      onLoad={handleImageLoad}
+                    />
+                    <div className="loading-overlay" />
+                  </div>
+                )}
                 <div className="brand-directory-title h3 desktop">
                   <div className="brand-directory-title__row">
-                    <Link href={href}>{brand.title}</Link>
+                    {brand.title}
                     <BrandCategoryTitleIcon category={brand.brandCategory} />
                   </div>
                 </div>
                 <div className="brand-directory-title h2 mobile">
                   <div className="brand-directory-title__row">
-                    <Link href={href}>{brand.title}</Link>
+                    {brand.title}
                     <BrandCategoryTitleIcon category={brand.brandCategory} />
                   </div>
                 </div>
-              </div>
+              </a>
             )
           })}
         </div>
