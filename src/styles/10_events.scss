@@ -205,9 +205,26 @@
       margin-bottom: -0.3em;
     }
 
+    .underline-link > span {
+      position: relative;
+
+      &:after {
+        content: "";
+        transform-origin: 100%;
+        background: $colour-burgundy;
+        height: 1px;
+        @include transition(transform .83s cubic-bezier(.33, 0, .13, 1));
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        transform: scaleX(0);
+      }
+    }
+
     @media (hover: hover) {
       &:hover {
-        .underline-link a:after {
+        .underline-link > span:after {
           transform-origin: 0;
           transform: scaleX(1);
         }

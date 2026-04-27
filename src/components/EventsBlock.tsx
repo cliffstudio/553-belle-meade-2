@@ -4,6 +4,7 @@
 import React from 'react'
 import { SanityImage } from '../types/sanity'
 import { urlFor } from '../sanity/utils/imageUrlBuilder'
+import Link from 'next/link'
 
 type EventsFilter = 'this-week' | 'this-month' | 'custom'
 type EventsGrid = 'columns-2' | 'columns-3' | 'columns-4'
@@ -106,7 +107,12 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
           const date = formatEventDate(event.eventStartDateTime)
 
           return (
-            <div key={event._id} className="events-card out-of-opacity">
+            <Link 
+              key={event._id}  
+              href={href}
+              className="events-card out-of-opacity"
+              aria-label={event.title || 'Event card'}
+            >
               {event.thumbnailImage && (
                 <div className="media-wrap relative">
                   <img
@@ -115,7 +121,6 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
                     className="lazy full-bleed-image"
                   />
                   <div className="loading-overlay" />
-                  <a href={href}></a>
                 </div>
               )}
 
@@ -125,13 +130,13 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
                 <h2 className="events-card-title">{event.title}</h2>
 
                 <div className="cta-font underline-link link">
-                  <a href={href}>Learn More</a>
+                  <span>Learn More</span>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 27">
                     <path d="M1 1L13.5 13.5L0.999999 26" />
                   </svg>
                 </div>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
