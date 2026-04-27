@@ -110,6 +110,8 @@ function BrandDirectory({
   const [sortBy, setSortBy] = useState<SortBy>('alphabetical')
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null)
   const toolbarRef = useRef<HTMLDivElement>(null)
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const isTouchDraggingRef = useRef(false)
 
   const categories = useMemo(() => {
     const fallbackCategories = allBrands
@@ -224,6 +226,33 @@ function BrandDirectory({
     const overlay = parent.querySelector('.loading-overlay')
     if (overlay) {
       overlay.classList.add('hidden')
+    }
+  }
+
+  const handleCardLinkPointerDown = (event: React.PointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType !== 'touch') return
+    touchStartRef.current = { x: event.clientX, y: event.clientY }
+    isTouchDraggingRef.current = false
+  }
+
+  const handleCardLinkPointerMove = (event: React.PointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType !== 'touch' || !touchStartRef.current) return
+    const deltaX = Math.abs(event.clientX - touchStartRef.current.x)
+    const deltaY = Math.abs(event.clientY - touchStartRef.current.y)
+    if (deltaX > 10 || deltaY > 10) {
+      isTouchDraggingRef.current = true
+    }
+  }
+
+  const handleCardLinkPointerEnd = (event: React.PointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType !== 'touch') return
+    touchStartRef.current = null
+  }
+
+  const handleCardLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isTouchDraggingRef.current) {
+      event.preventDefault()
+      isTouchDraggingRef.current = false
     }
   }
 
@@ -416,6 +445,11 @@ function BrandDirectory({
                   href={href}
                   className="brand-directory-card__link"
                   aria-label={brand.title || 'View brand'}
+                  onPointerDown={handleCardLinkPointerDown}
+                  onPointerMove={handleCardLinkPointerMove}
+                  onPointerUp={handleCardLinkPointerEnd}
+                  onPointerCancel={handleCardLinkPointerEnd}
+                  onClick={handleCardLinkClick}
                 />
               </article>
             )
