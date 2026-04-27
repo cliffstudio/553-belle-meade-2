@@ -94,6 +94,13 @@ h3,
   @include font-size(20px, 13px, 18px);
 }
 
+.brand-directory-search input {
+  font-family: 'Millionaire-Roman';  
+  line-height: 140%;
+  letter-spacing: 0;
+  @include font-size(13px, 15px, 15px);
+}
+
 .caption-font {
   font-family: 'Dia';  
   line-height: 140%;

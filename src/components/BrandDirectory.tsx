@@ -110,7 +110,9 @@ function BrandDirectory({
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
   const [sortBy, setSortBy] = useState<SortBy>('alphabetical')
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
   const toolbarRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const touchDragClickGuard = useTouchDragClickGuard()
 
   const categories = useMemo(() => {
@@ -160,9 +162,18 @@ function BrandDirectory({
     return list
   }, [filteredBrands, sortBy])
 
+  const visibleBrands = useMemo(() => {
+    const trimmedQuery = searchQuery.trim().toLocaleLowerCase()
+    if (!trimmedQuery) return sortedBrands
+
+    return sortedBrands.filter((brand) =>
+      (brand.title || '').toLocaleLowerCase().includes(trimmedQuery)
+    )
+  }, [searchQuery, sortedBrands])
+
   const brandItems: BrandDirectoryItem[] = useMemo(
     () =>
-      sortedBrands.map((brand) => {
+      visibleBrands.map((brand) => {
         const href = brand.slug?.current ? `/brands/${brand.slug.current}` : '#'
         const openingHours = brand.details?.find((detail) => detail.detailHeading === 'Opening Hours')
         const address = brand.details?.find((detail) => detail.detailHeading === 'Address')
@@ -178,7 +189,7 @@ function BrandDirectory({
           address: address?.detailBody,
         }
       }),
-    [sortedBrands]
+    [visibleBrands]
   )
 
   // Re-observe newly rendered lazy images after filter/sort/view changes.
@@ -188,7 +199,7 @@ function BrandDirectory({
     }, 0)
 
     return () => clearTimeout(timer)
-  }, [sortedBrands, viewMode])
+  }, [visibleBrands, viewMode])
 
   const closeDropdowns = () => setActiveDropdown(null)
 
@@ -217,6 +228,13 @@ function BrandDirectory({
 
   const categoryDropdownIndex = 0
   const sortDropdownIndex = 1
+  const searchDropdownIndex = 2
+
+  useEffect(() => {
+    if (activeDropdown === searchDropdownIndex) {
+      searchInputRef.current?.focus()
+    }
+  }, [activeDropdown, searchDropdownIndex])
 
   const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
     const image = event.currentTarget
@@ -250,139 +268,184 @@ function BrandDirectory({
         </div>
 
         <div className="brand-directory-toolbar-actions">
-          <div
-            className={`brand-directory-dropdown-slot${
-              activeDropdown === categoryDropdownIndex ? ' is-expanded' : ''
-            }`}
-          >
+          <div className="brand-directory-toolbar-controls">
             <div
-              className={`brand-directory-dropdown-trigger brand-directory-dropdown-trigger--categories${
-                selectedCategoryId ? ' has-active' : ''
-              }${activeDropdown === categoryDropdownIndex ? ' is-open' : ''}`}
-            >
-              <button
-                type="button"
-                className="brand-directory-dropdown-trigger__btn"
-                aria-expanded={activeDropdown === categoryDropdownIndex}
-                aria-controls="brand-directory-categories-panel"
-                id="brand-directory-categories-trigger"
-                onClick={() => toggleDropdown(categoryDropdownIndex)}
-              >
-                <span className="brand-directory-dropdown__trigger-icon" aria-hidden>
-                  <IconCategoryGrid />
-                </span>
-                <span className="brand-directory-dropdown__trigger-label">Categories</span>
-              </button>
-            </div>
-            <div
-              className={`brand-directory-toolbar__panel brand-directory-toolbar__panel--categories${
-                activeDropdown === categoryDropdownIndex ? ' is-open' : ''
+              className={`brand-directory-dropdown-slot${
+                activeDropdown === categoryDropdownIndex ? ' is-expanded' : ''
               }`}
-              id="brand-directory-categories-panel"
-              role="presentation"
-              aria-labelledby="brand-directory-categories-trigger"
-              aria-hidden={activeDropdown !== categoryDropdownIndex}
             >
               <div
-                className="brand-directory-dropdown__radios"
-                role="radiogroup"
-                aria-label="Filter by category"
+                className={`brand-directory-dropdown-trigger brand-directory-dropdown-trigger--categories${
+                  selectedCategoryId ? ' has-active' : ''
+                }${activeDropdown === categoryDropdownIndex ? ' is-open' : ''}`}
               >
                 <button
                   type="button"
-                  role="radio"
-                  aria-checked={!selectedCategoryId}
-                  className={`brand-directory-radio-option${!selectedCategoryId ? ' is-selected' : ''}`}
-                  onClick={() => {
-                    setSelectedCategoryId(null)
-                    closeDropdowns()
-                  }}
+                  className="brand-directory-dropdown-trigger__btn"
+                  aria-expanded={activeDropdown === categoryDropdownIndex}
+                  aria-controls="brand-directory-categories-panel"
+                  id="brand-directory-categories-trigger"
+                  onClick={() => toggleDropdown(categoryDropdownIndex)}
                 >
-                  All
+                  <span className="brand-directory-dropdown__trigger-icon" aria-hidden>
+                    <IconCategoryGrid />
+                  </span>
+                  <span className="brand-directory-dropdown__trigger-label">Categories</span>
                 </button>
-                {categories.map((category) => (
+              </div>
+              <div
+                className={`brand-directory-toolbar__panel brand-directory-toolbar__panel--categories${
+                  activeDropdown === categoryDropdownIndex ? ' is-open' : ''
+                }`}
+                id="brand-directory-categories-panel"
+                role="presentation"
+                aria-labelledby="brand-directory-categories-trigger"
+                aria-hidden={activeDropdown !== categoryDropdownIndex}
+              >
+                <div
+                  className="brand-directory-dropdown__radios"
+                  role="radiogroup"
+                  aria-label="Filter by category"
+                >
                   <button
-                    key={category._id}
                     type="button"
                     role="radio"
-                    aria-checked={selectedCategoryId === category._id}
-                    className={`brand-directory-radio-option${
-                      selectedCategoryId === category._id ? ' is-selected' : ''
-                    }`}
+                    aria-checked={!selectedCategoryId}
+                    className={`brand-directory-radio-option${!selectedCategoryId ? ' is-selected' : ''}`}
                     onClick={() => {
-                      setSelectedCategoryId(category._id)
+                      setSelectedCategoryId(null)
                       closeDropdowns()
                     }}
                   >
-                    {category.name || 'Category'}
+                    All
                   </button>
-                ))}
+                  {categories.map((category) => (
+                    <button
+                      key={category._id}
+                      type="button"
+                      role="radio"
+                      aria-checked={selectedCategoryId === category._id}
+                      className={`brand-directory-radio-option${
+                        selectedCategoryId === category._id ? ' is-selected' : ''
+                      }`}
+                      onClick={() => {
+                        setSelectedCategoryId(category._id)
+                        closeDropdowns()
+                      }}
+                    >
+                      {category.name || 'Category'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={`brand-directory-dropdown-slot${
+                activeDropdown === sortDropdownIndex ? ' is-expanded' : ''
+              }`}
+            >
+              <div
+                className={`brand-directory-dropdown-trigger brand-directory-dropdown-trigger--sort${
+                  sortBy !== 'alphabetical' ? ' has-active' : ''
+                }${activeDropdown === sortDropdownIndex ? ' is-open' : ''}`}
+              >
+                <button
+                  type="button"
+                  className="brand-directory-dropdown-trigger__btn"
+                  aria-expanded={activeDropdown === sortDropdownIndex}
+                  aria-controls="brand-directory-sort-panel"
+                  id="brand-directory-sort-trigger"
+                  onClick={() => toggleDropdown(sortDropdownIndex)}
+                >
+                  <span className="brand-directory-dropdown__trigger-icon" aria-hidden>
+                    <IconSortChevron />
+                  </span>
+                  <span className="brand-directory-dropdown__trigger-label">Sort by</span>
+                </button>
+              </div>
+              <div
+                className={`brand-directory-toolbar__panel brand-directory-toolbar__panel--sort${
+                  activeDropdown === sortDropdownIndex ? ' is-open' : ''
+                }`}
+                id="brand-directory-sort-panel"
+                role="presentation"
+                aria-labelledby="brand-directory-sort-trigger"
+                aria-hidden={activeDropdown !== sortDropdownIndex}
+              >
+                <div
+                  className="brand-directory-dropdown__radios"
+                  role="radiogroup"
+                  aria-label="Sort brands by"
+                >
+                  {SORT_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      role="radio"
+                      aria-checked={sortBy === opt.value}
+                      className={`brand-directory-radio-option${sortBy === opt.value ? ' is-selected' : ''}`}
+                      onClick={() => {
+                        setSortBy(opt.value)
+                        closeDropdowns()
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={`brand-directory-dropdown-slot${
+                activeDropdown === searchDropdownIndex ? ' is-expanded' : ''
+              }`}
+            >
+              <div
+                className={`brand-directory-dropdown-trigger brand-directory-dropdown-trigger--search${
+                  searchQuery.trim() ? ' has-active' : ''
+                }${activeDropdown === searchDropdownIndex ? ' is-open' : ''}`}
+              >
+                <button
+                  type="button"
+                  className="brand-directory-dropdown-trigger__btn"
+                  aria-expanded={activeDropdown === searchDropdownIndex}
+                  aria-controls="brand-directory-search-panel"
+                  id="brand-directory-search-trigger"
+                  onClick={() => toggleDropdown(searchDropdownIndex)}
+                >
+                  <span className="brand-directory-dropdown__trigger-label">Search</span>
+                </button>
               </div>
             </div>
           </div>
 
           <div
-            className={`brand-directory-dropdown-slot${
-              activeDropdown === sortDropdownIndex ? ' is-expanded' : ''
-            }`}
+            className={`brand-directory-search-panel${activeDropdown === searchDropdownIndex ? ' is-open' : ''}`}
+            id="brand-directory-search-panel"
+            role="presentation"
+            aria-labelledby="brand-directory-search-trigger"
+            aria-hidden={activeDropdown !== searchDropdownIndex}
           >
-            <div
-              className={`brand-directory-dropdown-trigger brand-directory-dropdown-trigger--sort${
-                sortBy !== 'alphabetical' ? ' has-active' : ''
-              }${activeDropdown === sortDropdownIndex ? ' is-open' : ''}`}
-            >
-              <button
-                type="button"
-                className="brand-directory-dropdown-trigger__btn"
-                aria-expanded={activeDropdown === sortDropdownIndex}
-                aria-controls="brand-directory-sort-panel"
-                id="brand-directory-sort-trigger"
-                onClick={() => toggleDropdown(sortDropdownIndex)}
-              >
-                <span className="brand-directory-dropdown__trigger-icon" aria-hidden>
-                  <IconSortChevron />
-                </span>
-                <span className="brand-directory-dropdown__trigger-label">Sort by</span>
-              </button>
-            </div>
-            <div
-              className={`brand-directory-toolbar__panel brand-directory-toolbar__panel--sort${
-                activeDropdown === sortDropdownIndex ? ' is-open' : ''
-              }`}
-              id="brand-directory-sort-panel"
-              role="presentation"
-              aria-labelledby="brand-directory-sort-trigger"
-              aria-hidden={activeDropdown !== sortDropdownIndex}
-            >
-              <div
-                className="brand-directory-dropdown__radios"
-                role="radiogroup"
-                aria-label="Sort brands by"
-              >
-                {SORT_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    role="radio"
-                    aria-checked={sortBy === opt.value}
-                    className={`brand-directory-radio-option${sortBy === opt.value ? ' is-selected' : ''}`}
-                    onClick={() => {
-                      setSortBy(opt.value)
-                      closeDropdowns()
-                    }}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <label className="brand-directory-search">
+              <span className="sr-only">Search brands</span>
+              <input
+                ref={searchInputRef}
+                type="search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Type the name of a store"
+                aria-label="Search brands"
+              />
+            </label>
           </div>
         </div>
       </div>
 
       {viewMode === 'grid' ? (
         <div className="brand-directory-grid h-pad">
-          {sortedBrands.map((brand) => {
+          {visibleBrands.map((brand) => {
             const href = brand.slug?.current ? `/brands/${brand.slug.current}` : '#'
 
             return (
@@ -423,13 +486,21 @@ function BrandDirectory({
               </Link>
             )
           })}
+          {!visibleBrands.length && <p className="brand-directory-no-results h2">No Results.</p>}
         </div>
       ) : (
-        <BrandDirectorySection
-          items={brandItems}
-          renderCategoryIcon={(category) => <BrandCategoryTitleIcon category={category} />}
-        />
-
+        <>
+          {brandItems.length ? (
+            <BrandDirectorySection
+              items={brandItems}
+              renderCategoryIcon={(category) => <BrandCategoryTitleIcon category={category} />}
+            />
+          ) : (
+            <div className="brand-directory-list-mobile h-pad">
+              <p className="brand-directory-no-results h2">No Results.</p>
+            </div>
+          )}
+        </>
       )}
     </section>
   )

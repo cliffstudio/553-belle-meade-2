@@ -182,7 +182,7 @@
 
 // Brand Directory Block
 .brand-directory-block {
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: 1025px) {
     overflow-x: hidden;
   }
 
@@ -295,16 +295,101 @@
 
   .brand-directory-toolbar-actions {
     @include flex;
-    @include align-items(flex-start);
-    @include justify-content(flex-end);
-    column-gap: get-rem-desktop(40);
-    flex: 1 1 auto;
-    min-width: 0;
+    @include flex-direction(column);
+    @include align-items(flex-end);
+    row-gap: 0;
+    flex: 0 0 auto;
     margin-top: 0.4em;
 
     @media only screen and (max-width: 768px) {
       margin-top: 0;
+      row-gap: 0;
+    }
+  }
+
+  .brand-directory-toolbar-controls {
+    @include flex;
+    @include align-items(flex-start);
+    @include justify-content(flex-end);
+    column-gap: get-rem-desktop(40);
+
+    @media only screen and (max-width: 768px) {
       column-gap: get-rem-mobile(25);
+    }
+  }
+
+  .brand-directory-search {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    opacity: 0;
+    min-height: 0;
+    overflow: hidden;
+    @include transform(translateY(get-rem-desktop(-4)));
+    @include transition(opacity 140ms ease);
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 0 0 get-rem-desktop(6);
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid rgba($colour-burgundy, 0.5);
+      border-radius: 0;
+      background: transparent;
+      color: $colour-burgundy;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+
+      @media only screen and (max-width: 768px) {
+        padding-bottom: get-rem-mobile(5);
+      }
+
+      &::placeholder {
+        color: rgba($colour-burgundy, 0.5);
+      }
+
+      &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+      }
+    }
+  }
+
+  .brand-directory-search-panel {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    pointer-events: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    @include transition-multiple(
+      grid-template-rows 220ms ease,
+      margin-top 220ms ease,
+      margin-bottom 220ms ease
+    );
+
+    &.is-open {
+      grid-template-rows: 1fr;
+      pointer-events: auto;
+      margin-top: get-rem-desktop(20);
+      margin-bottom: get-rem-desktop(15);
+    }
+
+    &.is-open .brand-directory-search {
+      opacity: 1;
+      @include transform(translateY(0));
+      transition-delay: 110ms;
+    }
+
+    @media only screen and (max-width: 768px) {
+      &.is-open {
+        margin-top: get-rem-mobile(20);
+        margin-bottom: get-rem-mobile(10);
+      }
     }
   }
 
@@ -463,6 +548,12 @@
     }
   }
 
+  .brand-directory-no-results {
+    margin: 0;
+    color: $colour-burgundy;
+    grid-column: 1 / -1;
+  }
+
   .brand-directory-card {
     @media only screen and (max-width: 768px) {
       touch-action: pan-y;
@@ -517,7 +608,7 @@
     min-height: calc(100svh + (var(--brand-directory-steps, 1) * 55svh));
     background-color: #F9EBDD;
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1025px) {
       display: none;
     }
   }
@@ -531,7 +622,7 @@
       top: get-rem-tablet(109);
     }
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1025px) {
       top: get-rem-mobile(102);
     }
   }
@@ -545,7 +636,7 @@
     padding-top: get-rem-desktop(45);
     padding-bottom: get-rem-desktop(45);
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1025px) {
       display: none;
     }
   }
@@ -680,8 +771,12 @@
     padding-top: get-rem-mobile(35);
     padding-bottom: get-rem-mobile(80);
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1025px) {
       display: block;
+    }
+
+    .brand-directory-no-results {
+      padding-top: get-rem-mobile(10);
     }
   }
 
