@@ -1311,9 +1311,7 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
         ref={searchOverlayRef}
         aria-hidden={!isSearchOpen}
       >
-        <div className="search-overlay-inner row-lg h-pad" ref={searchOverlayInnerRef}>
-          <div className="col-2-12_lg"></div>
-
+        <div className="search-overlay-inner h-pad" ref={searchOverlayInnerRef}>
           <div className="col-8-12_lg inner-wrap">
             <div className="search-overlay-content">
               <div className="search-input-wrap">
@@ -1446,8 +1444,6 @@ export default function Header({ leftMenu, rightMenu }: HeaderProps) {
               )}
             </div>
           </div>
-
-          <div className="col-2-12_lg"></div>
         </div>
       </div>
     </>

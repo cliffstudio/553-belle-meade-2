@@ -208,10 +208,9 @@ export default async function SearchPage(props: SearchPageProps) {
   }
 
   return (
-    <section className="search-page h-pad row-lg">
+    <section className="search-page h-pad">
       <BodyClassProvider className="page-template-search" />
       <SearchResultsLazyLoad query={query} resultCount={results.length} />
-      <div className="col-2-12_lg"></div>
 
       <div className="inner-wrap col-8-12_lg">
         <div className="search-page-header">
@@ -258,8 +257,6 @@ export default async function SearchPage(props: SearchPageProps) {
           </div>
         )}
       </div>
-
-      <div className="col-2-12_lg"></div>
     </section>
   )
 }

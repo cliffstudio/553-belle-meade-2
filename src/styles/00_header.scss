@@ -394,6 +394,8 @@
 
     .inner-wrap {
       width: 100%;
+      max-width: get-rem-desktop(1200);
+      margin: 0 auto;
     }
 
     &.visible {

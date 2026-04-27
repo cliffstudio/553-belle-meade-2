@@ -17,6 +17,12 @@
       padding-top: get-rem-mobile(150);
       padding-bottom: get-rem-mobile(50);
     }
+
+    .inner-wrap {
+      width: 100%;
+      max-width: get-rem-desktop(1200);
+      margin: 0 auto;
+    }
   }
 
   .search-page-header {
@@ -47,8 +53,9 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: get-rem-desktop(170);
 
-    // @media only screen and (max-width: 1440px) {
-    // }
+    @media only screen and (max-width: 1440px) {
+      column-gap: get-rem-tablet(100);
+    }
 
     @media only screen and (max-width: 768px) {
       grid-template-columns: repeat(1, 1fr);
