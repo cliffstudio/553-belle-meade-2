@@ -229,27 +229,27 @@ function BrandDirectory({
     }
   }
 
-  const handleCardLinkPointerDown = (event: React.PointerEvent<HTMLAnchorElement>) => {
+  const handleCardPointerDown = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'touch') return
     touchStartRef.current = { x: event.clientX, y: event.clientY }
     isTouchDraggingRef.current = false
   }
 
-  const handleCardLinkPointerMove = (event: React.PointerEvent<HTMLAnchorElement>) => {
+  const handleCardPointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'touch' || !touchStartRef.current) return
     const deltaX = Math.abs(event.clientX - touchStartRef.current.x)
     const deltaY = Math.abs(event.clientY - touchStartRef.current.y)
-    if (deltaX > 10 || deltaY > 10) {
+    if (deltaX > 8 || deltaY > 8) {
       isTouchDraggingRef.current = true
     }
   }
 
-  const handleCardLinkPointerEnd = (event: React.PointerEvent<HTMLAnchorElement>) => {
+  const handleCardPointerEnd = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'touch') return
     touchStartRef.current = null
   }
 
-  const handleCardLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleCardClick = (event: React.MouseEvent<HTMLElement>) => {
     if (isTouchDraggingRef.current) {
       event.preventDefault()
       isTouchDraggingRef.current = false
@@ -413,10 +413,16 @@ function BrandDirectory({
             const href = brand.slug?.current ? `/brands/${brand.slug.current}` : '#'
 
             return (
-              <article
+              <Link
                 key={brand._id}
+                href={href}
                 className="brand-directory-card out-of-opacity"
-                aria-label={brand.title || 'Brand card'}
+                aria-label={brand.title || 'View brand'}
+                onPointerDown={handleCardPointerDown}
+                onPointerMove={handleCardPointerMove}
+                onPointerUp={handleCardPointerEnd}
+                onPointerCancel={handleCardPointerEnd}
+                onClick={handleCardClick}
               >
                 {brand.thumbnailImage && (
                   <div className="brand-directory-media">
@@ -441,17 +447,7 @@ function BrandDirectory({
                     <BrandCategoryTitleIcon category={brand.brandCategory} />
                   </div>
                 </div>
-                <Link
-                  href={href}
-                  className="brand-directory-card__link"
-                  aria-label={brand.title || 'View brand'}
-                  onPointerDown={handleCardLinkPointerDown}
-                  onPointerMove={handleCardLinkPointerMove}
-                  onPointerUp={handleCardLinkPointerEnd}
-                  onPointerCancel={handleCardLinkPointerEnd}
-                  onClick={handleCardLinkClick}
-                />
-              </article>
+              </Link>
             )
           })}
         </div>
