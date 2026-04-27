@@ -5,6 +5,7 @@ import React from 'react'
 import { SanityImage } from '../types/sanity'
 import { urlFor } from '../sanity/utils/imageUrlBuilder'
 import Link from 'next/link'
+import useTouchDragClickGuard from '../utils/useTouchDragClickGuard'
 
 type EventsFilter = 'this-week' | 'this-month' | 'custom'
 type EventsGrid = 'columns-2' | 'columns-3' | 'columns-4'
@@ -38,6 +39,7 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
   customEvents = [],
   allEvents = [],
 }) => {
+  const touchDragClickGuard = useTouchDragClickGuard()
   const now = new Date()
 
   const startOfWeek = new Date(now)
@@ -112,6 +114,11 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
               href={href}
               className="events-card out-of-opacity"
               aria-label={event.title || 'Event card'}
+              onPointerDown={touchDragClickGuard.onPointerDown}
+              onPointerMove={touchDragClickGuard.onPointerMove}
+              onPointerUp={touchDragClickGuard.onPointerUp}
+              onPointerCancel={touchDragClickGuard.onPointerCancel}
+              onClick={touchDragClickGuard.onClick}
             >
               {event.thumbnailImage && (
                 <div className="media-wrap relative">
