@@ -3,7 +3,7 @@
 
 import { urlFor } from '../sanity/utils/imageUrlBuilder'
 import { videoUrlFor } from '../sanity/utils/videoUrlBuilder'
-import { useEffect, useRef } from 'react'
+import { type CSSProperties, useEffect, useRef } from 'react'
 import mediaLazyloading from '../utils/lazyLoad'
 import 'flickity/css/flickity.css'
 import { SanityImage, SanityVideo, SanityVideoUrl } from '../types/sanity'
@@ -26,9 +26,16 @@ type Slide = {
 
 type FullWidthSlideshowProps = {
   slides?: Slide[]
+  barColour?: 'None' | 'Lilac' | 'Green' | 'Tan'
 }
 
-export default function FullWidthSlideshow({ slides }: FullWidthSlideshowProps) {
+const progressBarColorMap: Record<'Lilac' | 'Green' | 'Tan', string> = {
+  Lilac: '#E3DDE7',
+  Green: '#C4C7B2',
+  Tan: '#E6D3C3',
+}
+
+export default function FullWidthSlideshow({ slides, barColour = 'None' }: FullWidthSlideshowProps) {
   const SLIDE_DURATION_MS = 3000
   const sectionRef = useRef<HTMLElement>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
@@ -48,11 +55,6 @@ export default function FullWidthSlideshow({ slides }: FullWidthSlideshowProps) 
 
     const syncBlockHeight = () => {
       if (!sectionRef.current) return
-
-      // if (window.innerWidth <= 768) {
-      //   sectionRef.current.style.height = ''
-      //   return
-      // }
 
       const siteHeader = document.querySelector<HTMLElement>('.site-header')
       const viewportHeight = window.visualViewport?.height ?? window.innerHeight
@@ -251,6 +253,8 @@ export default function FullWidthSlideshow({ slides }: FullWidthSlideshowProps) 
     return null
   }
 
+  const progressBarColor = barColour === 'None' ? undefined : progressBarColorMap[barColour]
+
   return (
     <section ref={sectionRef} className="full-width-slideshow-block">
       <div ref={carouselRef} className="carousel flickity-enabled">
@@ -302,7 +306,16 @@ export default function FullWidthSlideshow({ slides }: FullWidthSlideshowProps) 
 
                 <div className="slideshow-with-border-block__progress" aria-hidden="true">
                   <div className="slideshow-with-border-block__progress-track" />
-                  <div className="slideshow-with-border-block__progress-bar" />
+                  <div
+                    className="slideshow-with-border-block__progress-bar"
+                    style={
+                      progressBarColor
+                        ? ({
+                            '--progress-bar-colour': progressBarColor,
+                          } as CSSProperties)
+                        : undefined
+                    }
+                  />
                 </div>
               </div>
 

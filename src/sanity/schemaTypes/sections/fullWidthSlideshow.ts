@@ -159,6 +159,15 @@ export default defineType({
         }
       ]
     }),
+    defineField({
+      name: 'barColour',
+      title: 'Bar Colour',
+      type: 'string',
+      initialValue: 'None',
+      options: {
+        list: ['None', 'Lilac', 'Green', 'Tan']
+      },
+    }),
   ],
   preview: {
     prepare() {

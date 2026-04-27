@@ -206,6 +206,7 @@ const flexibleContentFragment = `[] {
     link
   },
   // SlideshowWithBorder fields
+  barColour,
   slides[] {
     _key,
     mediaType,
