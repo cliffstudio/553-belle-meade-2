@@ -2747,7 +2747,7 @@ section {
 
     @media only screen and (max-width: 768px) {
       margin-top: get-rem-mobile(55);
-      column-gap: get-rem-mobile(22);
+      column-gap: get-rem-mobile(30);
 
       &.desktop {
         display: none;
@@ -2762,12 +2762,8 @@ section {
       position: relative;
 
       .icon-image {
-        max-width: get-rem-desktop(24);
+        max-width: get-rem-desktop(18);
         height: auto;
-
-        @media only screen and (max-width: 768px) {
-          max-width: get-rem-mobile(22);
-        }
       }
 
       a {
