@@ -39,7 +39,7 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
       const wrapper = wrapperRef.current
       if (!wrapper) return
 
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1024) {
         if (progressIndexRef.current !== 0) {
           progressIndexRef.current = 0
           setProgressIndex(0)

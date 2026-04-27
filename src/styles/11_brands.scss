@@ -182,7 +182,7 @@
 
 // Brand Directory Block
 .brand-directory-block {
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1024px) {
     overflow-x: hidden;
   }
 
@@ -517,7 +517,7 @@
     min-height: calc(100svh + (var(--brand-directory-steps, 1) * 55svh));
     background-color: #F9EBDD;
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 1024px) {
       display: none;
     }
   }
@@ -531,7 +531,7 @@
       top: get-rem-tablet(109);
     }
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 1024px) {
       top: get-rem-mobile(102);
     }
   }
@@ -545,7 +545,7 @@
     padding-top: get-rem-desktop(45);
     padding-bottom: get-rem-desktop(45);
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 1024px) {
       display: none;
     }
   }
@@ -680,7 +680,7 @@
     padding-top: get-rem-mobile(35);
     padding-bottom: get-rem-mobile(80);
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 1024px) {
       display: block;
     }
   }
