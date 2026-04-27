@@ -481,7 +481,7 @@
     @media (hover: hover) {
       &:hover {
         font-family: 'Millionaire-Script';
-        @include transform(translateY(-0.35em));
+        @include transform(translateY(-0.15em));
       }
     }
   }
