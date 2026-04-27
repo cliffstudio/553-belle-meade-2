@@ -115,6 +115,7 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
                     className="lazy full-bleed-image"
                   />
                   <div className="loading-overlay" />
+                  <a href={href}></a>
                 </div>
               )}
 
