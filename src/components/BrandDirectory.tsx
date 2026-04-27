@@ -110,6 +110,8 @@ function BrandDirectory({
   const [sortBy, setSortBy] = useState<SortBy>('alphabetical')
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null)
   const toolbarRef = useRef<HTMLDivElement>(null)
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const isTouchDraggingRef = useRef(false)
 
   const categories = useMemo(() => {
     const fallbackCategories = allBrands
@@ -224,6 +226,33 @@ function BrandDirectory({
     const overlay = parent.querySelector('.loading-overlay')
     if (overlay) {
       overlay.classList.add('hidden')
+    }
+  }
+
+  const handleCardPointerDown = (event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'touch') return
+    touchStartRef.current = { x: event.clientX, y: event.clientY }
+    isTouchDraggingRef.current = false
+  }
+
+  const handleCardPointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'touch' || !touchStartRef.current) return
+    const deltaX = Math.abs(event.clientX - touchStartRef.current.x)
+    const deltaY = Math.abs(event.clientY - touchStartRef.current.y)
+    if (deltaX > 8 || deltaY > 8) {
+      isTouchDraggingRef.current = true
+    }
+  }
+
+  const handleCardPointerEnd = (event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'touch') return
+    touchStartRef.current = null
+  }
+
+  const handleCardClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (isTouchDraggingRef.current) {
+      event.preventDefault()
+      isTouchDraggingRef.current = false
     }
   }
 
@@ -384,7 +413,17 @@ function BrandDirectory({
             const href = brand.slug?.current ? `/brands/${brand.slug.current}` : '#'
 
             return (
-              <a href={href} key={brand._id} className="brand-directory-card out-of-opacity">
+              <Link
+                key={brand._id}
+                href={href}
+                className="brand-directory-card out-of-opacity"
+                aria-label={brand.title || 'View brand'}
+                onPointerDown={handleCardPointerDown}
+                onPointerMove={handleCardPointerMove}
+                onPointerUp={handleCardPointerEnd}
+                onPointerCancel={handleCardPointerEnd}
+                onClick={handleCardClick}
+              >
                 {brand.thumbnailImage && (
                   <div className="brand-directory-media">
                     <img 
@@ -398,17 +437,17 @@ function BrandDirectory({
                 )}
                 <div className="brand-directory-title h3 desktop">
                   <div className="brand-directory-title__row">
-                    {brand.title}
+                    <span>{brand.title}</span>
                     <BrandCategoryTitleIcon category={brand.brandCategory} />
                   </div>
                 </div>
                 <div className="brand-directory-title h2 mobile">
                   <div className="brand-directory-title__row">
-                    {brand.title}
+                    <span>{brand.title}</span>
                     <BrandCategoryTitleIcon category={brand.brandCategory} />
                   </div>
                 </div>
-              </a>
+              </Link>
             )
           })}
         </div>

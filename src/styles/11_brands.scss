@@ -465,10 +465,17 @@
       row-gap: get-rem-mobile(40);
       padding-top: get-rem-mobile(20);
       padding-bottom: get-rem-mobile(40);
+      touch-action: pan-y;
     }
   }
 
-  .brand-directory-media-link {
+  .brand-directory-card {
+    @media only screen and (max-width: 768px) {
+      touch-action: pan-y;
+    }
+  }
+
+  .brand-directory-media {
     display: block;
     aspect-ratio: 1 / 1;
     position: relative;
