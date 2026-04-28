@@ -207,28 +207,31 @@ function BrandDirectory({
     setActiveDropdown((prev) => (prev === index ? null : index))
   }
 
+  const categoryDropdownIndex = 0
+  const sortDropdownIndex = 1
+  const searchDropdownIndex = 2
+
   useEffect(() => {
     const onResize = () => {
+      if (activeDropdown === searchDropdownIndex) return
       setActiveDropdown(null)
     }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
-  }, [])
+  }, [activeDropdown, searchDropdownIndex])
 
   useEffect(() => {
     if (activeDropdown === null) return
     const onPointerDown = (e: PointerEvent) => {
+      // Keep Search sticky-open across taps/scroll gestures outside the toolbar.
+      if (activeDropdown === searchDropdownIndex) return
       if (toolbarRef.current && !toolbarRef.current.contains(e.target as Node)) {
         setActiveDropdown(null)
       }
     }
     document.addEventListener('pointerdown', onPointerDown)
     return () => document.removeEventListener('pointerdown', onPointerDown)
-  }, [activeDropdown])
-
-  const categoryDropdownIndex = 0
-  const sortDropdownIndex = 1
-  const searchDropdownIndex = 2
+  }, [activeDropdown, searchDropdownIndex])
 
   useEffect(() => {
     if (activeDropdown === searchDropdownIndex) {
