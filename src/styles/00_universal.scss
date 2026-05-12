@@ -1,5 +1,5 @@
-@use '00_mixins' as *;
-@use '00_base' as *;
+@use "00_mixins" as *;
+@use "00_base" as *;
 
 // UTILITY CLASSES ------------------
 
@@ -48,7 +48,7 @@
       transform-origin: 100%;
       background: $colour-burgundy;
       height: 1px;
-      @include transition(transform .83s cubic-bezier(.33, 0, .13, 1));
+      @include transition(transform 0.83s cubic-bezier(0.33, 0, 0.13, 1));
       position: absolute;
       bottom: -1px;
       left: 0;
@@ -176,7 +176,11 @@ section {
 }
 
 @keyframes arrowBounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -243,7 +247,7 @@ section {
     pointer-events: none;
     opacity: 0;
     will-change: opacity;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
 
     &.active {
       opacity: 1;
@@ -317,7 +321,7 @@ section {
     position: relative;
     display: none;
     width: fit-content;
-    
+
     @media only screen and (max-width: 1440px) {
       display: block;
     }
@@ -348,7 +352,9 @@ section {
     opacity: 0;
 
     &.fade-in {
-      @include animation(finalPhaseFadeIn 1s cubic-bezier(0.25,0.1,0.25,1) forwards);
+      @include animation(
+        finalPhaseFadeIn 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards
+      );
     }
   }
 }
@@ -446,7 +452,7 @@ section {
   .media-wrap {
     position: relative;
   }
-  
+
   .media-caption {
     position: absolute;
     bottom: get-rem-desktop(-36);
@@ -561,7 +567,7 @@ section {
         }
       }
     }
-    
+
     .row-2 {
       display: none;
 
@@ -902,7 +908,7 @@ section {
 
       .pause.button {
         opacity: 0;
-        stroke: #FFF9F2;
+        stroke: #fff9f2;
         stroke-width: 1px;
         fill: none;
 
@@ -915,7 +921,7 @@ section {
     .full-screen-button {
       .button {
         opacity: 1;
-        stroke: #FFF9F2;
+        stroke: #fff9f2;
         stroke-width: 1px;
         fill: none;
       }
@@ -926,7 +932,7 @@ section {
 
       .mute.button {
         opacity: 0;
-        stroke: #FFF9F2;
+        stroke: #fff9f2;
         stroke-width: 1px;
         fill: none;
 
@@ -937,7 +943,7 @@ section {
 
       .volume.button {
         opacity: 0;
-        stroke: #FFF9F2;
+        stroke: #fff9f2;
         stroke-width: 1px;
         fill: none;
 
@@ -967,7 +973,7 @@ section {
       max-width: get-rem-tablet(260);
     }
   }
-  
+
   .media-wrap {
     position: relative;
   }
@@ -990,13 +996,13 @@ section {
       width: calc(100% + get-rem-desktop(50));
       margin-top: 10vw;
       @include aspect-ratio(3, 4);
-  
+
       @media only screen and (max-width: 1440px) {
         margin-left: get-rem-tablet(-30);
         width: calc(100% + get-rem-tablet(30));
         margin-top: 11vw;
       }
-  
+
       @media only screen and (max-width: 768px) {
         margin-top: get-rem-mobile(50);
         margin-left: get-rem-mobile(-15);
@@ -1004,17 +1010,17 @@ section {
         @include aspect-ratio(1, 1);
       }
     }
-  
+
     .media-2 {
       margin-right: get-rem-desktop(-50);
       width: calc(100% + get-rem-desktop(50));
       @include aspect-ratio(16, 9);
-  
+
       @media only screen and (max-width: 1440px) {
         margin-right: get-rem-tablet(-30);
         width: calc(100% + get-rem-tablet(30));
       }
-  
+
       @media only screen and (max-width: 768px) {
         margin-top: get-rem-mobile(45);
         margin-right: get-rem-mobile(-15);
@@ -1041,11 +1047,11 @@ section {
     .text-wrap {
       .heading {
         margin-bottom: get-rem-desktop(20);
-  
+
         @media only screen and (max-width: 1440px) {
           margin-bottom: get-rem-tablet(10);
         }
-  
+
         @media only screen and (max-width: 768px) {
           margin-bottom: get-rem-mobile(10);
         }
@@ -1056,12 +1062,12 @@ section {
       margin-right: get-rem-desktop(-50);
       width: calc(100% + get-rem-desktop(50));
       @include aspect-ratio(1, 1);
-  
+
       @media only screen and (max-width: 1440px) {
         margin-right: get-rem-tablet(-30);
         width: calc(100% + get-rem-tablet(30));
       }
-  
+
       @media only screen and (max-width: 768px) {
         margin-top: get-rem-mobile(65);
         margin-right: get-rem-mobile(-15);
@@ -1069,11 +1075,11 @@ section {
         @include aspect-ratio(3, 4);
       }
     }
-  
+
     .media-2 {
       @include aspect-ratio(16, 9);
       margin-top: -7.5vw;
-  
+
       @media only screen and (max-width: 768px) {
         margin-top: get-rem-mobile(75);
         margin-left: get-rem-mobile(-15);
@@ -1141,7 +1147,7 @@ section {
   @media (hover: hover) {
     &:hover {
       .link-text {
-        font-family: 'Millionaire-Script';
+        font-family: "Millionaire-Script";
         @include transform(translateY(-0.17em));
         padding-left: 0.2em;
         padding-right: 0.2em;
@@ -1210,7 +1216,7 @@ section {
     padding-top: get-rem-mobile(70);
     padding-bottom: get-rem-mobile(70);
   }
-  
+
   .heading {
     max-width: get-rem-desktop(310);
     margin-bottom: get-rem-desktop(10);
@@ -1232,7 +1238,7 @@ section {
     @media only screen and (max-width: 1440px) {
       max-width: get-rem-tablet(370);
     }
-    
+
     @media only screen and (max-width: 768px) {
       margin-bottom: get-rem-mobile(65);
     }
@@ -1339,7 +1345,7 @@ section {
 
   .tile {
     overflow: hidden;
-    
+
     @media (hover: hover) {
       &:hover {
         img,
@@ -1353,7 +1359,7 @@ section {
 
         .link-text {
           h2 {
-            font-family: 'Millionaire-Script';
+            font-family: "Millionaire-Script";
             @include transform(translateY(calc(-0.18em)));
             padding-left: 0.2em;
             padding-right: 0.2em;
@@ -1366,14 +1372,14 @@ section {
   img,
   video {
     will-change: filter;
-    @include transition(filter 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(filter 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
   }
 
   .opacity-overlay {
     opacity: 0;
     z-index: 1;
     will-change: opacity;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
   }
 
   .link-text {
@@ -1557,7 +1563,7 @@ section {
       aspect-ratio: 1 / 1;
       margin-top: 8vw;
     }
-    
+
     .tile-7 {
       aspect-ratio: 4 / 3;
       margin-top: -4.5vw;
@@ -1703,7 +1709,7 @@ section {
     .tile-5 {
       aspect-ratio: 16 / 9;
     }
-    
+
     .tile-6 {
       aspect-ratio: 4 / 3;
     }
@@ -1771,7 +1777,7 @@ section {
   .text-block-scroll {
     position: relative;
     @include justify-content(center);
-    
+
     .text-wrap {
       text-align: center;
       color: $colour-cream;
@@ -1872,7 +1878,6 @@ section {
       }
     }
 
-
     @media only screen and (max-width: 1440px) {
       &:not(.has-content) {
         .caption svg {
@@ -1893,8 +1898,8 @@ section {
 
         img {
           will-change: opacity;
-          @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
-          
+          @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
+
           &.hover-image {
             position: absolute;
             top: 0;
@@ -1905,7 +1910,7 @@ section {
             opacity: 0;
             pointer-events: none;
             will-change: opacity;
-            @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+            @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
           }
         }
 
@@ -1916,14 +1921,14 @@ section {
           @include transform(translate(-50%, -50%));
           width: 100%;
           text-align: center;
-          font-family: 'Millionaire-Script';
+          font-family: "Millionaire-Script";
           color: $colour-cream;
           padding-left: get-rem-desktop(10);
           padding-right: get-rem-desktop(10);
           pointer-events: none;
           opacity: 0;
           will-change: opacity;
-          @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+          @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
         }
       }
 
@@ -1936,7 +1941,7 @@ section {
 
         .caption-font {
           color: $colour-cream;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.30);
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         svg {
@@ -2174,7 +2179,7 @@ section {
       .artefact-2 {
         max-width: get-rem-desktop(186);
         margin-left: auto;
-        
+
         @media only screen and (max-width: 1440px) {
           max-width: unset;
         }
@@ -2423,7 +2428,7 @@ section {
       max-width: calc(100dvw - get-rem-mobile(46));
       column-gap: get-rem-mobile(28);
     }
-  
+
     @media only screen and (max-width: 768px) and (orientation: portrait) {
       width: calc(100% - get-rem-mobile(46));
       height: fit-content;
@@ -2436,7 +2441,7 @@ section {
       height: 100%;
       flex-shrink: 0;
     }
-  
+
     .media-wrap {
       // box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.30);
       overflow: hidden;
@@ -2466,7 +2471,7 @@ section {
       //     height: 33vh;
       //   }
       // }
-      
+
       img {
         height: 100%;
         width: auto;
@@ -2580,7 +2585,7 @@ section {
   padding-bottom: get-rem-desktop(180);
   text-align: center;
   background-color: $colour-cream;
-  
+
   @media only screen and (max-width: 1440px) {
     padding-top: get-rem-tablet(144);
     padding-bottom: get-rem-tablet(144);
@@ -2698,13 +2703,13 @@ section {
       margin-left: auto;
       margin-right: auto;
       cursor: pointer;
-      @include transition(all 400ms cubic-bezier(0.25,0.1,0.25,1));
-  
+      @include transition(all 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
+
       @media only screen and (max-width: 1440px) {
         margin-top: get-rem-tablet(40);
         padding: get-rem-tablet(8) get-rem-tablet(20) get-rem-tablet(7);
       }
-  
+
       @media only screen and (max-width: 768px) {
         margin-top: get-rem-mobile(62);
       }
@@ -2715,7 +2720,7 @@ section {
           color: $colour-cream;
         }
       }
-  
+
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
@@ -2727,7 +2732,6 @@ section {
 .instagram-feed-block {
   padding-top: get-rem-desktop(95);
   padding-bottom: get-rem-desktop(100);
-  background-color: $colour-tan;
 
   @media only screen and (max-width: 768px) {
     padding-top: get-rem-mobile(70);
