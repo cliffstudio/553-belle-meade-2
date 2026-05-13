@@ -3,6 +3,7 @@
 import { defineType, defineField } from 'sanity'
 import { HomeIcon } from '@sanity/icons'
 import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
+import type { FlexibleContentArrayRule } from '../utils/flexibleContentArrayRule'
 
 export default defineType({
   name: 'flexibleHeroSection',
@@ -268,4 +269,22 @@ export default defineType({
     }
   }
 })
+
+/** Use on the `flexibleContent` array — at most one Hero block per page. */
+export const flexibleContentAtMostOneHeroValidation = (
+  Rule: FlexibleContentArrayRule,
+) =>
+  Rule.custom((modules) => {
+    if (!modules || !Array.isArray(modules)) return true
+
+    const heroCount = modules.filter(
+      (module) => (module as { _type?: string })._type === 'flexibleHeroSection',
+    ).length
+
+    if (heroCount > 1) {
+      return 'Hero can only be added once per page'
+    }
+
+    return true
+  })
 

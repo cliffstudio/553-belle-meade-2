@@ -1,6 +1,7 @@
 // sections/villageMap.ts
 import { defineType, defineField } from "sanity";
 import { sectionAnchorIdField } from "../fields/sectionAnchorIdField";
+import type { FlexibleContentArrayRule } from "../utils/flexibleContentArrayRule";
 import { MarkerIcon } from "@sanity/icons";
 
 type SvgOverlayFileValue = { asset?: { _ref?: string } } | null | undefined;
@@ -160,3 +161,21 @@ export default defineType({
     },
   },
 });
+
+/** Use on the `flexibleContent` array — at most one Village Map block per page. */
+export const flexibleContentAtMostOneVillageMapValidation = (
+  Rule: FlexibleContentArrayRule,
+) =>
+  Rule.custom((modules) => {
+    if (!modules || !Array.isArray(modules)) return true;
+
+    const count = modules.filter(
+      (item) => (item as { _type?: string })._type === "villageMap",
+    ).length;
+
+    if (count > 1) {
+      return "Village Map can only be added once per page";
+    }
+
+    return true;
+  });

@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
+import type { FlexibleContentArrayRule } from '../utils/flexibleContentArrayRule'
 import { CaseIcon } from '@sanity/icons'
 
 export default defineType({
@@ -33,3 +34,21 @@ export default defineType({
     },
   },
 })
+
+/** Use on the `flexibleContent` array — at most one Brand Directory block per page. */
+export const flexibleContentAtMostOneBrandDirectoryValidation = (
+  Rule: FlexibleContentArrayRule,
+) =>
+  Rule.custom((modules) => {
+    if (!modules || !Array.isArray(modules)) return true
+
+    const count = modules.filter(
+      (item) => (item as { _type?: string })._type === 'brandDirectory',
+    ).length
+
+    if (count > 1) {
+      return 'Brand Directory can only be added once per page'
+    }
+
+    return true
+  })

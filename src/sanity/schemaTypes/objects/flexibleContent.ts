@@ -1,9 +1,31 @@
 import { defineType } from 'sanity'
+import { flexibleContentAtMostOneBrandDirectoryValidation } from '../sections/brandDirectory'
+import { flexibleContentAtMostOneHeroValidation } from '../sections/flexibleHeroSection'
+import { flexibleContentAtMostOneInstagramFeedValidation } from '../sections/instagramFeed'
+import { flexibleContentAtMostOneLeasingMapValidation } from '../sections/leasingMap'
+import { flexibleContentAtMostOneVirtualTourEmbedValidation } from '../sections/virtualTourEmbed'
+import { flexibleContentAtMostOneVillageMapValidation } from '../sections/villageMap'
+import type { FlexibleContentArrayRule } from '../utils/flexibleContentArrayRule'
+
+const flexibleContentBlockValidations = [
+  flexibleContentAtMostOneHeroValidation,
+  flexibleContentAtMostOneInstagramFeedValidation,
+  flexibleContentAtMostOneBrandDirectoryValidation,
+  flexibleContentAtMostOneLeasingMapValidation,
+  flexibleContentAtMostOneVillageMapValidation,
+  flexibleContentAtMostOneVirtualTourEmbedValidation,
+]
 
 export default defineType({
   name: 'flexibleContent',
   title: 'Content Blocks',
   type: 'array',
+  validation: (Rule) =>
+    flexibleContentBlockValidations.reduce(
+      (acc, addValidation) =>
+        addValidation(acc as FlexibleContentArrayRule) as FlexibleContentArrayRule,
+      Rule as FlexibleContentArrayRule,
+    ) as typeof Rule,
   of: [
     { type: 'flexibleHeroSection', title: 'Hero' },
     { type: 'textBlock', title: 'Text Block' },

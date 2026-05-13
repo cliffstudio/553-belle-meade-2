@@ -1,6 +1,7 @@
 // sections/instagramFeed.ts
 import { defineType, defineField } from 'sanity'
 import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
+import type { FlexibleContentArrayRule } from '../utils/flexibleContentArrayRule'
 import { HashIcon } from '@sanity/icons'
 
 export default defineType({
@@ -92,3 +93,21 @@ export default defineType({
     }
   }
 })
+
+/** Use on the `flexibleContent` array — at most one Instagram Feed block per page. */
+export const flexibleContentAtMostOneInstagramFeedValidation = (
+  Rule: FlexibleContentArrayRule,
+) =>
+  Rule.custom((modules) => {
+    if (!modules || !Array.isArray(modules)) return true
+
+    const count = modules.filter(
+      (item) => (item as { _type?: string })._type === 'instagramFeed',
+    ).length
+
+    if (count > 1) {
+      return 'Instagram Feed can only be added once per page'
+    }
+
+    return true
+  })
