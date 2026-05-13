@@ -9,6 +9,7 @@ import { getExternalLinkProps } from '../utils/getExternalLinkProps'
 import type { CtaLink } from '../types/link'
 
 type SmallMediaTextProps = {
+  anchorId?: string
   mediaType?: 'image' | 'video'
   image?: SanityImage
   video?: SanityVideo
@@ -19,11 +20,11 @@ type SmallMediaTextProps = {
   cta?: CtaLink
 }
 
-export default function SmallMediaText({ mediaType = 'image', image, video, videoSource = 'file', videoUrl, heading, body, cta }: SmallMediaTextProps) {
+export default function SmallMediaText({ anchorId, mediaType = 'image', image, video, videoSource = 'file', videoUrl, heading, body, cta }: SmallMediaTextProps) {
   const { text, href } = getLinkInfo(cta)
 
   return (
-    <section className="small-media-text-block h-pad">
+    <section id={anchorId} className="small-media-text-block h-pad">
       <div className="row-lg">
         <div className="col-9-12_lg">
           <div className="text-wrap max-width-small-text offset-margin-top out-of-view">

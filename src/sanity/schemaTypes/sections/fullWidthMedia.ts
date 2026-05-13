@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { defineType, defineField } from 'sanity'
 import { ImageIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 
 export default defineType({
   name: 'fullWidthMedia',
@@ -8,6 +9,7 @@ export default defineType({
   type: 'object',
   icon: ImageIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'mediaType',
       title: 'Media Type',

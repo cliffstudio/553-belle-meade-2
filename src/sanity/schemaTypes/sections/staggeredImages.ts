@@ -2,12 +2,14 @@
 // staggeredImages.ts
 import { defineType, defineField } from 'sanity'
 import { ImagesIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 export default defineType({
   name: 'staggeredImages',
   title: 'Staggered Images',
   type: 'object',
   icon: ImagesIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({ name: 'heading', type: 'string' }),
     defineField({ name: 'body', type: 'richPortableText' }),
     defineField({

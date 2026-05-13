@@ -1,5 +1,6 @@
 // sections/architects.ts
 import { defineType, defineField } from 'sanity'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 import { UsersIcon } from '@sanity/icons'
 
 export default defineType({
@@ -8,6 +9,7 @@ export default defineType({
   type: 'object',
   icon: UsersIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'heading',
       title: 'Heading',

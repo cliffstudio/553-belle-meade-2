@@ -9,6 +9,7 @@ import { portableTextComponents } from '../utils/portableTextComponents'
 type LayoutVariant = 'layout-1' | 'layout-2' | 'layout-3'
 
 type StaggeredImagesProps = { 
+  anchorId?: string
   heading?: string
   body?: PortableTextBlock[]
   mediaType1?: 'image' | 'video'
@@ -33,6 +34,7 @@ type StaggeredImagesProps = {
 }
 
 export default function StaggeredImages({ 
+  anchorId,
   heading, 
   body, 
   mediaType1 = 'image',
@@ -100,7 +102,7 @@ data-src={urlFor(image).url()}
   return (
     <>
       {layout === 'layout-1' && (
-        <section className="staggered-images-block h-pad layout-1">
+        <section id={anchorId} className="staggered-images-block h-pad layout-1">
           <div className="row-1">
             <div className="text-wrap max-width-big-text out-of-view">
               {heading && <h2 className="heading cta-font">{heading}</h2>}
@@ -155,7 +157,7 @@ data-src={urlFor(image).url()}
       )}
 
       {layout === 'layout-2' && (
-        <section className="staggered-images-block h-pad layout-2">
+        <section id={anchorId} className="staggered-images-block h-pad layout-2">
           <div className="row-1 row-lg">
             <div className="col-1 col-7-12_lg out-of-view">
               <div className="text-wrap max-width-big-text">
@@ -226,7 +228,7 @@ data-src={urlFor(image).url()}
       )}
 
       {layout === 'layout-3' && (
-        <section className="staggered-images-block h-pad layout-3">
+        <section id={anchorId} className="staggered-images-block h-pad layout-3">
           <div className="row-1">
             <div className="text-wrap max-width-big-text out-of-view">
               {heading && <h2 className="heading cta-font">{heading}</h2>}

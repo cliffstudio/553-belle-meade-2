@@ -28,10 +28,12 @@ type Slide = {
 };
 
 type SlideshowWithBorderProps = {
+  anchorId?: string
   slides?: Slide[];
 };
 
 export default function SlideshowWithBorder({
+  anchorId,
   slides,
 }: SlideshowWithBorderProps) {
   const SLIDE_DURATION_MS = 5000;
@@ -254,7 +256,7 @@ export default function SlideshowWithBorder({
   }
 
   return (
-    <section ref={sectionRef} className="slideshow-with-border-block h-pad">
+    <section ref={sectionRef} id={anchorId} className="slideshow-with-border-block h-pad">
       <div ref={carouselRef} className="carousel flickity-enabled">
         {slides.map((item, index) => {
           const mediaType = item.mediaType || "image";

@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // sections/villageMap.ts
 import { defineType, defineField } from "sanity";
+import { sectionAnchorIdField } from "../fields/sectionAnchorIdField";
 import { MarkerIcon } from "@sanity/icons";
+
+type SvgOverlayFileValue = { asset?: { _ref?: string } } | null | undefined;
 
 export default defineType({
   name: "villageMap",
@@ -9,6 +11,7 @@ export default defineType({
   type: "object",
   icon: MarkerIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: "floors",
       title: "Floors",
@@ -56,9 +59,8 @@ export default defineType({
               options: {
                 accept: "image/svg+xml,.svg",
               },
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               validation: (Rule) =>
-                Rule.custom(async (file: any, context) => {
+                Rule.custom(async (file: SvgOverlayFileValue, context) => {
                   if (!file?.asset?._ref) {
                     return true as const;
                   }

@@ -25,6 +25,7 @@ type Slide = {
 };
 
 type FullWidthSlideshowProps = {
+  anchorId?: string
   slides?: Slide[];
   barColour?: "None" | "Lilac" | "Green" | "Tan";
 };
@@ -36,6 +37,7 @@ const progressBarColorMap: Record<"Lilac" | "Green" | "Tan", string> = {
 };
 
 export default function FullWidthSlideshow({
+  anchorId,
   slides,
   barColour = "None",
 }: FullWidthSlideshowProps) {
@@ -292,7 +294,7 @@ export default function FullWidthSlideshow({
     barColour === "None" ? undefined : progressBarColorMap[barColour];
 
   return (
-    <section ref={sectionRef} className="full-width-slideshow-block">
+    <section ref={sectionRef} id={anchorId} className="full-width-slideshow-block">
       <div ref={carouselRef} className="carousel flickity-enabled">
         {slides.map((item, index) => {
           const mediaType = item.mediaType || "image";

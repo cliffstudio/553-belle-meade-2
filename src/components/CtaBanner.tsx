@@ -4,16 +4,17 @@ import { getExternalLinkProps } from '../utils/getExternalLinkProps'
 import type { CtaLink } from '../types/link'
 
 type CtaBannerProps = {
+  anchorId?: string
   cta?: CtaLink
 }
 
-export default function CtaBanner({ cta }: CtaBannerProps) {
+export default function CtaBanner({ anchorId, cta }: CtaBannerProps) {
   const { text, href } = getLinkInfo(cta)
   
   if (!href) return null
 
   return (
-    <section className="cta-banner-block">
+    <section id={anchorId} className="cta-banner-block">
       <div className="inner-wrap h-pad relative out-of-view">
         <div className="h2 link-text">{text}</div>
 

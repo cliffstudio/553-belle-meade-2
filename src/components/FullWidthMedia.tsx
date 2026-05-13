@@ -24,6 +24,7 @@ interface ExtendedVideoElement extends HTMLVideoElement {
 }
 
 type FullWidthMediaProps = {
+  anchorId?: string
   mediaType?: 'image' | 'video'
   image?: SanityImage
   video?: SanityVideo
@@ -32,7 +33,7 @@ type FullWidthMediaProps = {
   showControls?: boolean
 }
 
-export default function FullWidthMedia({ mediaType, image, video, videoSource = 'file', videoUrl, showControls = false }: FullWidthMediaProps) {
+export default function FullWidthMedia({ anchorId, mediaType, image, video, videoSource = 'file', videoUrl, showControls = false }: FullWidthMediaProps) {
   const [isPlaying, setIsPlaying] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -528,7 +529,7 @@ export default function FullWidthMedia({ mediaType, image, video, videoSource = 
   }
 
   return (
-    <section className="full-bleed-media-block relative">
+    <section id={anchorId} className="full-bleed-media-block relative">
       {mediaType === 'video' && (video || videoUrl) && (
         <div className="fill-space-video-wrap">
           <video

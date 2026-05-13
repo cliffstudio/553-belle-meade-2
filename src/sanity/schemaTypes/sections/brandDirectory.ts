@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 import { CaseIcon } from '@sanity/icons'
 
 export default defineType({
@@ -7,6 +8,7 @@ export default defineType({
   type: 'object',
   icon: CaseIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'preselectedBrandCategory',
       title: 'Preselected Brand Category',

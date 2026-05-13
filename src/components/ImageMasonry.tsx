@@ -18,6 +18,7 @@ import {
 } from '../utils/getSectionBackgroundColor'
 
 type ImageMasonryProps = { 
+  anchorId?: string
   heading?: string
   body?: PortableTextBlock[]
   cta?: CtaLink
@@ -36,6 +37,7 @@ type ImageMasonryProps = {
 }
 
 export default function ImageMasonry({ 
+  anchorId,
   heading, 
   body, 
   cta, 
@@ -113,7 +115,7 @@ export default function ImageMasonry({
       {layout === 'layout-1' && (
         <div ref={sectionRef}>
           {/* Desktop */}
-          <section className="image-masonry-block layout-1 h-pad desktop">
+          <section id={anchorId} className="image-masonry-block layout-1 h-pad desktop">
             {backgroundColorValue && (
               <div className="colour-background" style={{ backgroundColor: backgroundColorValue }}></div>
             )}
@@ -307,7 +309,7 @@ data-src={urlFor(image1).url()}
 
       {layout === 'layout-2' && (
         <>
-          <section className="image-masonry-block layout-2 h-pad">
+          <section id={anchorId} className="image-masonry-block layout-2 h-pad">
             <div className="row-1 row-lg">
               <div className="col-7-12_lg">
                 <div className="text-wrap max-width-big-text out-of-view">
@@ -444,7 +446,7 @@ data-src={urlFor(image1).url()}
       {layout === 'layout-3' && (
         <>
           {/* Desktop */}
-          <section className="image-masonry-block layout-3 h-pad desktop">
+          <section id={anchorId} className="image-masonry-block layout-3 h-pad desktop">
             <div className="row-lg">
               <div className="col-6-12_lg">
                 <div className="text-wrap max-width-big-text out-of-view">

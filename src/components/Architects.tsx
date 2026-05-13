@@ -12,18 +12,19 @@ type Architect = {
 }
 
 type ArchitectsProps = {
+  anchorId?: string
   heading?: string
   body?: PortableTextBlock[]
   architects?: Architect[]
 }
 
-export default function Architects({ heading, body, architects }: ArchitectsProps) {
+export default function Architects({ anchorId, heading, body, architects }: ArchitectsProps) {
   if (!architects || architects.length === 0) {
     return null
   }
 
   return (
-    <section className="text-grid-block h-pad">
+    <section id={anchorId} className="text-grid-block h-pad">
       <div className="inner-wrap row-lg">
         {heading && (
           <div className="col-4-12_lg out-of-view">

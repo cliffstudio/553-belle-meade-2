@@ -10,6 +10,7 @@ import { getExternalLinkProps } from '../utils/getExternalLinkProps'
 import type { CtaLink } from '../types/link'
 
 type LargeMediaTextProps = {
+  anchorId?: string
   mediaType?: 'image' | 'video'
   image?: SanityImage
   video?: SanityVideo
@@ -20,12 +21,12 @@ type LargeMediaTextProps = {
   cta?: CtaLink
 }
 
-export default function LargeMediaText({ mediaType = 'image', image, video, videoSource = 'file', videoUrl, heading, body, cta
+export default function LargeMediaText({ anchorId, mediaType = 'image', image, video, videoSource = 'file', videoUrl, heading, body, cta
 }: LargeMediaTextProps) {
   const { text, href } = getLinkInfo(cta)
 
   return (
-    <section className="large-media-text-block h-pad">
+    <section id={anchorId} className="large-media-text-block h-pad">
       <div className="inner-wrap">
         <div className="row-lg">
           <div className="col-7-12_lg desktop">

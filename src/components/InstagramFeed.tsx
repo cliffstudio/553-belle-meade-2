@@ -11,6 +11,7 @@ type SocialLink = {
 }
 
 type InstagramFeedProps = {
+  anchorId?: string
   title?: string
   socialLinks?: SocialLink[]
 }
@@ -29,7 +30,7 @@ const tempInstagramImages: InstagramTempImage[] = [
   { src: '/temp-insta-images/Rectangle%20289.jpg', alt: 'Instagram placeholder 6' },
 ]
 
-const InstagramFeed: React.FC<InstagramFeedProps> = ({ title, socialLinks = [] }) => {
+const InstagramFeed: React.FC<InstagramFeedProps> = ({ anchorId, title, socialLinks = [] }) => {
   const validLinks = socialLinks.filter((item) => item?.icon && item?.link)
 
   if (!title && validLinks.length === 0 && tempInstagramImages.length === 0) {
@@ -37,7 +38,7 @@ const InstagramFeed: React.FC<InstagramFeedProps> = ({ title, socialLinks = [] }
   }
 
   return (
-    <section className="instagram-feed-block h-pad">
+    <section id={anchorId} className="instagram-feed-block h-pad">
       <div className="top-wrap">
         {title && <h2 className="heading out-of-view">{title}</h2>}
 

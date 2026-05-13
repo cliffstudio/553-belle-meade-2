@@ -2,6 +2,7 @@
 // flexibleHeroSection.ts
 import { defineType, defineField } from 'sanity'
 import { HomeIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 
 export default defineType({
   name: 'flexibleHeroSection',
@@ -9,6 +10,7 @@ export default defineType({
   type: 'object',
   icon: HomeIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'layout',
       title: 'Layout',

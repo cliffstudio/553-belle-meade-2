@@ -2,12 +2,14 @@
 // sections/stackedMediaText.ts
 import { defineType, defineField } from 'sanity'
 import { StackIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 export default defineType({
   name: 'stackedMediaText',
   title: 'Stacked Text & Media',
   type: 'object',
   icon: StackIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'layout',
       title: 'Layout',

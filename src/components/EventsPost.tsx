@@ -81,9 +81,6 @@ const EventsPost: React.FC<EventsPostProps> = ({
     return `${datePart}, ${startTime} to ${endTime}`
   }
 
-  const spacerColClass = desktopLayout === 'layout-1' ? 'col-4-12_lg' : 'col-1-12_lg'
-  const mediaColClass = desktopLayout === 'layout-1' ? 'col-4-12_lg' : 'col-7-12_lg'
-
   return (
     <article className="events-post">
 

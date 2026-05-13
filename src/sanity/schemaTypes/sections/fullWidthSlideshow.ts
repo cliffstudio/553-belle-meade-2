@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { defineType, defineField } from 'sanity'
 import { ImagesIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 
 export default defineType({
   name: 'fullWidthSlideshow',
@@ -9,6 +10,7 @@ export default defineType({
   type: 'object',
   icon: ImagesIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({ 
       name: 'slides',
       title: 'Slides',

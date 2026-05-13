@@ -2,12 +2,14 @@
 // sections/largeMediaText.ts
 import { defineType, defineField } from 'sanity'
 import { SplitHorizontalIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 export default defineType({
   name: 'largeMediaText',
   title: 'Large Text & Media',
   type: 'object',
   icon: SplitHorizontalIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'heading',
       title: 'Heading',

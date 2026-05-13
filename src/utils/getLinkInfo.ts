@@ -5,6 +5,14 @@ type LinkInfo = {
   href: string
 }
 
+const getJumpLinkHref = (jumpLink?: string): string => {
+  const trimmedJumpLink = jumpLink?.trim()
+
+  if (!trimmedJumpLink) return ''
+
+  return trimmedJumpLink.startsWith('#') ? trimmedJumpLink : `#${trimmedJumpLink}`
+}
+
 export const getLinkInfo = (cta?: CtaLink): LinkInfo => {
   if (!cta) return { text: '', href: '' }
 
@@ -13,7 +21,7 @@ export const getLinkInfo = (cta?: CtaLink): LinkInfo => {
   }
 
   if (cta.linkType === 'jump') {
-    return { text: cta.label || cta.jumpLink || '', href: cta.jumpLink || '' }
+    return { text: cta.label || cta.jumpLink || '', href: getJumpLinkHref(cta.jumpLink) }
   }
 
   return {

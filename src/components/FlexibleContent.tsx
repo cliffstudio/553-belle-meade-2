@@ -26,6 +26,7 @@ import BrandDirectory from './BrandDirectory'
 interface ContentBlock {
   _type: string
   _key?: string
+  id?: string
   [key: string]: unknown
 }
 
@@ -69,8 +70,13 @@ const FlexibleContent: React.FC<FlexibleContentProps> = ({ contentBlocks }) => {
     <div className="flexible-content">
       {contentBlocks.map((block, index) => {
         const key = block._key || `block-${index}`
+        const blockRecord = block as Record<string, unknown>
+        const { id: blockId, ...componentProps } = blockRecord
+        const anchorId =
+          typeof blockId === 'string' && blockId.trim() !== '' ? blockId.trim() : undefined
+
         if (block._type === 'virtualTourEmbed') {
-          return <VirtualTourEmbed key={key} />
+          return <VirtualTourEmbed key={key} anchorId={anchorId} />
         }
 
         const Component = blockComponents[block._type]
@@ -79,7 +85,7 @@ const FlexibleContent: React.FC<FlexibleContentProps> = ({ contentBlocks }) => {
           return null
         }
 
-        return <Component key={key} {...(block as Record<string, unknown>)} />
+        return <Component key={key} anchorId={anchorId} {...componentProps} />
       })}
     </div>
   )

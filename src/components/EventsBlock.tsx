@@ -21,6 +21,7 @@ interface EventCard {
 }
 
 interface EventsBlockProps {
+  anchorId?: string
   heading?: string
   subheading?: string
   backgroundColour?: string
@@ -31,6 +32,7 @@ interface EventsBlockProps {
 }
 
 const EventsBlock: React.FC<EventsBlockProps> = ({
+  anchorId,
   heading,
   subheading,
   backgroundColour = 'none',
@@ -97,7 +99,7 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
   }
 
   return (
-    <section className={`events-block h-pad bg-${backgroundColour}`}>
+    <section id={anchorId} className={`events-block h-pad bg-${backgroundColour}`}>
       <div className="text-wrap max-width-big-text out-of-view">
         {subheading && <div className="heading cta-font">{subheading}</div>}
         {heading && <div className="h1">{heading}</div>}

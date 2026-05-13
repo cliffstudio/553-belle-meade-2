@@ -45,6 +45,7 @@ const linkFragment = `{
 const flexibleContentFragment = `[] {
   _type,
   _key,
+  id,
   // LinkTiles fields
   numberOfTiles,
   linkTile1 {

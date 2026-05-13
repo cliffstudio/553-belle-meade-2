@@ -1,19 +1,20 @@
 import React from 'react'
 
 interface IssuuEmbedProps {
+  anchorId?: string
   className?: string
   src?: string
   title?: string
 }
 
-export default function IssuuEmbed({ className, src, title }: IssuuEmbedProps) {
+export default function IssuuEmbed({ anchorId, className, src, title }: IssuuEmbedProps) {
   // Don't render if either src or title is missing
   if (!src || !title) {
     return null
   }
   
   return (
-    <section id="issuu-embed" className={className ? `leasing-brochure ${className}` : 'leasing-brochure h-pad'}>
+    <section id={anchorId} className={className ? `leasing-brochure ${className}` : 'leasing-brochure h-pad'}>
       <div className="inner-wrap">
         <iframe
           allow="clipboard-write"

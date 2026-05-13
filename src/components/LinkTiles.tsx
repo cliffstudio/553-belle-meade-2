@@ -18,6 +18,7 @@ type LinkTile = {
 }
 
 type LinkTilesProps = {
+  anchorId?: string
   numberOfTiles?: number
   linkTile1?: LinkTile
   linkTile2?: LinkTile
@@ -99,6 +100,7 @@ const renderTile = (tile: LinkTile, tileIndex: number, numberOfTiles: number) =>
 }
 
 export default function LinkTiles({ 
+  anchorId,
   numberOfTiles = 3, 
   linkTile1, 
   linkTile2, 
@@ -239,11 +241,11 @@ export default function LinkTiles({
 
   return (
     <>
-      <section className={`link-tiles-block h-pad tiles-${numberOfTiles} desktop`}>
+      <section id={anchorId} className={`link-tiles-block h-pad tiles-${numberOfTiles} desktop`}>
         {renderDesktopLayout()}
       </section>
 
-      <section className={`link-tiles-block h-pad tiles-${numberOfTiles} mobile`}>
+      <section id={anchorId} className={`link-tiles-block h-pad tiles-${numberOfTiles} mobile`}>
         <div className="inner-wrap">
           {/* Mobile Tile 1 */}
           {activeTiles[0] && (

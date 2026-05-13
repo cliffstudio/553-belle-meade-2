@@ -7,7 +7,9 @@ import { PortableTextBlock, SanityImage } from '../types/sanity'
 import { urlFor } from '../sanity/utils/imageUrlBuilder'
 import { fileUrlFor, SanityFile } from '../sanity/utils/fileUrlBuilder'
 import { portableTextComponents } from '../utils/portableTextComponents'
-import Link from 'next/link'
+import { getExternalLinkProps } from '../utils/getExternalLinkProps'
+import { getLinkInfo } from '../utils/getLinkInfo'
+import type { CtaLink } from '../types/link'
 
 interface ClickableSpot {
   id: string
@@ -71,19 +73,17 @@ type FloorView = {
 }
 
 interface LeasingMapProps {
+  anchorId?: string
   heading?: string
   body?: PortableTextBlock[]
   floors?: Floor[]
-  cta?: {
-    linkType?: 'internal' | 'external'
-    label?: string
-    href?: string
-    pageLink?: { _ref: string; _type: 'reference'; slug?: string; title?: string }
-  }
+  cta?: CtaLink
 }
 
 export default function LeasingMap({ 
-  floors: cmsFloors
+  anchorId,
+  floors: cmsFloors,
+  cta
 }: LeasingMapProps) {
   const [activeTab, setActiveTab] = useState<string>('floor-1')
   const [zoomLevel, setZoomLevel] = useState(1)
@@ -129,6 +129,9 @@ export default function LeasingMap({
   const [, setCurrentBreakpoint] = useState<'mobile' | 'tablet' | 'desktop'>('desktop')
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set())
   const mediaWrapRef = useRef<HTMLDivElement>(null)
+  const { text: ctaText, href: ctaHref } = getLinkInfo(cta)
+  const popupCtaText = ctaText || 'Inquire'
+  const popupCtaHref = ctaHref || '#contact-form'
 
   // Detect current breakpoint
   React.useEffect(() => {
@@ -841,7 +844,7 @@ export default function LeasingMap({
   }
 
   return (
-    <section className="leasing-map">
+    <section id={anchorId} className="leasing-map">
       {/* Tab Navigation */}
       <div className="leasing-map__tabs">
         {floors.map((floor) => (
@@ -1031,7 +1034,7 @@ export default function LeasingMap({
                   </div>
                 )}
                 <div className="cta-font underline-link link">
-                  <Link href="#contact-form">Inquire</Link>
+                  <a href={popupCtaHref} {...getExternalLinkProps(cta?.linkType)}>{popupCtaText}</a>
 
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 27">
                     <path d="M1 1L13.5 13.5L0.999999 26"/>

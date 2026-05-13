@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { VideoIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 
 export default defineType({
   name: 'virtualTourEmbed',
@@ -7,6 +8,7 @@ export default defineType({
   type: 'object',
   icon: VideoIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'internalNote',
       title: 'Internal Note',

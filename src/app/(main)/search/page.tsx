@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from 'next/link'
 import type { Metadata } from 'next'
 import { groq } from 'next-sanity'
 import { clientNoCdn } from '../../../../sanity.client'

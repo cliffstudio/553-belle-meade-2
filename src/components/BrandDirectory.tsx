@@ -35,6 +35,7 @@ interface Brand {
 }
 
 interface BrandDirectoryProps {
+  anchorId?: string
   allBrands?: Brand[]
   brandCategories?: Array<BrandCategory | null>
   preselectedBrandCategory?: BrandCategory | null
@@ -100,6 +101,7 @@ function BrandCategoryTitleIcon({ category }: { category?: BrandCategory | null 
 }
 
 function BrandDirectory({
+  anchorId,
   allBrands = [],
   brandCategories = [],
   preselectedBrandCategory,
@@ -251,7 +253,7 @@ function BrandDirectory({
   }
 
   return (
-    <section className="brand-directory-block">
+    <section id={anchorId} className="brand-directory-block">
       <div ref={toolbarRef} className="brand-directory-toolbar h-pad cta-font">
         <div className="brand-directory-view-toggle" role="group" aria-label="View mode">
           <button

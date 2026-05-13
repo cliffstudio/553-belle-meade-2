@@ -2,12 +2,14 @@
 // imageMasonry.ts
 import { defineType, defineField } from 'sanity'
 import { ThLargeIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 export default defineType({
   name: 'imageMasonry',
   title: 'Image Masonry',
   type: 'object',
   icon: ThLargeIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({ 
       name: 'heading',
       title: 'Heading',

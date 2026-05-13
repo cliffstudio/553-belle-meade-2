@@ -2,6 +2,7 @@
 // linkTiles.ts
 import { defineType, defineField } from 'sanity'
 import { ThLargeIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 
 export default defineType({
   name: 'linkTiles',
@@ -9,6 +10,7 @@ export default defineType({
   type: 'object',
   icon: ThLargeIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'numberOfTiles',
       title: 'Number of Tiles',

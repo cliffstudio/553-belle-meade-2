@@ -3,10 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 interface VirtualTourEmbedProps {
+  anchorId?: string
   className?: string
 }
 
-export default function VirtualTourEmbed({ className }: VirtualTourEmbedProps) {
+export default function VirtualTourEmbed({ anchorId, className }: VirtualTourEmbedProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -147,8 +148,8 @@ export default function VirtualTourEmbed({ className }: VirtualTourEmbedProps) {
   return (
     <div 
       ref={containerRef}
-      id="virtual-tour" 
-      className={`${className}`}
+      id={anchorId}
+      className={['virtual-tour-embed', className].filter(Boolean).join(' ')}
     >
       <iframe 
         ref={iframeRef}

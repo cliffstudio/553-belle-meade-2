@@ -2,12 +2,14 @@
 // sections/smallMediaText.ts
 import { defineType, defineField } from 'sanity'
 import { SplitHorizontalIcon } from '@sanity/icons'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 export default defineType({
   name: 'smallMediaText',
   title: 'SmallText & Media',
   type: 'object',
   icon: SplitHorizontalIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({ name: 'heading', type: 'string' }),
     defineField({ name: 'body', type: 'richPortableText' }),
     defineField({ 

@@ -3,13 +3,14 @@ import { PortableTextBlock } from '../types/sanity'
 import { portableTextComponents } from '../utils/portableTextComponents'
 
 type TextBlockProps = {
+  anchorId?: string
   heading?: string
   body?: PortableTextBlock[]
 }
 
-export default function TextBlock({ heading, body }: TextBlockProps) {
+export default function TextBlock({ anchorId, heading, body }: TextBlockProps) {
   return (
-    <section className="text-block h-pad">
+    <section id={anchorId} className="text-block h-pad">
       <div className="text-wrap max-width-big-text out-of-view">
         {heading && <h2 className="heading cta-font">{heading}</h2>}
         

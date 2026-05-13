@@ -1,5 +1,6 @@
 // /schemas/sections/ctaBanner.ts
 import { defineType, defineField } from 'sanity'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 import { BoltIcon } from '@sanity/icons'
 
 export default defineType({
@@ -8,6 +9,7 @@ export default defineType({
   type: 'object',
   icon: BoltIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'cta',
       title: 'CTA',

@@ -22,12 +22,14 @@ interface PressPost {
 }
 
 interface PressPostsSectionProps {
+  anchorId?: string
   post1?: PressPost
   post2?: PressPost
   layout?: string
 }
 
 const PressPostsSection: React.FC<PressPostsSectionProps> = ({
+  anchorId,
   post1,
   post2,
   layout = 'layout-1'
@@ -111,7 +113,7 @@ data-src={urlFor(post.thumbnailImage).url()}
   }
 
   return (
-    <section className={`press-row ${rowClass} row-lg h-pad`}>
+    <section id={anchorId} className={`press-row ${rowClass} row-lg h-pad`}>
       {post1 && (
         <div className={`col-${firstCols}-12_lg`}>
           <div className="press-card card-1 out-of-opacity">

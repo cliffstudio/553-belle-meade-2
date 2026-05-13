@@ -1,5 +1,6 @@
 // sections/instagramFeed.ts
 import { defineType, defineField } from 'sanity'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 import { HashIcon } from '@sanity/icons'
 
 export default defineType({
@@ -8,6 +9,7 @@ export default defineType({
   type: 'object',
   icon: HashIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'title',
       title: 'Title',

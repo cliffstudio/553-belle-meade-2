@@ -1,4 +1,5 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 import { TextIcon, EnvelopeIcon, ChevronDownIcon, BlockContentIcon } from '@sanity/icons'
 
 export default defineType({
@@ -7,6 +8,7 @@ export default defineType({
 	name: 'form',
 	icon: EnvelopeIcon,
 	fields: [
+		sectionAnchorIdField,
 		defineField({
 			type: 'string',
 			title: 'Title',

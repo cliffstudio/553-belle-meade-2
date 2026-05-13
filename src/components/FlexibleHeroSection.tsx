@@ -37,6 +37,7 @@ interface ExtendedVideoElement extends HTMLVideoElement {
 }
 
 type FlexibleHeroSectionProps = {
+  anchorId?: string
   layout?: 'layout-1' | 'layout-2' | 'layout-3' | 'homepage'
   desktopTitle?: string
   mobileTitle?: string
@@ -53,6 +54,7 @@ type FlexibleHeroSectionProps = {
 }
 
 export default function FlexibleHeroSection({ 
+  anchorId,
   layout = 'layout-1',
   desktopTitle, 
   mobileTitle, 
@@ -641,7 +643,7 @@ export default function FlexibleHeroSection({
   // Render homepage layout
   if (isHomepageLayout) {
     return (
-      <section className="home-hero-media-block full-height flex items-center text-white relative">
+      <section id={anchorId} className="home-hero-media-block full-height flex items-center text-white relative">
         {hasVideo && videoSrc && (
           <div className="fill-space-video-wrap">
             <video
@@ -748,7 +750,7 @@ export default function FlexibleHeroSection({
   return (
     <>
       {layout === 'layout-1' && (
-        <section className="hero-media-block layout-1 full-height flex items-center text-white relative">
+        <section id={anchorId} className="hero-media-block layout-1 full-height flex items-center text-white relative">
           {backgroundMediaType === 'video' && (desktopBackgroundVideo || desktopBackgroundVideoUrl) && (
             <div className="fill-space-video-wrap media-wrap z-1">
               <video
@@ -839,7 +841,7 @@ export default function FlexibleHeroSection({
       )}
 
       {layout === 'layout-2' && (
-        <section className="hero-media-block layout-2 flex items-center justify-center text-white relative">
+        <section id={anchorId} className="hero-media-block layout-2 flex items-center justify-center text-white relative">
           <div className="inner-wrap h-pad out-of-view">
             {desktopTitle && <div className="desktop text-wrap h2">{desktopTitle}</div>}
             {mobileTitle && <div className="mobile text-wrap h2">{mobileTitle}</div>}
@@ -856,7 +858,7 @@ export default function FlexibleHeroSection({
       )}
 
       {layout === 'layout-3' && (
-        <section className="hero-media-block layout-3 flex items-center text-white relative">
+        <section id={anchorId} className="hero-media-block layout-3 flex items-center text-white relative">
           <div className="h-pad out-of-view">
             {desktopTitle && <div className="desktop"><h1 className="h2">{desktopTitle}</h1></div>}
             {mobileTitle && <div className="mobile"><h1 className="h2">{mobileTitle}</h1></div>}

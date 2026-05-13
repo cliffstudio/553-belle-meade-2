@@ -10,10 +10,12 @@ interface Testimonial {
 }
 
 interface TestimonialSectionProps {
+  anchorId?: string
   testimonial?: Testimonial
 }
 
 const TestimonialSection: React.FC<TestimonialSectionProps> = ({
+  anchorId,
   testimonial
 }) => {
   if (!testimonial) {
@@ -28,7 +30,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
   )
 
   return (
-    <section className="testimonial-row" style={{ backgroundColor: testimonial.backgroundColour }}>
+    <section id={anchorId} className="testimonial-row" style={{ backgroundColor: testimonial.backgroundColour }}>
       <div className="row-lg h-pad">
         <div className="col-3-12_lg desktop"></div>
 

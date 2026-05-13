@@ -33,6 +33,7 @@ interface ExtendedVideoElement extends HTMLVideoElement {
 }
 
 type StackedMediaTextProps = {
+  anchorId?: string
   layout?: 'layout-1' | 'layout-2'
   mediaType?: 'image' | 'video'
   image?: SanityImage
@@ -46,7 +47,7 @@ type StackedMediaTextProps = {
   backgroundColour?: SectionBackgroundColour
 }
 
-export default function StackedMediaText({ layout = 'layout-1', mediaType = 'image', image, video, videoSource = 'file', videoUrl, heading, body, cta, showControls = false, backgroundColour }: StackedMediaTextProps) {
+export default function StackedMediaText({ anchorId, layout = 'layout-1', mediaType = 'image', image, video, videoSource = 'file', videoUrl, heading, body, cta, showControls = false, backgroundColour }: StackedMediaTextProps) {
   const { text, href } = getLinkInfo(cta)
   
   const [isPlaying, setIsPlaying] = useState(true)
@@ -584,7 +585,7 @@ export default function StackedMediaText({ layout = 'layout-1', mediaType = 'ima
     <>
     
       {layout === 'layout-1' && (
-        <section ref={sectionRef} className="stacked-media-text-block layout-1 h-pad row-lg">
+        <section ref={sectionRef} id={anchorId} className="stacked-media-text-block layout-1 h-pad row-lg">
           {backgroundColour && backgroundColour !== 'None' && (
             <div className="colour-background" style={{ backgroundColor: getSectionBackgroundColor(backgroundColour) }}></div>
           )}
@@ -657,7 +658,7 @@ export default function StackedMediaText({ layout = 'layout-1', mediaType = 'ima
       )}
 
       {layout === 'layout-2' && (
-        <section ref={sectionRef} className="stacked-media-text-block layout-2 h-pad">
+        <section ref={sectionRef} id={anchorId} className="stacked-media-text-block layout-2 h-pad">
           {backgroundColour && backgroundColour !== 'None' && (
             <div className="colour-background" style={{ backgroundColor: getSectionBackgroundColor(backgroundColour) }}></div>
           )}

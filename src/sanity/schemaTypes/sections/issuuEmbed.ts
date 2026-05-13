@@ -1,5 +1,6 @@
 // sections/issuuEmbed.ts
 import { defineType, defineField } from 'sanity'
+import { sectionAnchorIdField } from '../fields/sectionAnchorIdField'
 import { DocumentTextIcon } from '@sanity/icons'
 
 export default defineType({
@@ -8,6 +9,7 @@ export default defineType({
   type: 'object',
   icon: DocumentTextIcon,
   fields: [
+    sectionAnchorIdField,
     defineField({
       name: 'src',
       title: 'Embed Source URL',

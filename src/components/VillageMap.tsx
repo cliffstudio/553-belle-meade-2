@@ -118,10 +118,11 @@ type FloorView = {
 };
 
 interface VillageMapProps {
+  anchorId?: string;
   floors?: VillageMapFloor[];
 }
 
-export default function VillageMap({ floors: cmsFloors }: VillageMapProps) {
+export default function VillageMap({ anchorId, floors: cmsFloors }: VillageMapProps) {
   const [activeTab, setActiveTab] = useState<string>("floor-1");
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panX, setPanX] = useState(0);
@@ -953,7 +954,7 @@ export default function VillageMap({ floors: cmsFloors }: VillageMapProps) {
   };
 
   return (
-    <section className="leasing-map">
+    <section id={anchorId} className="leasing-map">
       {/* Tab Navigation */}
       <div className="leasing-map__tabs">
         {floors.map((floor) => (
