@@ -37,6 +37,7 @@ import imageCarousel from './sections/imageCarousel'
 // import contactForm from './sections/contactForm'
 import form from './sections/form'
 import leasingMap from './sections/leasingMap'
+import villageMap from './sections/villageMap'
 import textBlock from './sections/textBlock'
 import issuuEmbed from './sections/issuuEmbed'
 import virtualTourEmbed from './sections/virtualTourEmbed'
@@ -91,6 +92,7 @@ export const schemaTypes = [
   // contactForm,
   form,
   leasingMap,
+  villageMap,
   textBlock,
   issuuEmbed,
   virtualTourEmbed,

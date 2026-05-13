@@ -13,6 +13,7 @@ import Architects from './Architects'
 import PressPostsSection from './PressPostsSection'
 import TestimonialSection from './TestimonialSection'
 import LeasingMap from './LeasingMap'
+import VillageMap from './VillageMap'
 import Form from './Form'
 import VirtualTourEmbed from './VirtualTourEmbed'
 import IssuuEmbed from './IssuuEmbed'
@@ -49,6 +50,7 @@ const blockComponents: Record<string, BlockComponent> = {
   pressPostsSection: PressPostsSection as BlockComponent,
   testimonialSection: TestimonialSection as BlockComponent,
   leasingMap: LeasingMap as BlockComponent,
+  villageMap: VillageMap as BlockComponent,
   form: Form as BlockComponent,
   issuuEmbed: IssuuEmbed as BlockComponent,
   slideshowWithBorder: SlideshowWithBorder as BlockComponent,

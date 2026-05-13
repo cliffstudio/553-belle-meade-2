@@ -1,4 +1,4 @@
-@use '00_mixins' as *;
+@use "00_mixins" as *;
 
 /*
 LEASING MAP STYLES --------------------
@@ -19,7 +19,7 @@ LEASING MAP STYLES --------------------
     line-height: 140%;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    @include transition(all 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(all 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
     @include font-size(12px, 15px, 15px);
 
     @media only screen and (max-width: 1440px) {
@@ -101,7 +101,7 @@ LEASING MAP STYLES --------------------
     width: get-rem-desktop(45);
     height: get-rem-desktop(45);
     cursor: pointer;
-    @include transition(all 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(all 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
     border-radius: 50px;
     background: rgba($colour-cream, 0.15);
     border: 1px solid rgba($colour-cream, 0.5);
@@ -187,7 +187,7 @@ LEASING MAP STYLES --------------------
   }
 
   &__base-image {
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
   }
 
   &__hover-image {
@@ -198,8 +198,8 @@ LEASING MAP STYLES --------------------
     height: 100%;
     z-index: 2;
     opacity: 0;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
-    
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
+
     &.visible {
       opacity: 1;
     }
@@ -230,7 +230,7 @@ LEASING MAP STYLES --------------------
 
     path {
       opacity: 0;
-      @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+      @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
       cursor: pointer;
       pointer-events: auto; // Only clickable paths capture events
 
@@ -318,7 +318,7 @@ LEASING MAP STYLES --------------------
     pointer-events: none;
     will-change: opacity;
     opacity: 0;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
 
     @media only screen and (max-width: 1440px) {
       left: get-rem-tablet(30);
@@ -449,7 +449,7 @@ LEASING MAP STYLES --------------------
       column-gap: get-rem-mobile(30);
     }
 
-    svg {
+    > svg {
       width: get-rem-desktop(20);
       stroke: $colour-burgundy;
 
@@ -473,6 +473,38 @@ LEASING MAP STYLES --------------------
         display: none;
       }
     }
+  }
+
+  &__popup-title-cluster {
+    @include flex;
+    @include align-items(center);
+    column-gap: get-rem-desktop(12);
+    flex: 1;
+    min-width: 0;
+
+    @media only screen and (max-width: 1440px) {
+      column-gap: get-rem-tablet(12);
+    }
+
+    @media only screen and (max-width: 768px) {
+      column-gap: get-rem-mobile(10);
+    }
+  }
+
+  &__popup-category-icon {
+    flex-shrink: 0;
+    @include flex;
+    @include align-items(center);
+    @include justify-content(center);
+    width: get-rem-desktop(15);
+    height: get-rem-desktop(15);
+  }
+
+  &__popup-category-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
   }
 
   &__popup-title {

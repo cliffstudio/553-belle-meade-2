@@ -18,6 +18,7 @@ export default defineType({
     { type: 'staggeredImages', title: 'Staggered Images' },
     { type: 'ctaBanner', title: 'CTA Banner' },
     { type: 'leasingMap', title: 'Leasing Map' },
+    { type: 'villageMap', title: 'Village Map' },
     { type: 'form', title: 'Form' },
     { type: 'virtualTourEmbed', title: 'Virtual Tour' },
     { type: 'issuuEmbed', title: 'Issuu Embed' },

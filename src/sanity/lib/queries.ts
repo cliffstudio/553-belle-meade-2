@@ -186,6 +186,20 @@ const flexibleContentFragment = `[] {
       mobilePosition {
         top,
         left
+      },
+      brand-> {
+        _id,
+        title,
+        shortDescription,
+        slug,
+        content,
+        thumbnailImage ${imageFragment},
+        featuredImage ${imageFragment},
+        brandCategory-> {
+          _id,
+          name,
+          icon ${imageFragment}
+        }
       }
     }
   },
