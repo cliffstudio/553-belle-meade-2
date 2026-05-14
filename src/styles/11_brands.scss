@@ -667,25 +667,9 @@
     min-height: 0;
     align-self: stretch;
 
-    // -webkit-mask-image: linear-gradient(
-    //   180deg,
-    //   transparent 0%,
-    //   rgba($colour-cream, 1) 10%,
-    //   rgba($colour-cream, 1) 90%,
-    //   transparent 100%
-    // );
-    // mask-image: linear-gradient(
-    //   180deg,
-    //   transparent 0%,
-    //   rgba($colour-cream, 1) 10%,
-    //   rgba($colour-cream, 1) 90%,
-    //   transparent 100%
-    // );
-
     .brand-directory-list__scroll {
       flex: 1;
       min-height: 0;
-      overflow-x: hidden;
       overflow-y: auto;
       overflow-anchor: none;
       overscroll-behavior-y: contain;
@@ -709,7 +693,8 @@
       color: $colour-burgundy;
       text-decoration: none;
       opacity: var(--brand-row-opacity, 0.5);
-      @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
+      // No opacity transition: Safari composites animated parent opacity with
+      // Millionaire-Script / Roman swaps on the title and shows both during scroll.
 
       @media only screen and (max-width: 1440px) {
         gap: get-rem-tablet(30);
@@ -717,6 +702,8 @@
 
       .brand-directory-list__title {
         white-space: nowrap;
+        padding-left: 0.3em;
+        padding-right: 0.3em;
       }
 
       .brand-directory-list__description {

@@ -10,18 +10,12 @@ interface BrandListProps {
   progressIndex: number;
 }
 
-function prefersReducedMotion(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
 function BrandList({ items, activeIndex, progressIndex }: BrandListProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const activeIndexRef = useRef(activeIndex);
   const prevActiveIndexRef = useRef(activeIndex);
-  const hasMountedRef = useRef(false);
 
   activeIndexRef.current = activeIndex;
 
@@ -59,10 +53,7 @@ function BrandList({ items, activeIndex, progressIndex }: BrandListProps) {
 
   useLayoutEffect(() => {
     updateScrollPadding();
-    const behavior: ScrollBehavior =
-      !hasMountedRef.current || prefersReducedMotion() ? "auto" : "smooth";
-    hasMountedRef.current = true;
-    scrollActiveToTop(behavior);
+    scrollActiveToTop("auto");
   }, [activeIndex, items, scrollActiveToTop, updateScrollPadding]);
 
   useEffect(() => {
