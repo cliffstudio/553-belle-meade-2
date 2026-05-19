@@ -75,6 +75,7 @@
     @media only screen and (max-width: 768px) {
       padding-bottom: get-rem-mobile(75);
       row-gap: get-rem-mobile(55);
+      touch-action: pan-y;
     }
 
     &.columns-2 {
@@ -176,6 +177,10 @@
   }
 
   .events-card {
+    @media only screen and (max-width: 768px) {
+      touch-action: pan-y;
+    }
+
     .media-wrap {
       margin-bottom: get-rem-desktop(20);
 

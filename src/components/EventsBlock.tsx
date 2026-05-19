@@ -1,105 +1,112 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
+"use client";
 
-import React from 'react'
-import { SanityImage } from '../types/sanity'
-import { urlFor } from '../sanity/utils/imageUrlBuilder'
-import Link from 'next/link'
-import useTouchDragClickGuard from '../utils/useTouchDragClickGuard'
+import React from "react";
+import { SanityImage } from "../types/sanity";
+import { urlFor } from "../sanity/utils/imageUrlBuilder";
+import Link from "next/link";
+import useTouchDragClickGuard from "../utils/useTouchDragClickGuard";
 
-type EventsFilter = 'this-week' | 'this-month' | 'custom'
-type EventsGrid = 'columns-2' | 'columns-3' | 'columns-4'
+type EventsFilter = "this-week" | "this-month" | "custom";
+type EventsGrid = "columns-2" | "columns-3" | "columns-4";
 
 interface EventCard {
-  _id: string
-  title: string
-  slug?: { current?: string }
-  eventStartDateTime?: string
-  eventEndDateTime?: string
-  eventLocation?: string
-  thumbnailImage?: SanityImage
+  _id: string;
+  title: string;
+  slug?: { current?: string };
+  eventStartDateTime?: string;
+  eventEndDateTime?: string;
+  eventLocation?: string;
+  thumbnailImage?: SanityImage;
 }
 
 interface EventsBlockProps {
-  anchorId?: string
-  heading?: string
-  subheading?: string
-  backgroundColour?: string
-  events?: EventsFilter
-  gridLayout?: EventsGrid
-  customEvents?: EventCard[]
-  allEvents?: EventCard[]
+  anchorId?: string;
+  heading?: string;
+  subheading?: string;
+  backgroundColour?: string;
+  events?: EventsFilter;
+  gridLayout?: EventsGrid;
+  customEvents?: EventCard[];
+  allEvents?: EventCard[];
 }
 
 const EventsBlock: React.FC<EventsBlockProps> = ({
   anchorId,
   heading,
   subheading,
-  backgroundColour = 'none',
-  events = 'this-week',
-  gridLayout = 'columns-3',
+  backgroundColour = "none",
+  events = "this-week",
+  gridLayout = "columns-3",
   customEvents = [],
   allEvents = [],
 }) => {
-  const touchDragClickGuard = useTouchDragClickGuard()
-  const now = new Date()
+  const touchDragClickGuard = useTouchDragClickGuard();
+  const now = new Date();
 
-  const startOfWeek = new Date(now)
-  const day = startOfWeek.getDay()
-  const diffToMonday = day === 0 ? -6 : 1 - day
-  startOfWeek.setDate(startOfWeek.getDate() + diffToMonday)
-  startOfWeek.setHours(0, 0, 0, 0)
+  const startOfWeek = new Date(now);
+  const day = startOfWeek.getDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  startOfWeek.setDate(startOfWeek.getDate() + diffToMonday);
+  startOfWeek.setHours(0, 0, 0, 0);
 
-  const endOfWeek = new Date(startOfWeek)
-  endOfWeek.setDate(endOfWeek.getDate() + 7)
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(endOfWeek.getDate() + 7);
 
-  const thisMonth = now.getMonth()
-  const thisYear = now.getFullYear()
+  const thisMonth = now.getMonth();
+  const thisYear = now.getFullYear();
 
   const eventMatchesThisWeek = (event: EventCard) => {
-    if (!event.eventStartDateTime) return false
-    const start = new Date(event.eventStartDateTime)
-    if (Number.isNaN(start.getTime())) return false
-    return start >= startOfWeek && start < endOfWeek
-  }
+    if (!event.eventStartDateTime) return false;
+    const start = new Date(event.eventStartDateTime);
+    if (Number.isNaN(start.getTime())) return false;
+    return start >= startOfWeek && start < endOfWeek;
+  };
 
   const eventMatchesThisMonth = (event: EventCard) => {
-    if (!event.eventStartDateTime) return false
-    const start = new Date(event.eventStartDateTime)
-    if (Number.isNaN(start.getTime())) return false
-    return start.getMonth() === thisMonth && start.getFullYear() === thisYear
-  }
+    if (!event.eventStartDateTime) return false;
+    const start = new Date(event.eventStartDateTime);
+    if (Number.isNaN(start.getTime())) return false;
+    return start.getMonth() === thisMonth && start.getFullYear() === thisYear;
+  };
 
   const selectedEvents = (() => {
-    if (events === 'custom') return customEvents
-    if (events === 'this-month') return allEvents.filter(eventMatchesThisMonth)
-    return allEvents.filter(eventMatchesThisWeek)
-  })()
+    if (events === "custom") return customEvents;
+    if (events === "this-month") return allEvents.filter(eventMatchesThisMonth);
+    return allEvents.filter(eventMatchesThisWeek);
+  })();
 
   const sortedEvents = [...selectedEvents].sort((a, b) => {
-    const aDate = a.eventStartDateTime ? new Date(a.eventStartDateTime).getTime() : Infinity
-    const bDate = b.eventStartDateTime ? new Date(b.eventStartDateTime).getTime() : Infinity
-    return aDate - bDate
-  })
+    const aDate = a.eventStartDateTime
+      ? new Date(a.eventStartDateTime).getTime()
+      : Infinity;
+    const bDate = b.eventStartDateTime
+      ? new Date(b.eventStartDateTime).getTime()
+      : Infinity;
+    return aDate - bDate;
+  });
 
   const formatEventDate = (dateString?: string) => {
-    if (!dateString) return ''
-    const date = new Date(dateString)
-    if (Number.isNaN(date.getTime())) return ''
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return "";
 
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   if (!sortedEvents.length) {
-    return null
+    return null;
   }
 
   return (
-    <section id={anchorId} className={`events-block h-pad bg-${backgroundColour}`}>
+    <section
+      id={anchorId}
+      className={`events-block h-pad bg-${backgroundColour}`}
+    >
       <div className="text-wrap max-width-big-text out-of-view">
         {subheading && <div className="heading cta-font">{subheading}</div>}
         {heading && <div className="h1">{heading}</div>}
@@ -107,15 +114,17 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
 
       <div className={`events-grid ${gridLayout}`}>
         {sortedEvents.map((event) => {
-          const href = event.slug?.current ? `/events/${event.slug.current}` : '#'
-          const date = formatEventDate(event.eventStartDateTime)
+          const href = event.slug?.current
+            ? `/events/${event.slug.current}`
+            : "#";
+          const date = formatEventDate(event.eventStartDateTime);
 
           return (
-            <Link 
-              key={event._id}  
+            <Link
+              key={event._id}
               href={href}
               className="events-card out-of-opacity"
-              aria-label={event.title || 'Event card'}
+              aria-label={event.title || "Event card"}
               onPointerDown={touchDragClickGuard.onPointerDown}
               onPointerMove={touchDragClickGuard.onPointerMove}
               onPointerUp={touchDragClickGuard.onPointerUp}
@@ -126,7 +135,7 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
                 <div className="media-wrap relative">
                   <img
                     data-src={urlFor(event.thumbnailImage).url()}
-                    alt={event.thumbnailImage?.alt ?? event.title ?? ''}
+                    alt={event.thumbnailImage?.alt ?? event.title ?? ""}
                     className="lazy full-bleed-image"
                   />
                   <div className="loading-overlay" />
@@ -146,11 +155,11 @@ const EventsBlock: React.FC<EventsBlockProps> = ({
                 </div>
               </div>
             </Link>
-          )
+          );
         })}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default EventsBlock
+export default EventsBlock;

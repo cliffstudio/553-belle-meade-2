@@ -7,6 +7,7 @@ import { urlFor } from '../../sanity/utils/imageUrlBuilder'
 import { BrandDirectoryCategory, BrandDirectoryItem } from './types'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import useTouchDragClickGuard from '../../utils/useTouchDragClickGuard'
 
 interface BrandDirectorySectionProps {
   items: BrandDirectoryItem[]
@@ -14,6 +15,7 @@ interface BrandDirectorySectionProps {
 }
 
 function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySectionProps) {
+  const touchDragClickGuard = useTouchDragClickGuard()
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [progressIndex, setProgressIndex] = useState(0)
@@ -104,7 +106,14 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
             {brand.image && (
               <div className="media-wrap relative">
                 <img src={urlFor(brand.image).url()} alt={brand.image?.alt ?? brand.title} className="full-bleed-image" />
-                <a href={brand.href}></a>
+                <a
+                  href={brand.href}
+                  onPointerDown={touchDragClickGuard.onPointerDown}
+                  onPointerMove={touchDragClickGuard.onPointerMove}
+                  onPointerUp={touchDragClickGuard.onPointerUp}
+                  onPointerCancel={touchDragClickGuard.onPointerCancel}
+                  onClick={touchDragClickGuard.onClick}
+                />
               </div>
             )}
 
@@ -129,7 +138,16 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
                 {renderCategoryIcon(brand.category)}
 
                 <div className="cta-font underline-link link">
-                  <a href={brand.href}>More Info</a>
+                  <a
+                    href={brand.href}
+                    onPointerDown={touchDragClickGuard.onPointerDown}
+                    onPointerMove={touchDragClickGuard.onPointerMove}
+                    onPointerUp={touchDragClickGuard.onPointerUp}
+                    onPointerCancel={touchDragClickGuard.onPointerCancel}
+                    onClick={touchDragClickGuard.onClick}
+                  >
+                    More Info
+                  </a>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 27">
                     <path d="M1 1L13.5 13.5L0.999999 26" />
                   </svg>
@@ -168,7 +186,15 @@ function BrandDirectorySection({ items, renderCategoryIcon }: BrandDirectorySect
       <div className="brand-directory-list-mobile h-pad">
         {items.map((brand) => (
           <div key={brand.id} className="brand-directory-list-mobile__item">
-            <Link href={brand.href} className="brand-directory-list__title-wrap is-active">
+            <Link
+              href={brand.href}
+              className="brand-directory-list__title-wrap is-active"
+              onPointerDown={touchDragClickGuard.onPointerDown}
+              onPointerMove={touchDragClickGuard.onPointerMove}
+              onPointerUp={touchDragClickGuard.onPointerUp}
+              onPointerCancel={touchDragClickGuard.onPointerCancel}
+              onClick={touchDragClickGuard.onClick}
+            >
               <span className="brand-directory-list__title h2">{brand.title}</span>
               {brand.shortDescription && <span className="brand-directory-list__description">{brand.shortDescription}</span>}
             </Link>

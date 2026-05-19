@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { BrandDirectoryItem } from "./types";
+import useTouchDragClickGuard from "../../utils/useTouchDragClickGuard";
 
 interface BrandListProps {
   items: BrandDirectoryItem[];
@@ -11,6 +12,7 @@ interface BrandListProps {
 }
 
 function BrandList({ items, activeIndex, progressIndex }: BrandListProps) {
+  const touchDragClickGuard = useTouchDragClickGuard();
   const scrollRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -125,6 +127,11 @@ function BrandList({ items, activeIndex, progressIndex }: BrandListProps) {
                 href={brand.href}
                 className={`brand-directory-list__title-wrap ${activeIndex === index ? "is-active" : ""}`}
                 style={style}
+                onPointerDown={touchDragClickGuard.onPointerDown}
+                onPointerMove={touchDragClickGuard.onPointerMove}
+                onPointerUp={touchDragClickGuard.onPointerUp}
+                onPointerCancel={touchDragClickGuard.onPointerCancel}
+                onClick={touchDragClickGuard.onClick}
               >
                 <span className="brand-directory-list__title h1">
                   {brand.title}
