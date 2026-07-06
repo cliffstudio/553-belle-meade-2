@@ -556,6 +556,10 @@
     padding-top: get-rem-desktop(100);
     padding-bottom: get-rem-desktop(100);
 
+    @media only screen and (max-width: 900px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     @media only screen and (max-width: 768px) {
       grid-template-columns: repeat(1, 1fr);
       row-gap: get-rem-mobile(40);
