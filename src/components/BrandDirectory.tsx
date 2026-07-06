@@ -26,7 +26,7 @@ interface Brand {
     current?: string;
   };
   thumbnailImage?: SanityImage;
-  brandCategory?: BrandCategory;
+  brandCategories?: BrandCategory[];
   details?: {
     _key?: string;
     detailHeading?: string;
@@ -104,6 +104,22 @@ function BrandCategoryTitleIcon({
   return null;
 }
 
+function BrandCategoryTitleIcons({
+  categories,
+}: {
+  categories?: BrandCategory[] | null;
+}) {
+  if (!categories?.length) return null;
+
+  return (
+    <>
+      {categories.map((category) => (
+        <BrandCategoryTitleIcon key={category._id} category={category} />
+      ))}
+    </>
+  );
+}
+
 function BrandDirectory({
   anchorId,
   allBrands = [],
@@ -123,7 +139,7 @@ function BrandDirectory({
 
   const categories = useMemo(() => {
     const fallbackCategories = allBrands
-      .map((brand) => brand.brandCategory)
+      .flatMap((brand) => brand.brandCategories ?? [])
       .filter((category): category is BrandCategory => Boolean(category?._id));
 
     const cmsCategories = brandCategories.filter(
@@ -144,8 +160,10 @@ function BrandDirectory({
   const filteredBrands = useMemo(() => {
     if (!selectedCategoryId) return allBrands;
 
-    return allBrands.filter(
-      (brand) => brand.brandCategory?._id === selectedCategoryId,
+    return allBrands.filter((brand) =>
+      brand.brandCategories?.some(
+        (category) => category._id === selectedCategoryId,
+      ),
     );
   }, [allBrands, selectedCategoryId]);
 
@@ -196,7 +214,7 @@ function BrandDirectory({
           shortDescription: brand.shortDescription,
           href,
           image: brand.thumbnailImage,
-          category: brand.brandCategory,
+          categories: brand.brandCategories,
           openingHours: openingHours?.detailBody,
           address: address?.detailBody,
         };
@@ -512,13 +530,17 @@ function BrandDirectory({
                 <div className="brand-directory-title h3 desktop">
                   <div className="brand-directory-title__row">
                     <span>{brand.title}</span>
-                    <BrandCategoryTitleIcon category={brand.brandCategory} />
+                    <BrandCategoryTitleIcons
+                      categories={brand.brandCategories}
+                    />
                   </div>
                 </div>
                 <div className="brand-directory-title h2 mobile">
                   <div className="brand-directory-title__row">
                     <span>{brand.title}</span>
-                    <BrandCategoryTitleIcon category={brand.brandCategory} />
+                    <BrandCategoryTitleIcons
+                      categories={brand.brandCategories}
+                    />
                   </div>
                 </div>
               </Link>
@@ -533,8 +555,8 @@ function BrandDirectory({
           {brandItems.length ? (
             <BrandDirectorySection
               items={brandItems}
-              renderCategoryIcon={(category) => (
-                <BrandCategoryTitleIcon category={category} />
+              renderCategoryIcon={(categories) => (
+                <BrandCategoryTitleIcons categories={categories} />
               )}
             />
           ) : (

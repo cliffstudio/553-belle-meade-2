@@ -1,8 +1,9 @@
-@use '00_mixins' as *;
-@use '00_base' as *;
+@use "00_mixins" as *;
+@use "00_base" as *;
 
 // Plan Your Visit Page
-.plan-your-visit-content {
+.plan-your-visit-content,
+.plan-your-visit-block {
   padding-top: get-rem-desktop(100);
   padding-bottom: get-rem-desktop(100);
 
@@ -81,7 +82,7 @@
       margin-bottom: get-rem-mobile(10);
       gap: get-rem-mobile(10);
     }
-    
+
     .media-wrap {
       position: relative;
       aspect-ratio: 4 / 3;

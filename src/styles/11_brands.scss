@@ -482,15 +482,19 @@
   }
 
   .brand-directory-toolbar__panel .brand-directory-dropdown__radios {
-    @include flex;
-    @include flex-direction(column);
-    @include align-items(stretch);
-    gap: get-rem-desktop(5);
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: stretch;
+    row-gap: get-rem-desktop(5);
+    column-gap: get-rem-desktop(40);
     margin: 0;
     padding: 0;
 
     @media only screen and (max-width: 768px) {
-      gap: get-rem-mobile(16);
+      row-gap: get-rem-mobile(14);
+      column-gap: get-rem-mobile(25);
     }
   }
 
@@ -603,8 +607,12 @@
     width: get-rem-desktop(15);
     height: get-rem-desktop(15);
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 1440px) {
       margin-bottom: 0.2em;
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 0.1em;
     }
 
     .brand-directory-title__icon-img {
@@ -803,6 +811,12 @@
       @include justify-content(space-between);
       gap: get-rem-desktop(12);
       flex-shrink: 0;
+
+      .category-icons {
+        @include flex;
+        @include align-items(center);
+        gap: get-rem-desktop(15);
+      }
 
       .brand-directory-title__icon {
         width: get-rem-desktop(18);

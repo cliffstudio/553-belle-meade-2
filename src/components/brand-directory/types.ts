@@ -13,7 +13,7 @@ export interface BrandDirectoryItem {
   shortDescription?: string
   href: string
   image?: SanityImage
-  category?: BrandDirectoryCategory
+  categories?: BrandDirectoryCategory[]
   openingHours?: PortableTextBlock[]
   address?: PortableTextBlock[]
 }

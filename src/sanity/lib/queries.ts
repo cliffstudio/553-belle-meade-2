@@ -1,5 +1,5 @@
 // src/sanity/lib/queries.ts
-import { groq } from 'next-sanity'
+import { groq } from "next-sanity";
 
 /**
  * Consolidated query system using smart conditionals
@@ -16,16 +16,16 @@ const imageFragment = `{
   alt,
   hotspot,
   crop
-}`
+}`;
 
 const videoFragment = `{
   asset {
     _ref,
     _type
   }
-}`
+}`;
 
-const videoSourceFragment = `videoSource, videoUrl`
+const videoSourceFragment = `videoSource, videoUrl`;
 
 const linkFragment = `{
   linkType,
@@ -38,7 +38,7 @@ const linkFragment = `{
     "slug": *[_type == "page" && _id == ^._ref][0].slug.current,
     "title": *[_type == "page" && _id == ^._ref][0].title
   }
-}`
+}`;
 
 // Flexible content block fragments
 // Main flexible content fragment - queries all possible fields for all block types
@@ -196,7 +196,7 @@ const flexibleContentFragment = `[] {
         content,
         thumbnailImage ${imageFragment},
         featuredImage ${imageFragment},
-        brandCategory-> {
+        brandCategories[]-> {
           _id,
           name,
           icon ${imageFragment}
@@ -293,7 +293,7 @@ const flexibleContentFragment = `[] {
           detailBody
         }
       ]),
-      brandCategory-> {
+      brandCategories[]-> {
         _id,
         name,
         icon ${imageFragment}
@@ -301,7 +301,7 @@ const flexibleContentFragment = `[] {
     },
     null
   )
-}`
+}`;
 
 // Press content blocks fragment - only for press pages
 const pressContentBlocksFragment = `[] {
@@ -348,12 +348,12 @@ const pressContentBlocksFragment = `[] {
     source,
     backgroundColour
   }
-}`
+}`;
 
 // Lightweight query to check if sign-in page is enabled (avoids redirect loops when disabled)
 export const signInPageEnabledQuery = groq`
   *[_type == "page" && slug.current == "sign-in"][0].signInPageEnabled
-`
+`;
 
 // Main page query with conditional field fetching
 export const pageQuery = groq`
@@ -557,6 +557,20 @@ export const pageQuery = groq`
         videoSource2,
         videoUrl2
       },
+      carouselPlanYourVisit {
+        planYourVisitHeading,
+        planYourVisitBody,
+        planYourVisitDetails[] {
+          _key,
+          heading,
+          items[] {
+            _key,
+            subtitle,
+            body
+          }
+        },
+        planYourVisitImages[] ${imageFragment}
+      },
       carouselCta {
         cta ${linkFragment}
       }
@@ -651,7 +665,7 @@ export const pageQuery = groq`
     //   newPageTypeField2 { ... }
     // }
   }
-`
+`;
 
 // Simplified queries for specific use cases
 
@@ -659,7 +673,7 @@ export const pageSlugsQuery = groq`
   *[_type == "page"] {
     slug
   }
-`
+`;
 
 // Footer and menu queries
 export const footerQuery = groq`
@@ -694,7 +708,7 @@ export const footerQuery = groq`
       }
     }
   }
-`
+`;
 
 export const leftMenuQuery = groq`
   *[_type == "menu" && title == "Left Menu"][0] {
@@ -717,7 +731,7 @@ export const leftMenuQuery = groq`
       }
     }
   }
-`
+`;
 
 export const rightMenuQuery = groq`
   *[_type == "menu" && title == "Right Menu"][0] {
@@ -740,7 +754,7 @@ export const rightMenuQuery = groq`
       }
     }
   }
-`
+`;
 
 // Metadata query (from Site Settings)
 export const metadataQuery = groq`
@@ -750,7 +764,7 @@ export const metadataQuery = groq`
     description,
     socialimage ${imageFragment}
   }
-`
+`;
 
 // Press queries
 export const pressPostsQuery = groq`
@@ -770,7 +784,7 @@ export const pressPostsQuery = groq`
     sourceUrl,
     layout
   }
-`
+`;
 
 export const pressPostQuery = groq`
   *[_type == "press" && slug.current == $slug][0] {
@@ -794,7 +808,7 @@ export const pressPostQuery = groq`
       socialImage ${imageFragment}
     }
   }
-`
+`;
 
 // Events queries
 export const eventsPostsQuery = groq`
@@ -816,7 +830,7 @@ export const eventsPostsQuery = groq`
     content,
     cta ${linkFragment}
   }
-`
+`;
 
 export const eventsPostQuery = groq`
   *[_type == "events" && slug.current == $slug][0] {
@@ -842,7 +856,7 @@ export const eventsPostQuery = groq`
       socialImage ${imageFragment}
     }
   }
-`
+`;
 
 // Brands queries
 export const brandsPostsQuery = groq`
@@ -871,7 +885,7 @@ export const brandsPostsQuery = groq`
     ]),
     content
   }
-`
+`;
 
 export const brandsPostQuery = groq`
   *[_type == "brands" && slug.current == $slug][0] {
@@ -904,4 +918,4 @@ export const brandsPostQuery = groq`
       socialImage ${imageFragment}
     }
   }
-`
+`;

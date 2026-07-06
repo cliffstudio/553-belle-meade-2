@@ -51,6 +51,7 @@ import fullWidthSlideshow from './sections/fullWidthSlideshow'
 import instagramFeed from './sections/instagramFeed'
 import eventsBlock from './sections/eventsBlock'
 import brandDirectory from './sections/brandDirectory'
+import planYourVisit from './sections/planYourVisit'
 
 export const schemaTypes = [
   // Global
@@ -106,4 +107,5 @@ export const schemaTypes = [
   instagramFeed,
   eventsBlock,
   brandDirectory,
+  planYourVisit,
 ]

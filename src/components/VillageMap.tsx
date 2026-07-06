@@ -61,6 +61,22 @@ function VillageMapBrandCategoryIcon({
   return null;
 }
 
+function VillageMapBrandCategoryIcons({
+  categories,
+}: {
+  categories?: VillageMapBrandCategory[] | null;
+}) {
+  if (!categories?.length) return null;
+
+  return (
+    <>
+      {categories.map((category) => (
+        <VillageMapBrandCategoryIcon key={category._id} category={category} />
+      ))}
+    </>
+  );
+}
+
 interface ClickableSpot {
   id: string;
   title: string;
@@ -76,7 +92,7 @@ interface ClickableSpot {
     image?: string;
     imageAlt?: string;
     inquireHref?: string;
-    brandCategory?: VillageMapBrandCategory | null;
+    brandCategories?: VillageMapBrandCategory[];
   };
 }
 
@@ -89,7 +105,7 @@ interface VillageMapBrand {
   content?: PortableTextBlock[];
   thumbnailImage?: SanityImage;
   featuredImage?: SanityImage;
-  brandCategory?: VillageMapBrandCategory | null;
+  brandCategories?: VillageMapBrandCategory[];
 }
 
 /** Spot shape from villageMap schema: SVG layer id + brand reference. */
@@ -298,7 +314,7 @@ export default function VillageMap({ anchorId, floors: cmsFloors }: VillageMapPr
                     image: popupImageUrl,
                     imageAlt: imageSource?.alt ?? brand.title ?? "",
                     inquireHref,
-                    brandCategory: brand.brandCategory ?? undefined,
+                    brandCategories: brand.brandCategories ?? undefined,
                   },
                 },
               ];
@@ -1167,8 +1183,8 @@ export default function VillageMap({ anchorId, floors: cmsFloors }: VillageMapPr
                     <h2 className="leasing-map__popup-title">
                       {displaySpot?.popupContent.title}
                     </h2>
-                    <VillageMapBrandCategoryIcon
-                      category={displaySpot?.popupContent.brandCategory}
+                    <VillageMapBrandCategoryIcons
+                      categories={displaySpot?.popupContent.brandCategories}
                     />
                   </div>
 

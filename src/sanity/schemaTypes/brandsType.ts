@@ -39,15 +39,20 @@ export const brandsType = defineType({
       group: 'thumbnail',
     }),
     defineField({
-      name: 'brandCategory',
-      title: 'Brand Category',
-      type: 'reference',
-      to: [{ type: 'brandCategory' }],
-      options: {
-        filter:
-          '_id in *[_type == "brandSettings" && (_id == "brandSettings" || _id == "drafts.brandSettings")][0].brandCategories[]._ref',
-      },
-      validation: (Rule) => Rule.required(),
+      name: 'brandCategories',
+      title: 'Brand Categories',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'brandCategory' }],
+          options: {
+            filter:
+              '_id in *[_type == "brandSettings" && (_id == "brandSettings" || _id == "drafts.brandSettings")][0].brandCategories[]._ref',
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1).unique(),
       group: 'thumbnail',
     }),
     defineField({
