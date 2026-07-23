@@ -1,4 +1,4 @@
-@use '00_mixins' as *;
+@use "00_mixins" as *;
 
 .site-header {
   color: $colour-cream;
@@ -7,13 +7,20 @@
   left: 0;
   width: 100%;
   will-change: background-color, padding-bottom, transform;
-  @include transition-multiple(background-color 400ms cubic-bezier(0.25,0.1,0.25,1), padding-bottom 400ms cubic-bezier(0.25,0.1,0.25,1));
+  @include transition-multiple(
+    background-color 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    padding-bottom 400ms cubic-bezier(0.25, 0.1, 0.25, 1)
+  );
   & {
-    transition: opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+    transition: opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  
+
   @media only screen and (max-width: 950px) and (orientation: landscape) {
-    @include transition-multiple(background-color 400ms cubic-bezier(0.25,0.1,0.25,1), padding-bottom 400ms cubic-bezier(0.25,0.1,0.25,1), transform 300ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition-multiple(
+      background-color 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+      padding-bottom 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+      transform 300ms cubic-bezier(0.25, 0.1, 0.25, 1)
+    );
   }
 
   &.header-scrolled {
@@ -77,11 +84,11 @@
       width: get-rem-mobile(42);
       height: get-rem-mobile(46.66);
     }
-    
+
     svg {
       fill: $colour-cream;
     }
-    
+
     a {
       position: absolute;
       top: 0;
@@ -104,7 +111,7 @@
     @media only screen and (max-width: 1024px) {
       column-gap: get-rem-tablet(25);
     }
-    
+
     &.ready {
       visibility: visible;
       opacity: 1;
@@ -125,10 +132,10 @@
         position: relative;
         padding-left: 0.2em;
         padding-right: 0.2em;
-        
+
         @media (hover: hover) {
           &:hover {
-            font-family: 'Millionaire-Script';
+            font-family: "Millionaire-Script";
             @include transform(translateY(-0.35em));
             position: relative;
             z-index: 10;
@@ -141,7 +148,7 @@
 
         @media (hover: hover) {
           &:hover {
-            font-family: 'Millionaire-Script';
+            font-family: "Millionaire-Script";
             @include transform(translateY(-0.35em));
             position: relative;
             z-index: 10;
@@ -158,9 +165,9 @@
         height: 1px;
         background-color: $colour-cream;
         opacity: 0;
-        @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+        @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
       }
-      
+
       > a.active ~ .active-indicator {
         opacity: 0.5;
       }
@@ -200,7 +207,7 @@
           height: 1px;
           background-color: $colour-cream;
           opacity: 0;
-          @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+          @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
         }
       }
 
@@ -212,7 +219,7 @@
         padding-bottom: get-rem-desktop(40);
         opacity: 0;
         pointer-events: none;
-        @include transition(opacity 100ms cubic-bezier(0.25,0.1,0.25,1));
+        @include transition(opacity 100ms cubic-bezier(0.25, 0.1, 0.25, 1));
         z-index: 100;
         @include flex;
         @include flex-direction(column);
@@ -232,10 +239,10 @@
           @media only screen and (max-width: 1440px) {
             padding-top: get-rem-tablet(15);
           }
-          
+
           @media (hover: hover) {
             &:hover {
-              font-family: 'Millionaire-Script';
+              font-family: "Millionaire-Script";
               @include transform(translateY(-0.35em));
             }
           }
@@ -253,7 +260,7 @@
       @media (hover: hover) {
         &:hover:not(.force-close) {
           .dropdown-title-text {
-            font-family: 'Millionaire-Script';
+            font-family: "Millionaire-Script";
             @include transform(translateY(-0.4em));
             z-index: 10;
           }
@@ -268,7 +275,7 @@
       // Click-based dropdown for smaller screens
       &.active {
         .dropdown-title-text {
-          font-family: 'Millionaire-Script';
+          font-family: "Millionaire-Script";
           @include transform(translateY(-0.4em));
           z-index: 10;
         }
@@ -310,35 +317,39 @@
     @include justify-content(center);
     @include align-items(center);
     cursor: pointer;
-  
+
     .menu-bar {
       position: absolute;
       width: 30px;
       height: 1px;
       background: $colour-cream;
       will-change: transform, opacity, background-color;
-      @include transition-multiple(transform 400ms cubic-bezier(0.25,0.1,0.25,1), opacity 400ms cubic-bezier(0.25,0.1,0.25,1), background-color 400ms cubic-bezier(0.25,0.1,0.25,1));
-    
-      &[data-position=top] {
+      @include transition-multiple(
+        transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        background-color 400ms cubic-bezier(0.25, 0.1, 0.25, 1)
+      );
+
+      &[data-position="top"] {
         transform: translateY(-8.5px);
       }
-    
-      &[data-position=bottom] {
+
+      &[data-position="bottom"] {
         transform: translateY(8.5px);
       }
     }
-  
+
     &.active {
       .menu-bar {
-        &[data-position=top] {
+        &[data-position="top"] {
           transform: translateY(0) rotate(45deg) scaleX(1.05);
         }
-  
-        &[data-position=middle] {
+
+        &[data-position="middle"] {
           opacity: 0;
         }
-  
-        &[data-position=bottom] {
+
+        &[data-position="bottom"] {
           transform: translateY(0) rotate(-45deg) scaleX(1.05);
         }
       }
@@ -349,7 +360,7 @@
     .desktop {
       display: none;
     }
-  
+
     .mobile {
       display: block;
     }
@@ -367,7 +378,7 @@
   color: $colour-cream;
   opacity: 0;
   pointer-events: none;
-  @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+  @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
 
   a {
     color: $colour-cream;
@@ -386,7 +397,7 @@
     padding-bottom: get-rem-desktop(150);
     opacity: 0;
     pointer-events: none;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
@@ -437,7 +448,7 @@
 
   .search-recommendations {
     opacity: 1;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: get-rem-desktop(15);
@@ -473,7 +484,7 @@
   .search-results-group-title {
     padding-bottom: get-rem-desktop(30);
     opacity: 1;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
   }
 
   .search-result-item {
@@ -482,7 +493,7 @@
 
     @media (hover: hover) {
       &:hover {
-        font-family: 'Millionaire-Script';
+        font-family: "Millionaire-Script";
         @include transform(translateY(-0.15em));
       }
     }
@@ -507,7 +518,7 @@
     &::placeholder {
       color: $colour-cream;
       opacity: 1;
-      font-family: 'Millionaire-Script';
+      font-family: "Millionaire-Script";
     }
   }
 
@@ -517,13 +528,13 @@
     border: 0;
     background: transparent;
     cursor: pointer;
-    font-family: 'Millionaire-Roman';
+    font-family: "Millionaire-Roman";
     padding-bottom: 0.25em;
   }
 }
 
 body.page-type-gallery,
-body.page-type-events { 
+body.page-type-events {
   .site-header {
     background-color: $colour-burgundy;
   }
@@ -546,7 +557,7 @@ body.page-template-search {
   pointer-events: none;
   opacity: 0;
   will-change: opacity;
-  @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+  @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
 
   @media only screen and (max-width: 950px) and (orientation: landscape) {
     padding-top: get-rem-mobile(81);
@@ -557,10 +568,10 @@ body.page-template-search {
     @include flex;
     @include flex-direction(column);
     row-gap: get-rem-mobile(30);
-		pointer-events: none;
-		opacity: 0;
-		will-change: opacity;
-    @include transition(opacity 400ms cubic-bezier(0.25,0.1,0.25,1));
+    pointer-events: none;
+    opacity: 0;
+    will-change: opacity;
+    @include transition(opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
     overflow-y: scroll;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
@@ -568,7 +579,8 @@ body.page-template-search {
     padding-top: get-rem-mobile(51);
     padding-bottom: get-rem-mobile(51);
 
-    @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2), only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+    @media only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2),
+      only screen and (max-width: 950px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
       padding-left: get-rem-mobile(65);
       padding-right: get-rem-mobile(65);
     }
@@ -582,11 +594,11 @@ body.page-template-search {
   &.visible {
     pointer-events: all;
     opacity: 1;
-	}
+  }
 
   a,
   .menu-item-button {
-    font-family: 'Millionaire-Roman';
+    font-family: "Millionaire-Roman";
     font-size: 28px;
     line-height: normal;
     color: $colour-cream;
@@ -598,7 +610,7 @@ body.page-template-search {
 
     &.active {
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 1px;
@@ -619,20 +631,20 @@ body.page-template-search {
       @include flex;
       @include align-items(center);
       column-gap: get-rem-mobile(15);
-      @include transition(font-family 400ms cubic-bezier(0.25,0.1,0.25,1));
+      @include transition(font-family 400ms cubic-bezier(0.25, 0.1, 0.25, 1));
       position: relative;
       width: fit-content;
 
       .dropdown-title-text {
-        font-family: 'Millionaire-Roman';
+        font-family: "Millionaire-Roman";
         font-size: 28px;
         line-height: normal;
         color: $colour-cream;
-        @include transition(opacity 200ms cubic-bezier(0.25,0.1,0.25,1));
+        @include transition(opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1));
       }
 
       .dropdown-title-text-script {
-        font-family: 'Millionaire-Script';
+        font-family: "Millionaire-Script";
         font-size: 28px;
         line-height: normal;
         color: $colour-cream;
@@ -641,7 +653,7 @@ body.page-template-search {
         top: 0;
         left: 0;
         opacity: 0;
-        @include transition(opacity 200ms cubic-bezier(0.25,0.1,0.25,1));
+        @include transition(opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1));
         padding: 0 1em;
         white-space: nowrap;
       }
@@ -650,10 +662,11 @@ body.page-template-search {
         position: absolute;
         bottom: 0.65em;
         right: calc(-10px + get-rem-mobile(-15));
-        
+
         svg {
           width: 10px;
-          @include transition(transform 200ms cubic-bezier(0.25,0.1,0.25,1));
+          transform: rotate(180deg);
+          @include transition(transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1));
         }
       }
 
@@ -668,7 +681,7 @@ body.page-template-search {
 
         .dropdown-caret {
           svg {
-            transform: rotate(180deg);
+            transform: rotate(0deg);
           }
         }
       }
@@ -681,7 +694,10 @@ body.page-template-search {
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      @include transition-multiple(max-height 800ms cubic-bezier(0.25,0.1,0.25,1), opacity 400ms cubic-bezier(0.25,0.1,0.25,1) 200ms);
+      @include transition-multiple(
+        max-height 800ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        opacity 400ms cubic-bezier(0.25, 0.1, 0.25, 1) 200ms
+      );
 
       &.expanded {
         max-height: 500px; // Large enough to accommodate any dropdown

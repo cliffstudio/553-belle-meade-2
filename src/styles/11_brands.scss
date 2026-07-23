@@ -459,6 +459,10 @@
       stroke: $colour-burgundy;
       stroke-width: 1px;
 
+      @media only screen and (max-width: 768px) {
+        margin-bottom: 0.1em;
+      }
+
       &--categories {
         width: get-rem-desktop(13);
         height: get-rem-desktop(13);
