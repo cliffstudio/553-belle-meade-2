@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PortableTextBlock } from "@sanity/types";
 import { SanityImage } from "../types/sanity";
 import { urlFor } from "../sanity/utils/imageUrlBuilder";
@@ -10,6 +11,9 @@ import mediaLazyloading from "../utils/lazyLoad";
 import useTouchDragClickGuard from "../utils/useTouchDragClickGuard";
 import BrandDirectorySection from "./brand-directory/BrandDirectorySection";
 import { BrandDirectoryItem } from "./brand-directory/types";
+
+const CATEGORY_QUERY_KEY = "category";
+const CATEGORY_ALL_VALUE = "all";
 
 interface BrandCategory {
   _id: string;
@@ -120,15 +124,45 @@ function BrandCategoryTitleIcons({
   );
 }
 
-function BrandDirectory({
+function toCategorySlug(name?: string): string {
+  return (name || "")
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function resolveCategoryFromUrl(
+  urlValue: string | null | undefined,
+  preselectedId: string | null | undefined,
+  categories: BrandCategory[],
+): string | null {
+  if (urlValue === CATEGORY_ALL_VALUE) return null;
+  if (urlValue) {
+    const match = categories.find(
+      (category) =>
+        toCategorySlug(category.name) === urlValue || category._id === urlValue,
+    );
+    if (match) return match._id;
+  }
+  if (preselectedId && categories.some((category) => category._id === preselectedId)) {
+    return preselectedId;
+  }
+  return null;
+}
+
+function BrandDirectoryInner({
   anchorId,
   allBrands = [],
   brandCategories = [],
   preselectedBrandCategory,
-}: BrandDirectoryProps) {
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
-    preselectedBrandCategory?._id ?? null,
-  );
+  categoryQueryValue,
+  onCategoryQueryChange,
+}: BrandDirectoryProps & {
+  categoryQueryValue?: string | null;
+  onCategoryQueryChange?: (categorySlug: string | null) => void;
+}) {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [sortBy, setSortBy] = useState<SortBy>("alphabetical");
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
@@ -156,6 +190,26 @@ function BrandDirectory({
 
     return Array.from(uniqueById.values());
   }, [allBrands, brandCategories]);
+
+  const selectedCategoryId = useMemo(
+    () =>
+      resolveCategoryFromUrl(
+        categoryQueryValue,
+        preselectedBrandCategory?._id,
+        categories,
+      ),
+    [categories, categoryQueryValue, preselectedBrandCategory?._id],
+  );
+
+  const setSelectedCategoryId = (categoryId: string | null) => {
+    if (!onCategoryQueryChange) return;
+    if (!categoryId) {
+      onCategoryQueryChange(null);
+      return;
+    }
+    const category = categories.find((item) => item._id === categoryId);
+    onCategoryQueryChange(toCategorySlug(category?.name) || categoryId);
+  };
 
   const filteredBrands = useMemo(() => {
     if (!selectedCategoryId) return allBrands;
@@ -567,6 +621,42 @@ function BrandDirectory({
         </>
       )}
     </section>
+  );
+}
+
+function BrandDirectoryWithUrlState(props: BrandDirectoryProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const onCategoryQueryChange = (categorySlug: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (categorySlug) {
+      params.set(CATEGORY_QUERY_KEY, categorySlug);
+    } else if (props.preselectedBrandCategory?._id) {
+      // Explicit "all" so a CMS preselected category is not reapplied on back.
+      params.set(CATEGORY_QUERY_KEY, CATEGORY_ALL_VALUE);
+    } else {
+      params.delete(CATEGORY_QUERY_KEY);
+    }
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
+  return (
+    <BrandDirectoryInner
+      {...props}
+      categoryQueryValue={searchParams.get(CATEGORY_QUERY_KEY)}
+      onCategoryQueryChange={onCategoryQueryChange}
+    />
+  );
+}
+
+function BrandDirectory(props: BrandDirectoryProps) {
+  return (
+    <Suspense fallback={<BrandDirectoryInner {...props} />}>
+      <BrandDirectoryWithUrlState {...props} />
+    </Suspense>
   );
 }
 
